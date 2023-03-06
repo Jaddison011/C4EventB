@@ -37,4 +37,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CProject" eSuperTypes="#//CNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="CExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="CFunction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CHeader"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDerivedType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDiscreteType"/>
 </ecore:EPackage>

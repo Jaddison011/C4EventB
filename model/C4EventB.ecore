@@ -13,14 +13,13 @@
         defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CStruct" eSuperTypes="#//CNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fields" upperBound="-1"
         eType="#//CField" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CField" eSuperTypes="#//CNamedElement #//CType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CEnumeration">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="EnumerationLiterals" ordered="false"
+  <eClassifiers xsi:type="ecore:EClass" name="CEnumeration" eSuperTypes="#//CDiscreteType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumerationLiterals" ordered="false"
         upperBound="-1" eType="#//CNamedElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CArray" eSuperTypes="#//CType">
@@ -29,15 +28,37 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayElements" upperBound="-1"
         eType="#//CArrayElement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CArrayElement">
+  <eClassifiers xsi:type="ecore:EClass" name="CArrayElement" eSuperTypes="#//CNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CPointer" eSuperTypes="#//CNamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CProject" eSuperTypes="#//CNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="CExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CFunction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CHeader"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CDerivedType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CDiscreteType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CSubProgram" eSuperTypes="#//CNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//CParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CHeader" eSuperTypes="#//CNamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDerivedType" eSuperTypes="#//CType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CDiscreteType" eSuperTypes="#//CType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CParameter" eSuperTypes="#//CNamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CFunction" eSuperTypes="#//CSubProgram">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="returnType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CProcedure" eSuperTypes="#//CSubProgram"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CTranslationUnit" eSuperTypes="#//CNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceFiles" upperBound="-1"
+        eType="#//CSource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subPrograms" upperBound="-1"
+        eType="#//CSubProgram" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="headerFiles" upperBound="-1"
+        eType="#//CHeader" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CSource" eSuperTypes="#//CNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includeDirectives" upperBound="-1"
+        eType="#//CIncludeDirective" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CIncludeDirective" eSuperTypes="#//CNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="header" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

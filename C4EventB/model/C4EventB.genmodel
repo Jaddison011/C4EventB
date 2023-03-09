@@ -4,7 +4,7 @@
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="5.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
   <foreignModel>C4EventB.ecore</foreignModel>
-  <genPackages prefix="C4EventB" basePackage="C4EventB" disposableProviderFactory="true"
+  <genPackages prefix="C4EventB" basePackage="C4EventB.model" disposableProviderFactory="true"
       ecorePackage="C4EventB.ecore#/">
     <genClasses ecoreClass="C4EventB.ecore#//CNamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C4EventB.ecore#//CNamedElement/name"/>

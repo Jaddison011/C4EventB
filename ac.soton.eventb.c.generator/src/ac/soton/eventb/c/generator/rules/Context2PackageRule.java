@@ -46,14 +46,14 @@ public class Context2PackageRule extends AbstractRule implements IRule {
 			throws Exception {
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
-		SparkProject sparkProj = (SparkProject) SparkResourceUtils.findGeneratedElement(translatedElements, null, null,
+		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null,
 				"SPARK");
 		Machine mch = (Machine) sourceElement;
 
-		List<String> seenCxts = SparkTranslatorUtils.getSCSeenContextsStrings(mch);
+		List<String> seenCxts = CTranslatorUtils.getSCSeenContextsStrings(mch);
 		for (String cxt_name : seenCxts) {
-			SparkPackageSpec specPackage = SparkUtils.createSpecPackage(sparkProj, cxt_name);
-			ret.add(SparkUtils.descriptor(null, specPackages, specPackage, 1));
+			SparkPackageSpec specPackage = CUtils.createSpecPackage(sparkProj, cxt_name);
+			ret.add(CUtils.descriptor(null, specPackages, specPackage, 1));
 
 			// add with and use packages to machine package
 			MchPckg.getWithPackages().add(cxt_name);
@@ -68,13 +68,13 @@ public class Context2PackageRule extends AbstractRule implements IRule {
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
 
-		SparkProject sparkProj = (SparkProject) SparkResourceUtils.findGeneratedElement(translatedElements, null, null,
+		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null,
 				"SPARK");
 
 		if (sparkProj == null)
 			return false;
 		else {
-			MchPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages,
+			MchPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages,
 					((Machine) sourceElement).getName());
 			if (MchPckg == null)
 				return false;

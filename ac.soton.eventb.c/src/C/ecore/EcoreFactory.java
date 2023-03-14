@@ -220,6 +220,15 @@ public interface EcoreFactory extends EFactory {
 	CFile createCFile();
 
 	/**
+	 * Returns a new object of class '<em>CArray Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>CArray Variable</em>'.
+	 * @generated
+	 */
+	CArrayVariable createCArrayVariable();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

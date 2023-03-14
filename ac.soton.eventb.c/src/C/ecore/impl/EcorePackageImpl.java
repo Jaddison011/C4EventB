@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import C.ecore.CArray;
 import C.ecore.CArrayElement;
+import C.ecore.CArrayVariable;
 import C.ecore.CDerivedType;
 import C.ecore.CDiscreteType;
 import C.ecore.CEnumProperties;
@@ -194,6 +195,13 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * @generated
 	 */
 	private EClass cFileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass cArrayVariableEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -540,6 +548,15 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCDerivedType_SuperType() {
+		return (EReference)cDerivedTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCDiscreteType() {
 		return cDiscreteTypeEClass;
 	}
@@ -551,6 +568,15 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 */
 	public EClass getCParameter() {
 		return cParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCParameter_Type() {
+		return (EAttribute)cParameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -702,6 +728,15 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCArrayVariable() {
+		return cArrayVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EcoreFactory getEcoreFactory() {
 		return (EcoreFactory)getEFactoryInstance();
 	}
@@ -768,10 +803,12 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		createEReference(cSubProgramEClass, CSUB_PROGRAM__BODY);
 
 		cDerivedTypeEClass = createEClass(CDERIVED_TYPE);
+		createEReference(cDerivedTypeEClass, CDERIVED_TYPE__SUPER_TYPE);
 
 		cDiscreteTypeEClass = createEClass(CDISCRETE_TYPE);
 
 		cParameterEClass = createEClass(CPARAMETER);
+		createEAttribute(cParameterEClass, CPARAMETER__TYPE);
 
 		cFunctionEClass = createEClass(CFUNCTION);
 		createEAttribute(cFunctionEClass, CFUNCTION__RETURN_TYPE);
@@ -795,6 +832,8 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		cFileEClass = createEClass(CFILE);
 		createEReference(cFileEClass, CFILE__SUB_PROGRAMS);
 		createEReference(cFileEClass, CFILE__GLOBAL_VARIABLES);
+
+		cArrayVariableEClass = createEClass(CARRAY_VARIABLE);
 	}
 
 	/**
@@ -846,6 +885,8 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		cHeaderFileEClass.getESuperTypes().add(this.getCFile());
 		cIncludeDirectiveEClass.getESuperTypes().add(this.getCNamedElement());
 		cFileEClass.getESuperTypes().add(this.getCNamedElement());
+		cArrayVariableEClass.getESuperTypes().add(this.getCVariable());
+		cArrayVariableEClass.getESuperTypes().add(this.getCArray());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(cNamedElementEClass, CNamedElement.class, "CNamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -891,10 +932,12 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		initEReference(getCSubProgram_Body(), this.getCExpression(), null, "body", null, 0, -1, CSubProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cDerivedTypeEClass, CDerivedType.class, "CDerivedType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCDerivedType_SuperType(), this.getCType(), null, "superType", null, 0, 1, CDerivedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cDiscreteTypeEClass, CDiscreteType.class, "CDiscreteType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(cParameterEClass, CParameter.class, "CParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCParameter_Type(), ecorePackage.getEString(), "type", null, 0, 1, CParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cFunctionEClass, CFunction.class, "CFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCFunction_ReturnType(), ecorePackage.getEString(), "returnType", null, 0, 1, CFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -918,6 +961,8 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		initEClass(cFileEClass, CFile.class, "CFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCFile_SubPrograms(), this.getCSubProgram(), null, "subPrograms", null, 0, -1, CFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCFile_GlobalVariables(), this.getCVariable(), null, "globalVariables", null, 0, -1, CFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(cArrayVariableEClass, CArrayVariable.class, "CArrayVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

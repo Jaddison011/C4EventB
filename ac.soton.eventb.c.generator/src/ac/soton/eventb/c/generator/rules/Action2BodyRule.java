@@ -51,8 +51,8 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 
 		Action act = (Action) sourceElement;
 	//	TODO : check if we need to check the actions, if they need additional translation.
-	    SparkExpression body = SparkUtils.createExpression(act.getAction());   
-		ret.add(SparkUtils.descriptor(proc, proc_body , body, 3));
+	    SparkExpression body = CUtils.createExpression(act.getAction());   
+		ret.add(CUtils.descriptor(proc, proc_body , body, 3));
 
 		return ret;	
 	}
@@ -64,8 +64,8 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	
 			Machine mch = (Machine) sourceElement.eContainer().eContainer();
 	
-			SparkPackageImp impPackage = (SparkPackageImp) SparkResourceUtils.findGeneratedElement(translatedElements, null, packages, mch.getName());
-		    proc = (SparkProcedureImp) SparkResourceUtils.findGeneratedElement(translatedElements, impPackage, procedures, evt_name);
+			SparkPackageImp impPackage = (SparkPackageImp) CResourceUtils.findGeneratedElement(translatedElements, null, packages, mch.getName());
+		    proc = (SparkProcedureImp) CResourceUtils.findGeneratedElement(translatedElements, impPackage, procedures, evt_name);
 			if (impPackage != null && proc != null)
 				return true;
 			else

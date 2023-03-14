@@ -250,13 +250,22 @@ public interface EcorePackage extends EPackage {
 	int CDERIVED_TYPE__ENDNAME = CTYPE__ENDNAME;
 
 	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CDERIVED_TYPE__SUPER_TYPE = CTYPE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>CDerived Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CDERIVED_TYPE_FEATURE_COUNT = CTYPE_FEATURE_COUNT + 0;
+	int CDERIVED_TYPE_FEATURE_COUNT = CTYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>CDerived Type</em>' class.
@@ -294,6 +303,15 @@ public interface EcorePackage extends EPackage {
 	 * @ordered
 	 */
 	int CSTRUCT__ENDNAME = CDERIVED_TYPE__ENDNAME;
+
+	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSTRUCT__SUPER_TYPE = CDERIVED_TYPE__SUPER_TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -562,6 +580,15 @@ public interface EcorePackage extends EPackage {
 	int CARRAY__ENDNAME = CDERIVED_TYPE__ENDNAME;
 
 	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY__SUPER_TYPE = CDERIVED_TYPE__SUPER_TYPE;
+
+	/**
 	 * The feature id for the '<em><b>Element Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -697,6 +724,15 @@ public interface EcorePackage extends EPackage {
 	 * @ordered
 	 */
 	int CPOINTER__ENDNAME = CDERIVED_TYPE__ENDNAME;
+
+	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPOINTER__SUPER_TYPE = CDERIVED_TYPE__SUPER_TYPE;
 
 	/**
 	 * The number of structural features of the '<em>CPointer</em>' class.
@@ -855,13 +891,22 @@ public interface EcorePackage extends EPackage {
 	int CPARAMETER__ENDNAME = CNAMED_ELEMENT__ENDNAME;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPARAMETER__TYPE = CNAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>CParameter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CPARAMETER_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 0;
+	int CPARAMETER_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>CParameter</em>' class.
@@ -1365,6 +1410,115 @@ public interface EcorePackage extends EPackage {
 	 */
 	int CINCLUDE_DIRECTIVE_OPERATION_COUNT = CNAMED_ELEMENT_OPERATION_COUNT + 0;
 
+	/**
+	 * The meta object id for the '{@link C.ecore.impl.CArrayVariableImpl <em>CArray Variable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see C.ecore.impl.CArrayVariableImpl
+	 * @see C.ecore.impl.EcorePackageImpl#getCArrayVariable()
+	 * @generated
+	 */
+	int CARRAY_VARIABLE = 22;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__NAME = CVARIABLE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Endname</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__ENDNAME = CVARIABLE__ENDNAME;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__VALUE = CVARIABLE__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__TYPE = CVARIABLE__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Is Constant</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__IS_CONSTANT = CVARIABLE__IS_CONSTANT;
+
+	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__SUPER_TYPE = CVARIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Element Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__ELEMENT_TYPE = CVARIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__SIZE = CVARIABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Array Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE__ARRAY_ELEMENTS = CVARIABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>CArray Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE_FEATURE_COUNT = CVARIABLE_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of operations of the '<em>CArray Variable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CARRAY_VARIABLE_OPERATION_COUNT = CVARIABLE_OPERATION_COUNT + 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link C.ecore.CNamedElement <em>CNamed Element</em>}'.
@@ -1695,6 +1849,17 @@ public interface EcorePackage extends EPackage {
 	EClass getCDerivedType();
 
 	/**
+	 * Returns the meta object for the reference '{@link C.ecore.CDerivedType#getSuperType <em>Super Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Super Type</em>'.
+	 * @see C.ecore.CDerivedType#getSuperType()
+	 * @see #getCDerivedType()
+	 * @generated
+	 */
+	EReference getCDerivedType_SuperType();
+
+	/**
 	 * Returns the meta object for class '{@link C.ecore.CDiscreteType <em>CDiscrete Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1713,6 +1878,17 @@ public interface EcorePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link C.ecore.CParameter#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see C.ecore.CParameter#getType()
+	 * @see #getCParameter()
+	 * @generated
+	 */
+	EAttribute getCParameter_Type();
 
 	/**
 	 * Returns the meta object for class '{@link C.ecore.CFunction <em>CFunction</em>}'.
@@ -1882,6 +2058,16 @@ public interface EcorePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCFile_GlobalVariables();
+
+	/**
+	 * Returns the meta object for class '{@link C.ecore.CArrayVariable <em>CArray Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>CArray Variable</em>'.
+	 * @see C.ecore.CArrayVariable
+	 * @generated
+	 */
+	EClass getCArrayVariable();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2181,6 +2367,14 @@ public interface EcorePackage extends EPackage {
 		EClass CDERIVED_TYPE = eINSTANCE.getCDerivedType();
 
 		/**
+		 * The meta object literal for the '<em><b>Super Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CDERIVED_TYPE__SUPER_TYPE = eINSTANCE.getCDerivedType_SuperType();
+
+		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CDiscreteTypeImpl <em>CDiscrete Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2199,6 +2393,14 @@ public interface EcorePackage extends EPackage {
 		 * @generated
 		 */
 		EClass CPARAMETER = eINSTANCE.getCParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CPARAMETER__TYPE = eINSTANCE.getCParameter_Type();
 
 		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CFunctionImpl <em>CFunction</em>}' class.
@@ -2341,6 +2543,16 @@ public interface EcorePackage extends EPackage {
 		 * @generated
 		 */
 		EReference CFILE__GLOBAL_VARIABLES = eINSTANCE.getCFile_GlobalVariables();
+
+		/**
+		 * The meta object literal for the '{@link C.ecore.impl.CArrayVariableImpl <em>CArray Variable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see C.ecore.impl.CArrayVariableImpl
+		 * @see C.ecore.impl.EcorePackageImpl#getCArrayVariable()
+		 * @generated
+		 */
+		EClass CARRAY_VARIABLE = eINSTANCE.getCArrayVariable();
 
 	}
 

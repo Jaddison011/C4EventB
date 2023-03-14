@@ -233,6 +233,17 @@ public class EcoreSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EcorePackage.CARRAY_VARIABLE: {
+				CArrayVariable cArrayVariable = (CArrayVariable)theEObject;
+				T result = caseCArrayVariable(cArrayVariable);
+				if (result == null) result = caseCVariable(cArrayVariable);
+				if (result == null) result = caseCArray(cArrayVariable);
+				if (result == null) result = caseCDerivedType(cArrayVariable);
+				if (result == null) result = caseCType(cArrayVariable);
+				if (result == null) result = caseCNamedElement(cArrayVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -564,6 +575,21 @@ public class EcoreSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseCFile(CFile object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>CArray Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>CArray Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCArrayVariable(CArrayVariable object) {
 		return null;
 	}
 

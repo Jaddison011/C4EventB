@@ -8,22 +8,22 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.DefaultAdapter;
 
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.Spark_Package;
-import ac.soton.eventb.spark.SparkPackageSpec;
-import ac.soton.eventb.spark.SparkPackageImp;
+import C.ecore.CSourceFile;
+import C.ecore.EcorePackage;
+import C.ecore.CHeaderFile;
+import C.ecore.CTranslationUnit;
 public class CTranslateAdapter extends DefaultAdapter {
 	
-	protected static final EReference specPackages = SparkPackage.Literals.SPARK_PROJECT__SPEC_PACKAGES;
-	protected static final EReference impPackages = SparkPackage.Literals.SPARK_PROJECT__IMP_PACKAGES;
+	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
+	protected static final EReference headerFiles = EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES;
 	/**
 	 * returns true if feature is project package and value is Package
 	 * 
 	 */
 	@Override
 	public boolean isRoot(TranslationDescriptor translationDescriptor) {
-		if ((translationDescriptor.feature == specPackages | translationDescriptor.feature == impPackages)&& 
-				translationDescriptor.value instanceof Spark_Package){
+		if ((translationDescriptor.feature == sourceFiles | translationDescriptor.feature == headerFiles)&& 
+				translationDescriptor.value instanceof CTranslationUnit){
 			return true;
 		}else{
 			return false;
@@ -42,18 +42,18 @@ public class CTranslateAdapter extends DefaultAdapter {
 		String projectName = EcoreUtil.getURI(rootElement).segment(1);
 		URI projectUri = URI.createPlatformResourceURI(projectName, true);
 		
-		Spark_Package sparkPackage = null;
-		if (translationDescriptor.value instanceof Spark_Package){
-			     sparkPackage = (Spark_Package) translationDescriptor.value;
+		CTranslationUnit translationUnit = null;
+		if (translationDescriptor.value instanceof CTranslationUnit){
+			     translationUnit = (CTranslationUnit) translationDescriptor.value;
 			    
 			
 		}
-		if (sparkPackage  != null){
+		if (translationUnit  != null){
 			String [] pckPath = new String[2];
-			pckPath[0]= "SPARK";
-			pckPath[1]=sparkPackage.getName();
+			pckPath[0]= "C";
+			pckPath[1]=translationUnit.getName();
 			URI projUri = null;
-			if (sparkPackage instanceof SparkPackageSpec)
+			if (translationUnit instanceof SparkPackageSpec)
 				projUri = projectUri.appendSegments(pckPath).appendFileExtension("ads"); //spc
 			else if(sparkPackage instanceof SparkPackageImp)
 				projUri = projectUri.appendSegments(pckPath).appendFileExtension("adb"); //imp

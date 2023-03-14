@@ -65,7 +65,7 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 //		IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //		Map<String, String> scSeenAxioms = EventBSCUtils.getSCSeenAxioms(mchRoot, false);
 		
-		SparkType spark_integer = SparkUtils.createType("Integer");
+		SparkType spark_integer = CUtils.createType("Integer");
 		for(Context cxt : seenCxts) {
 			String uriString = cxt.eResource().getURI().toString();
 			uriString = uriString.substring(0, uriString.lastIndexOf("buc"));
@@ -77,23 +77,23 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 			Resource rodinResource = emfRodinDB.loadResource(uri);
 			
 			Context xcxt = (Context) rodinResource.getContents().get(0);
-			List <String> scSeenAxioms = SparkTranslatorUtils.getSCAxiomStrings(xcxt);
+			List <String> scSeenAxioms = CTranslatorUtils.getSCAxiomStrings(xcxt);
 			IContextRoot cxtRoot = EventBEMFUtils.getRoot(xcxt);
-            SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
+            SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
             //add integer type
-            ret.add(SparkUtils.descriptor(cxtPckg, types, spark_integer, 2));
+            ret.add(CUtils.descriptor(cxtPckg, types, spark_integer, 2));
             for(CarrierSet set : xcxt.getSets()) {
             	// Still need to do the enumeration check first 
-            	String[] elements = SparkTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
+            	String[] elements = CTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
     			if (elements != null) {
-    				SparkEnumeration sparkEnumeration = SparkUtils.createEnumeration(set.getName(), elements);
-    				ret.add(SparkUtils.descriptor(cxtPckg, types, sparkEnumeration, 2)); 
+    				SparkEnumeration sparkEnumeration = CUtils.createEnumeration(set.getName(), elements);
+    				ret.add(CUtils.descriptor(cxtPckg, types, sparkEnumeration, 2)); 
     			}
    
             	//integer derived
     			else {
-    				SparkType spark_set = SparkUtils.createDerivedType(set.getName(), spark_integer);
-                	ret.add(SparkUtils.descriptor(cxtPckg, types, spark_set, 2)); 
+    				SparkType spark_set = CUtils.createDerivedType(set.getName(), spark_integer);
+                	ret.add(CUtils.descriptor(cxtPckg, types, spark_set, 2)); 
     			}
             	
             }
@@ -112,9 +112,9 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 
 		seenCxts = new ArrayList<Context>();
 		for (Context cxt : cxts) 
-			seenCxts.addAll(SparkTranslatorUtils.getSeenContexts(cxt));
+			seenCxts.addAll(CTranslatorUtils.getSeenContexts(cxt));
 	    for(Context ext_cxt : seenCxts) {
-	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
+	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
 	    	 if (cxtPckg == null)
 	    		 return false;
 	    	

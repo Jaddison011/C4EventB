@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-//import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.eventb.core.ast.MultiplePredicate;
@@ -55,21 +54,21 @@ import org.eventb.emf.persistence.EMFRodinDB;
 import org.eventb.emf.persistence.EventBEMFUtils;
 import org.rodinp.core.IRodinFile;
 import org.rodinp.core.RodinDBException;
+import org.eventb.emf.core.EventBNamed;
 
 import ac.soton.eventb.emf.record.Field;
 import ac.soton.eventb.emf.record.Record;
-import ac.soton.eventb.spark.SparkPackageSpec;
-import ac.soton.eventb.spark.SparkVariable;
-//import ch.ethz.eventb.internal.utils.Messages;
+import C.ecore.CSourceFile;
+import C.ecore.CVariable;
 import ch.ethz.eventb.utils.EventBSCUtils;
 
-public class SparkTranslatorUtils {
+public class CTranslatorUtils {
 	
 	/**
 	 * @param type
 	 * @return
 	 */
-	public static String eventBTypeToSparkType(Type type) {
+	public static String eventBTypeToCType(Type type) {
 		if (type instanceof BooleanType) {
 			return "Boolean";
 		}
@@ -147,100 +146,6 @@ public class SparkTranslatorUtils {
 		}	
 		return null;
 	}
-
-	
-//	/**
-//	 * @param evt
-//	 * @param mch
-//	 * @return global
-//	 */
-//	public static Map<String, String> getGlobalVarMode(Event evt, Machine mch){
-//		Map<String, String> global = new HashMap<>();
-//		// TODO Update to take the list of spark variables as input instead of machine
-//	    for(Variable var : mch.getVariables()) {
-//	    	String var_name = var.getName();
-//	    	String patternString = "(.*)var_name(.*)";
-//	    	//String actionPattern = "var_name(.*)";
-//	    	Boolean in = false;
-//	    	Boolean out = false;
-//	    	Pattern pattern = Pattern.compile(patternString);
-//	    	for (Guard guard : evt.getGuards()) {
-//	    	    Matcher matcher = pattern.matcher(guard.getPredicate());
-//	    	    if (matcher.matches()) 
-//	    	    	in = true;
-//	    	}
-//	    	for (Action act : evt.getActions()) {
-//	    	    Matcher matcher = pattern.matcher(act.getAction());
-//	    	    if (matcher.matches()) 
-//	    	    	out = true;
-//	    	}
-//	    	if (in == true && out == true)
-//	    		global.put(var_name, "in_out");
-//	    	else if (in == true && out == false)
-//	    		global.put(var_name, "in");
-//	    	else if (in == false && out == true)
-//	    		global.put(var_name, "out");    	
-//	    }
-//		return global;
-//	}
-	/**
-	 * @param evt
-	 * @param variables
-	 * @return global
-	 */
-	public static Map<SparkVariable, String> getGlobalVarMode(Event evt, List <SparkVariable> variables){
-		Map<SparkVariable, String> global = new HashMap<>();
-		
-	    for(SparkVariable var : variables) {
-	    	String var_name = var.getName();
-	    	String patternString = "(.*)" + var_name + "(.*)";
-	    	String notGuardPattern1 = "(.*)[A-Za-z]" + var_name + "[A-Za-z](.*)";
-	    	String notGuardPattern2 = "(.*)[A-Za-z]" + var_name + "(.*)";
-	    	String notGuardPattern3 = "(.*)" + var_name + "[A-Za-z](.*)";
-	    	String actionPattern= var_name + "\\s*(≔)(.*)";
-	    	//String actionPattern = "var_name(.*)";
-	    	Boolean in = false;
-	    	Boolean out = false;
-//	    	Pattern pattern = Pattern.compile(patternString);
-	    	Pattern patternGuard = Pattern.compile(patternString);
-	    	Pattern notGuard1 = Pattern.compile(notGuardPattern1);
-	    	Pattern notGuard2 = Pattern.compile(notGuardPattern2);
-	    	Pattern notGuard3 = Pattern.compile(notGuardPattern3);
-	    	Pattern patternAction = Pattern.compile(actionPattern);
-	    	for (Guard guard : evt.getGuards()) {
-	    		String grd = guard.getPredicate();
-	    	    Matcher matcher = patternGuard.matcher(grd);
-	    	    
-	    	    if (matcher.matches()) {
-	    	    	Matcher matcher1 = notGuard1.matcher(grd); 
-	    	    	Matcher matcher2 = notGuard2.matcher(grd);
-		    	    Matcher matcher3 = notGuard3.matcher(grd);
-		    	   
-	    	    	if(!matcher1.matches() && !matcher2.matches() && !matcher3.matches()) {
-	    	    		in = true;  
-	    	    		break;
-	    	    	}
-	    	    		  		
-	    	    }
-	    	    	
-	    	}
-	    	for (Action act : evt.getActions()) {
-	    	    Matcher matcher = patternAction.matcher(act.getAction());
-	    	    if (matcher.matches()) {
-	    	    	out = true;
-	    	    	break;
-	    	    }
-	    	    	
-	    	}
-	    	if (in == true && out == true)
-	    		global.put(var, "in_out");
-	    	else if (in == true && out == false)
-	    		global.put(var, "in");
-	    	else if (in == false && out == true)
-	    		global.put(var, "out");    	
-	    }
-		return global;
-	}
 	
 	public static List <Context> getSeenContexts(Context cxt){
 		List<Context> ret = new ArrayList<Context>();
@@ -280,6 +185,7 @@ public class SparkTranslatorUtils {
 		
 		return type;
 	}
+	
 	/**
 	 * A utility method to find the EventB type of the event parameter from SCParameter
 	 * @param evt
@@ -452,107 +358,107 @@ public class SparkTranslatorUtils {
 		return null;
 	}
 	
+// TODO: Convert the predicates to C
+//	public static String eventBPredToCPred(String BPredicate) {
+//		String SPredicate = "";
+//		// TODO:  do some checks
+//		if(BPredicate.trim().startsWith("∃")) {
+//			// Do something
+//		}
+//		else if (BPredicate.trim().startsWith("∀")) {
+//			// Do something
+//		}
+//		// There is also and or ....
+//		SPredicate = BPredicate;
+//		return SPredicate;
+//	}
+//	
+//	// This is just a test
+//	public static String eventBPredToCPred(String BPredicate, Machine mch) throws RodinDBException {
+//		IMachineRoot mchRoot = EventBEMFUtils.getRoot(mch);
+//		FormulaFactory ff = mchRoot.getFormulaFactory();
+////		ISCMachineRoot scMachineRoot = mchRoot.getSCMachineRoot();
+//		Map<String, Boolean> recordFields = getRecordFields(mch);
+//		String SPredicate = "";
+//		Predicate parsePredicate = DLib.parsePredicate(ff, BPredicate);
+//	    
+//		if (parsePredicate.getTag() == Predicate.EXISTS) {
+//			SPredicate += "for some ";
+//
+//			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
+//			// TODO: can we translate the predicate if it has more than one bounded identifier?
+//			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
+//		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+//			// TODO: else what?
+//		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
+//            String sQuantified = quantifiedPredicate.toString();
+//            String[] split = sQuantified.split("∈");
+//            int index = split[1].indexOf("∧");
+//            String s = split[1].replace("∧", "=> ");         
+//            String s1 = s.substring(0, index);
+//            SPredicate += " in " + s1;
+//            String s2 = s.substring(index);
+////            Map<String, Boolean> recordFields = getRecordFields(mch);
+//
+////            for (FreeIdentifier identifier : freeIdentifiers) {
+////            	String name = identifier.getName();
+////            	if (recordFields.containsKey(name)) {
+////            		String patternString = "(.*)" + name + "(.*)";
+////            		Pattern pattern = Pattern.compile(patternString);
+////                    Matcher matcher = pattern.matcher(s2);
+////                    if(matcher.matches()) {
+////                    	String group = matcher.group(2);
+////                    	String before = name + group;
+////                        String after = group.substring(1, group.length()-2)+(".")+ name;
+////                    	s2 = s2.replace(before, after);
+////                    	
+////                    	System.out.println("*****s22 : " + s2);
+////                    }
+////            	}
+////            }
+//            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
+//            
+//            SPredicate = SPredicate + " " + s2;
+//		}
+//		
+//		else if (parsePredicate.getTag() == Predicate.FORALL) {
+//			SPredicate += "for all ";
+//
+//			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
+//			// TODO: can we translate the predicate if it has more than one bounded identifier?
+//			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
+//		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+//			// TODO: else what?
+//		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
+//            String sQuantified = quantifiedPredicate.toString();
+//            String[] split = sQuantified.split("∈");
+//          //  String s = split[1];//.replace("∧", "=> "); 
+//            int index = split[1].indexOf("=>");
+//            String s1 = split[1].substring(0, index);
+//            SPredicate += " in " + s1;
+//            String s2 = split[1].substring(index);
+//         //   Map<String, Boolean> recordFields = getRecordFields(mch);
+//            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
+//           
+//            SPredicate = SPredicate + " " + s2;
+//		}
+//		else {
+//			FreeIdentifier[] freeIdentifiers = parsePredicate.getFreeIdentifiers();
+//			String parse = parsePredicate.toString();
+//			parse = " " + parse + " ";
+//			SPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
+//			//SPredicate = BPredicate;
+//		}
+//		//TODO: Check if there is more
+//	    SPredicate = SPredicate.replaceAll("∧", " and ");
+//	    SPredicate = SPredicate.replaceAll("∨", " or ");
+//	    SPredicate = SPredicate.replaceAll("∈", " in ");
+//	    SPredicate = SPredicate.replaceAll("∉" , " not in ");
+//	    SPredicate = SPredicate.replaceAll("≠" , " /= ");
+//	    SPredicate = SPredicate.replaceAll("‥" , " .. ");
+//		return SPredicate;
+//	}
 	
-	public static String eventBPredToSparkPred(String BPredicate) {
-		String SPredicate = "";
-		// TODO:  do some checks
-		if(BPredicate.trim().startsWith("∃")) {
-			// Do something
-		}
-		else if (BPredicate.trim().startsWith("∀")) {
-			// Do something
-		}
-		// There is also and or ....
-		SPredicate = BPredicate;
-		return SPredicate;
-	}
-	
-	// This is just a test
-	public static String eventBPredToSparkPred(String BPredicate, Machine mch) throws RodinDBException {
-		IMachineRoot mchRoot = EventBEMFUtils.getRoot(mch);
-		FormulaFactory ff = mchRoot.getFormulaFactory();
-//		ISCMachineRoot scMachineRoot = mchRoot.getSCMachineRoot();
-		Map<String, Boolean> recordFields = getRecordFields(mch);
-		String SPredicate = "";
-		Predicate parsePredicate = DLib.parsePredicate(ff, BPredicate);
-	    
-		if (parsePredicate.getTag() == Predicate.EXISTS) {
-			SPredicate += "for some ";
-
-			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-			// TODO: can we translate the predicate if it has more than one bounded identifier?
-			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-			// TODO: else what?
-		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
-            String sQuantified = quantifiedPredicate.toString();
-            String[] split = sQuantified.split("∈");
-            int index = split[1].indexOf("∧");
-            String s = split[1].replace("∧", "=> ");         
-            String s1 = s.substring(0, index);
-            SPredicate += " in " + s1;
-            String s2 = s.substring(index);
-//            Map<String, Boolean> recordFields = getRecordFields(mch);
-
-//            for (FreeIdentifier identifier : freeIdentifiers) {
-//            	String name = identifier.getName();
-//            	if (recordFields.containsKey(name)) {
-//            		String patternString = "(.*)" + name + "(.*)";
-//            		Pattern pattern = Pattern.compile(patternString);
-//                    Matcher matcher = pattern.matcher(s2);
-//                    if(matcher.matches()) {
-//                    	String group = matcher.group(2);
-//                    	String before = name + group;
-//                        String after = group.substring(1, group.length()-2)+(".")+ name;
-//                    	s2 = s2.replace(before, after);
-//                    	
-//                    	System.out.println("*****s22 : " + s2);
-//                    }
-//            	}
-//            }
-            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
-            
-            SPredicate = SPredicate + " " + s2;
-		}
-		
-		else if (parsePredicate.getTag() == Predicate.FORALL) {
-			SPredicate += "for all ";
-
-			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-			// TODO: can we translate the predicate if it has more than one bounded identifier?
-			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-			// TODO: else what?
-		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
-            String sQuantified = quantifiedPredicate.toString();
-            String[] split = sQuantified.split("∈");
-          //  String s = split[1];//.replace("∧", "=> "); 
-            int index = split[1].indexOf("=>");
-            String s1 = split[1].substring(0, index);
-            SPredicate += " in " + s1;
-            String s2 = split[1].substring(index);
-         //   Map<String, Boolean> recordFields = getRecordFields(mch);
-            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
-           
-            SPredicate = SPredicate + " " + s2;
-		}
-		else {
-			FreeIdentifier[] freeIdentifiers = parsePredicate.getFreeIdentifiers();
-			String parse = parsePredicate.toString();
-			parse = " " + parse + " ";
-			SPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
-			//SPredicate = BPredicate;
-		}
-		//TODO: Check if there is more
-	    SPredicate = SPredicate.replaceAll("∧", " and ");
-	    SPredicate = SPredicate.replaceAll("∨", " or ");
-	    SPredicate = SPredicate.replaceAll("∈", " in ");
-	    SPredicate = SPredicate.replaceAll("∉" , " not in ");
-	    SPredicate = SPredicate.replaceAll("≠" , " /= ");
-	    SPredicate = SPredicate.replaceAll("‥" , " .. ");
-		return SPredicate;
-		
-	}
 	public static List<String> getSCAxiomStrings(Context context) throws RodinDBException{
 		List <String> axioms = new ArrayList<String>();
 		IContextRoot cxtRoot = EventBEMFUtils.getRoot(context);
@@ -592,7 +498,7 @@ public class SparkTranslatorUtils {
             	if(ext instanceof Record) {
 //					result.put(((Record) ext).getName(), true);
             		Record rec = (Record) ext;
-            		for ( Field field : rec.getFields())
+            		for (Field field : rec.getFields())
             			result.put(field.getName(), true);
             	}
             }

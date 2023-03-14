@@ -45,9 +45,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/localVariables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/body"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//CDerivedType"/>
+    <genClasses ecoreClass="C.ecore#//CDerivedType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//CDerivedType/superType"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//CDiscreteType"/>
-    <genClasses ecoreClass="C.ecore#//CParameter"/>
+    <genClasses ecoreClass="C.ecore#//CParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CParameter/type"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//CFunction">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CFunction/returnType"/>
     </genClasses>
@@ -69,5 +73,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/subPrograms"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/globalVariables"/>
     </genClasses>
+    <genClasses ecoreClass="C.ecore#//CArrayVariable"/>
   </genPackages>
 </genmodel:GenModel>

@@ -32,9 +32,9 @@ public class SparkProjectRule extends AbstractRule implements IRule{
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Machine mch = (Machine) sourceElement;
-	    SparkResourceUtils.getSPARKFolder(mch);
-	    SparkProject proj =  SparkUtils.createSparkProject("SPARK");
-		ret.add(SparkUtils.descriptor(null, null,proj, 1));
+	    CResourceUtils.getSPARKFolder(mch);
+	    SparkProject proj =  CUtils.createSparkProject("SPARK");
+		ret.add(CUtils.descriptor(null, null,proj, 1));
 
 		return ret;	
 	}

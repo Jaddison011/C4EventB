@@ -78,13 +78,13 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
 			Resource rodinResource = emfRodinDB.loadResource(uri);
 			
 			Context xcxt = (Context) rodinResource.getContents().get(0);
-			List <String> scSeenAxioms = SparkTranslatorUtils.getSCAxiomStrings(xcxt);
+			List <String> scSeenAxioms = CTranslatorUtils.getSCAxiomStrings(xcxt);
 			IContextRoot cxtRoot = EventBEMFUtils.getRoot(xcxt);
-            SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
+            SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
             List <String> constLiterals = new ArrayList<String>();
             for(CarrierSet set : xcxt.getSets()) {
             	// Still need to do the enumeration check first 
-            	String[] elements = SparkTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
+            	String[] elements = CTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
             	if(elements != null)
             		constLiterals.addAll(Arrays.asList(elements));
             	
@@ -96,11 +96,11 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
             	if (constLiterals.isEmpty() || indexOf < 0) {
             		// generate a spark constant
             		
-            		Type scType = SparkTranslatorUtils.getConstantType(cxtRoot, BConst.getName());
-            		String type = SparkTranslatorUtils.eventBTypeToSparkType(scType);
+            		Type scType = CTranslatorUtils.getConstantType(cxtRoot, BConst.getName());
+            		String type = CTranslatorUtils.eventBTypeToSparkType(scType);
             		// TODO : get the value of the constant, this could either be done here or as we check the axioms
-            		SparkVariable SConst = SparkUtils.createConstant(BConst.getName(), type, "0");
-            		ret.add(SparkUtils.descriptor(cxtPckg, constants, SConst, 3)); 
+            		SparkVariable SConst = CUtils.createConstant(BConst.getName(), type, "0");
+            		ret.add(CUtils.descriptor(cxtPckg, constants, SConst, 3)); 
             		
             	}
             }
@@ -119,9 +119,9 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
 
 		seenCxts = new ArrayList<Context>();
 		for (Context cxt : cxts) 
-			seenCxts.addAll(SparkTranslatorUtils.getSeenContexts(cxt));
+			seenCxts.addAll(CTranslatorUtils.getSeenContexts(cxt));
 	    for(Context ext_cxt : seenCxts) {
-	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
+	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
 	    	 if (cxtPckg == null)
 	    		 return false;
 	    	

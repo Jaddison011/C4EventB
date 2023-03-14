@@ -68,19 +68,19 @@ public class Record2RecordRule extends AbstractRule implements IRule{
 			
 	
 
-            SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
+            SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
             for(AbstractExtension ext : xcxt.getExtensions()) {
             	if(ext instanceof Record) {
 					Record BRec = (Record) ext;
 					if (BRec.getInheritsNames() == null & !BRec.isExtended() & !BRec.isRefined()) {
-						SparkRecord rec = SparkUtils.createRecord(BRec.getName());
-						ret.add(SparkUtils.descriptor(cxtPckg, types, rec, 2)); 
+						SparkRecord rec = CUtils.createRecord(BRec.getName());
+						ret.add(CUtils.descriptor(cxtPckg, types, rec, 2)); 
 				
 					
 						for(Field BField : BRec.getFields()) {
 							//TODO: check the event-b field type, might probably need conversions
-							SparkField sfield = SparkUtils.createField(BField.getName(), BField.getType());
-							ret.add(SparkUtils.descriptor(rec, fields, sfield, 3)); 
+							SparkField sfield = CUtils.createField(BField.getName(), BField.getType());
+							ret.add(CUtils.descriptor(rec, fields, sfield, 3)); 
 					     }	    
 				    }
 					// if record extends another record generate fields late
@@ -95,33 +95,33 @@ public class Record2RecordRule extends AbstractRule implements IRule{
 			for(Record rec : parentRec) {
 				if (rec.getInheritsNames() != null) {
 					Context cont_cxt = (Context) rec.eContainer();
-					SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
+					SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
 					for (String parent_rec_name : rec.getInheritsNames()) {
-						SparkRecord SRec = (SparkRecord) SparkResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, parent_rec_name);
+						SparkRecord SRec = (SparkRecord) CResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, parent_rec_name);
 						for(Field BField : rec.getFields()) {
 							//TODO: check the event-b field type, might probably need conversions
-							SparkField sfield = SparkUtils.createField(BField.getName(), BField.getType());
-							ret.add(SparkUtils.descriptor(SRec, fields, sfield, 3)); 
+							SparkField sfield = CUtils.createField(BField.getName(), BField.getType());
+							ret.add(CUtils.descriptor(SRec, fields, sfield, 3)); 
 						}	
 					}
 				}
 				else if (rec.isExtended()) {
 					Context cont_cxt = (Context) rec.eContainer();
-					SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
-					SparkRecord SRec = (SparkRecord) SparkResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, cont_cxt.getName());
+					SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
+					SparkRecord SRec = (SparkRecord) CResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, cont_cxt.getName());
 					for(Field BField : rec.getFields()) {
-						SparkField sfield = SparkUtils.createField(BField.getName(), BField.getType());
-						ret.add(SparkUtils.descriptor(SRec, fields, sfield, 3)); 
+						SparkField sfield = CUtils.createField(BField.getName(), BField.getType());
+						ret.add(CUtils.descriptor(SRec, fields, sfield, 3)); 
 					}		
 				}
 				//TODO: the replaced fields should be removed?
 				else if (rec.isRefined()) {
 					Context cont_cxt = (Context) rec.eContainer();
-					SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
-					SparkRecord SRec = (SparkRecord) SparkResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, cont_cxt.getName());
+					SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cont_cxt.getName());
+					SparkRecord SRec = (SparkRecord) CResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, cont_cxt.getName());
 					for(Field BField : rec.getFields()) {
-						SparkField sfield = SparkUtils.createField(BField.getName(), BField.getType());
-						ret.add(SparkUtils.descriptor(SRec, fields, sfield, 3)); 
+						SparkField sfield = CUtils.createField(BField.getName(), BField.getType());
+						ret.add(CUtils.descriptor(SRec, fields, sfield, 3)); 
 					}	
 				}
 			}
@@ -137,9 +137,9 @@ public class Record2RecordRule extends AbstractRule implements IRule{
 
 		seenCxts = new ArrayList<Context>();
 		for (Context cxt : cxts) 
-			seenCxts.addAll(SparkTranslatorUtils.getSeenContexts(cxt));
+			seenCxts.addAll(CTranslatorUtils.getSeenContexts(cxt));
 	    for(Context ext_cxt : seenCxts) {
-	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) SparkResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
+	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
 	    	 if (cxtPckg == null)
 	    		 return false;
 	    	

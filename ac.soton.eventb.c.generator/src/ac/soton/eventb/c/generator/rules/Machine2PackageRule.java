@@ -44,14 +44,14 @@ public class Machine2PackageRule extends AbstractRule implements IRule{// Abstra
 
 		Machine mch = (Machine) sourceElement;
 	
-		SparkProject sparkProj = (SparkProject) SparkResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
+		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
 		
-		SparkPackageSpec specPackage =  SparkUtils.createSpecPackage(sparkProj , mch.getName());
+		SparkPackageSpec specPackage =  CUtils.createSpecPackage(sparkProj , mch.getName());
 		
-		SparkPackageImp impPackage =  SparkUtils.createImpPackage(sparkProj , mch.getName());
+		SparkPackageImp impPackage =  CUtils.createImpPackage(sparkProj , mch.getName());
 
-		ret.add(SparkUtils.descriptor(null, specPackages,specPackage, 1));
-		ret.add(SparkUtils.descriptor(null, impPackages,impPackage, 1));
+		ret.add(CUtils.descriptor(null, specPackages,specPackage, 1));
+		ret.add(CUtils.descriptor(null, impPackages,impPackage, 1));
 
 	
 		return ret;	
@@ -61,7 +61,7 @@ public class Machine2PackageRule extends AbstractRule implements IRule{// Abstra
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
 		
-		SparkProject sparkProj = (SparkProject) SparkResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
+		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
 		if (sparkProj == null)
 			return false;
 		else

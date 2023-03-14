@@ -5,28 +5,26 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import ac.soton.emf.translator.TranslationDescriptor;
-import ac.soton.eventb.spark.SparkArray;
-import ac.soton.eventb.spark.SparkArrayElement;
-import ac.soton.eventb.spark.SparkDerivedType;
-import ac.soton.eventb.spark.SparkEnumeration;
-import ac.soton.eventb.spark.SparkExpression;
-import ac.soton.eventb.spark.SparkFactory;
-import ac.soton.eventb.spark.SparkField;
-import ac.soton.eventb.spark.SparkIntegerRange;
-import ac.soton.eventb.spark.SparkNamedElement;
-import ac.soton.eventb.spark.SparkPackageImp;
-import ac.soton.eventb.spark.SparkPackageSpec;
-import ac.soton.eventb.spark.SparkParameter;
-import ac.soton.eventb.spark.SparkParameterMode;
-import ac.soton.eventb.spark.SparkPostCondition;
-import ac.soton.eventb.spark.SparkPreCondition;
-import ac.soton.eventb.spark.SparkProcedureImp;
-import ac.soton.eventb.spark.SparkProcedureSpec;
-import ac.soton.eventb.spark.SparkProject;
-import ac.soton.eventb.spark.SparkRecord;
-import ac.soton.eventb.spark.SparkType;
-import ac.soton.eventb.spark.SparkVariable;
-import ac.soton.eventb.spark.SparkVariableArray;
+import C.ecore.CArray;
+import C.ecore.CArrayElement;
+import C.ecore.CDerivedType;
+import C.ecore.CEnumProperties;
+import C.ecore.CEnumeration;
+import C.ecore.CExpression;
+import C.ecore.EcoreFactory;
+import C.ecore.CField;
+import C.ecore.CNamedElement;
+import C.ecore.CParameter;
+import C.ecore.CProcedure;
+import C.ecore.CSourceFile;
+import C.ecore.CHeaderFile;
+import C.ecore.CTranslationUnit;
+import C.ecore.CStruct;
+import C.ecore.CType;
+import C.ecore.CVariable;
+import C.ecore.CArrayVariable;
+import C.ecore.CFunction;
+import C.ecore.CPointer;
 
 /**
  * <p>
@@ -38,8 +36,8 @@ import ac.soton.eventb.spark.SparkVariableArray;
  * @see
  * @since
  */
-public class SparkUtils {
-	private static SparkFactory sparkFactory = SparkFactory.eINSTANCE;
+public class CUtils {
+	private static EcoreFactory cFactory = EcoreFactory.eINSTANCE;
 	
 	public static TranslationDescriptor descriptor(EObject parent, EStructuralFeature feature, Object value, int priority){
 		return new TranslationDescriptor(parent,feature,value,Integer.valueOf(priority));
@@ -55,32 +53,30 @@ public class SparkUtils {
 //	}
 	
 	
-	public static  SparkProject createSparkProject(String name) {
-		SparkProject sparkProj = sparkFactory.createSparkProject();
-		sparkProj.setName(name);
-		return sparkProj;
+	public static CTranslationUnit createCProject(String name) {
+		CTranslationUnit cProj = cFactory.createCTranslationUnit();
+		cProj.setName(name);
+		return cProj;
 	}
 
-	public static  SparkPackageSpec createSpecPackage(SparkProject proj, String name) {
-		SparkPackageSpec spec_package = sparkFactory.createSparkPackageSpec();
-		spec_package.setName(name);
-		// @Asieh set EndName
-		spec_package.setEndname(name);
-		proj.getSpecPackages().add(spec_package);
-		return spec_package;
+	public static CSourceFile createSourceFile(CTranslationUnit proj, String name) {
+		CSourceFile sourceFile = cFactory.createCSourceFile();
+		sourceFile.setName(name);
+		sourceFile.setEndname(name);
+		proj.getSourceFiles().add(sourceFile);
+		return sourceFile;
 	}
 
-	public static  SparkPackageImp createImpPackage(SparkProject proj, String name) {
-		SparkPackageImp imp_package = sparkFactory.createSparkPackageImp();
-		imp_package.setName(name);
-		// @Asieh set EndName
-		imp_package.setEndname(name);
-		proj.getImpPackages().add(imp_package);
-		return imp_package;
+	public static CHeaderFile createHeaderFile(CTranslationUnit proj, String name) {
+		CHeaderFile headerFile = cFactory.createCHeaderFile();
+		headerFile.setName(name);
+		headerFile.setEndname(name);
+		proj.getHeaderFiles().add(headerFile);
+		return headerFile;
 	}
 	
-	public static  SparkVariable createVariable(String name, String type, String value) {
-		SparkVariable var = sparkFactory.createSparkVariable();
+	public static CVariable createVariable(String name, String type, String value) {
+		CVariable var = cFactory.createCVariable();
 		var.setName(name);
 		var.setType(type);
 		var.setValue(value);
@@ -88,120 +84,105 @@ public class SparkUtils {
 		return var;
 	}
 	
-	public static  SparkVariableArray createArrayVariable(String name, String type, SparkArray array_type, List <SparkArrayElement> elements) {
-		SparkVariableArray var = sparkFactory.createSparkVariableArray();
+	public static CArrayVariable createArrayVariable(String name, String type, CArray array_type, List <CArrayElement> elements) {
+		CArrayVariable var = cFactory.createCArrayVariable();
 		var.setName(name);
 		var.setType(type);
-//		var.setArrayType(array_type);
-//		var.getElements().addAll(elements);
-		var.setIndexType(array_type.getIndexType());
 		var.setIsConstant(false);
 		return var;
 	}
-	public static  SparkArrayElement createSparkArrayElement(int index, String value) {
-		 SparkArrayElement elem = sparkFactory.createSparkArrayElement();
+	
+	public static CArrayElement createCArrayElement(int index, String value) {
+		 CArrayElement elem = cFactory.createCArrayElement();
 		 elem.setIndex(index);
 		 elem.setValue(value);
 		return elem;
 	}
-	public static  SparkVariable createConstant(String name, String type, String value) {
-		SparkVariable cons = sparkFactory.createSparkVariable();
+	public static CVariable createConstant(String name, String type, String value) {
+		CVariable cons = cFactory.createCVariable();
 		cons.setName(name);
 		cons.setType(type);
 		cons.setValue(value);
 		cons.setIsConstant(true);
 		return cons;
 	}
-	public static  SparkProcedureSpec createSpecProcedure(String name) {
-		SparkProcedureSpec proc = sparkFactory.createSparkProcedureSpec();
+	
+	public static CProcedure createProcedure(String name) {
+		CProcedure proc = cFactory.createCProcedure();
 		proc.setName(name);
-		// @Asieh set EndName
 		proc.setEndname(name);
-	    // ToDo: add parameters, global variables, preconditions and postonditions
-		//pckg.getProcedures().add(proc); //either this or add to translation descriptor
-		
 		return proc;
 	}
 	
-	public static  SparkProcedureImp createImpProcedure(String name) {
-		SparkProcedureImp proc = sparkFactory.createSparkProcedureImp();
-		proc.setName(name);
-		// @Asieh set EndName
-	    proc.setEndname(name);
-		return proc;
+	public static CFunction createFunction(String name, String returnType) {
+		CFunction func = cFactory.createCFunction();
+		func.setName(name);
+		func.setEndname(name);
+		func.setReturnType(returnType);
+		return func;
 	}
-	public static  SparkArray createArray(String name, String type, SparkIntegerRange range) {
-		 SparkArray arr = sparkFactory.createSparkArray();
+	
+	public static CArray createArray(String name, String type, int size) {
+		 CArray arr = cFactory.createCArray();
 		 arr.setName(name);
 		 arr.setElementType(type);
-		 arr.setIndexType(range);	
+		 arr.setSize(size);	
 		return arr;
 	}
-	public static  SparkIntegerRange createIntegerRange(String name, int lowerBound, int upperBound) {
-		 SparkIntegerRange range = sparkFactory.createSparkIntegerRange();
-		 //not sure about name
-//		 range.setName(name);
-		 range.setRangeLB(lowerBound+"");
-		 range.setRangeUB(upperBound+"");
-		return range;
-	}
-	public static  SparkExpression createExpression(String value) {
-		 SparkExpression exp = sparkFactory.createSparkExpression();
+	
+	public static CExpression createExpression(String value) {
+		 CExpression exp = cFactory.createCExpression();
 		 exp.setExpression(value);
 		 return exp;		
 	}
-	public static  SparkParameter createParameter(String name, String type, SparkParameterMode mode) {
-		 SparkParameter par = sparkFactory.createSparkParameter();
+	public static CParameter createParameter(String name, String type) {
+		 CParameter par = cFactory.createCParameter();
 		 par.setName(name);
 		 par.setType(type);
-		 par.setMode(mode);
 		 return par;		
 	}
-	public static SparkDerivedType createDerivedType(String type, SparkType supertype) {
-		SparkDerivedType derivedType = sparkFactory.createSparkDerivedType();
-//		derivedType.setType(type);
+	public static CDerivedType createDerivedType(String type, CType supertype) {
+		CDerivedType derivedType = cFactory.createCDerivedType();
 		derivedType.setSuperType(supertype);
 		return derivedType;
 	}
-	public static SparkRecord createRecord(String name) {
-		SparkRecord rec = sparkFactory.createSparkRecord();
+	public static CStruct createStruct(String name) {
+		CStruct rec = cFactory.createCStruct();
 		rec.setName(name);
 		return rec;
 	}
-	public static SparkField createField(String name, String type) {
-		SparkField field = sparkFactory.createSparkField();
+	public static CField createField(String name, String type) {
+		CField field = cFactory.createCField();
 		field.setName(name);
 //		field.setType(type);
 		return field;
 	}
-	public static SparkEnumeration createEnumeration(String name, String [] elements) {
-		SparkEnumeration spark_enum = sparkFactory.createSparkEnumeration();
-		spark_enum.setName(name);
+	
+	public static CEnumeration createEnumeration(String name, String [] elements) {
+		CEnumeration c_enum = cFactory.createCEnumeration();
+		c_enum.setName(name);
 		for(String element : elements) {
-			SparkNamedElement enum_literal = sparkFactory.createSparkNamedElement();
+			CEnumProperties enum_literal = cFactory.createCEnumProperties();
 			enum_literal.setName(element);
-			spark_enum.getEnumerationLiterals().add(enum_literal);
+			c_enum.getEnumProperties().add(enum_literal);
 		}
-		return spark_enum;
-		
-	}
-	public static SparkType createType(String type) {
-		SparkType spark_type = sparkFactory.createSparkType();
-//		spark_type.setType(type);
-		return spark_type;
-		
+		return c_enum;
 	}
 	
-	public static SparkPreCondition createPrecondition(String predicate) {
-		SparkPreCondition preCond= sparkFactory.createSparkPreCondition();
-		preCond.setPredicate(predicate);
-		return preCond;
-		
+	public static CEnumProperties createEnumProperties(String name, int integralConstant) {
+		CEnumProperties c_enum = cFactory.createCEnumProperties();
+		c_enum.setName(name);
+		c_enum.setIntegralConstant(integralConstant);
+		return c_enum;
 	}
 	
-	public static SparkPostCondition createPostcondition(String predicate) {
-		SparkPostCondition postCond= sparkFactory.createSparkPostCondition();
-		postCond.setPredicate(predicate);
-		return postCond;		
+	public static CType createType(String type) {
+		CType c_type = cFactory.createCType();
+		return c_type;
+	}
+	
+	public static CPointer createPointer(String type) {
+		CPointer c_pointer = cFactory.createCPointer();
+		return c_pointer;
 	}
 }

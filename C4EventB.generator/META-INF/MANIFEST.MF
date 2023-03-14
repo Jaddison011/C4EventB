@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: C4EventB.generator
-Bundle-SymbolicName: C4EventB.generator; singleton:=true
+Bundle-SymbolicName: soton.ac.eventb.c.generator;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
  ac.soton.emf.translator,

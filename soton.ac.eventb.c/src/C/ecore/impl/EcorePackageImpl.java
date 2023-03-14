@@ -621,6 +621,15 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCTranslationUnit_Types() {
+		return (EReference)cTranslationUnitEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCSourceFile() {
 		return cSourceFileEClass;
 	}
@@ -773,6 +782,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__SOURCE_FILES);
 		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__SUB_PROGRAMS);
 		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__HEADER_FILES);
+		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__TYPES);
 
 		cSourceFileEClass = createEClass(CSOURCE_FILE);
 		createEReference(cSourceFileEClass, CSOURCE_FILE__INCLUDE_DIRECTIVES);
@@ -895,6 +905,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		initEReference(getCTranslationUnit_SourceFiles(), this.getCSourceFile(), null, "sourceFiles", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCTranslationUnit_SubPrograms(), this.getCSubProgram(), null, "subPrograms", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCTranslationUnit_HeaderFiles(), this.getCHeaderFile(), null, "headerFiles", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCTranslationUnit_Types(), this.getCType(), null, "types", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cSourceFileEClass, CSourceFile.class, "CSourceFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCSourceFile_IncludeDirectives(), this.getCIncludeDirective(), null, "includeDirectives", null, 0, -1, CSourceFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

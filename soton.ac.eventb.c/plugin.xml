@@ -10,8 +10,7 @@
       <!-- @generated C -->
       <package
             uri="http://ac/soton/eventb/c"
-            class="C.ecore.EcorePackage"
-            genModel="model/C.genmodel"/>
+            class="C.ecore.EcorePackage"/>
    </extension>
 
 </plugin>

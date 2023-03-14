@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ac.soton.eventb.c"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

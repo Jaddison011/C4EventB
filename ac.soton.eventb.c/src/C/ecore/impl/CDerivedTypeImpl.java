@@ -2,10 +2,10 @@
  */
 package C.ecore.impl;
 
+import org.eclipse.emf.ecore.EClass;
+
 import C.ecore.CDerivedType;
 import C.ecore.EcorePackage;
-
-import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->

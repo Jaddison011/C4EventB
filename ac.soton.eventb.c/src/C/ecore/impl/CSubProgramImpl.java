@@ -2,12 +2,6 @@
  */
 package C.ecore.impl;
 
-import C.ecore.CExpression;
-import C.ecore.CParameter;
-import C.ecore.CSubProgram;
-import C.ecore.CVariable;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -19,6 +13,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import C.ecore.CExpression;
+import C.ecore.CParameter;
+import C.ecore.CSubProgram;
+import C.ecore.CVariable;
+import C.ecore.EcorePackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -2,14 +2,14 @@
  */
 package C.ecore.impl;
 
-import C.ecore.CArrayElement;
-import C.ecore.EcorePackage;
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import C.ecore.CArrayElement;
+import C.ecore.EcorePackage;
 
 /**
  * <!-- begin-user-doc -->

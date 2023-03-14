@@ -6,6 +6,7 @@ import C.ecore.CHeaderFile;
 import C.ecore.CSourceFile;
 import C.ecore.CSubProgram;
 import C.ecore.CTranslationUnit;
+import C.ecore.CType;
 import C.ecore.EcorePackage;
 
 import java.util.Collection;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link C.ecore.impl.CTranslationUnitImpl#getSourceFiles <em>Source Files</em>}</li>
  *   <li>{@link C.ecore.impl.CTranslationUnitImpl#getSubPrograms <em>Sub Programs</em>}</li>
  *   <li>{@link C.ecore.impl.CTranslationUnitImpl#getHeaderFiles <em>Header Files</em>}</li>
+ *   <li>{@link C.ecore.impl.CTranslationUnitImpl#getTypes <em>Types</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +67,16 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 	 * @ordered
 	 */
 	protected EList<CHeaderFile> headerFiles;
+
+	/**
+	 * The cached value of the '{@link #getTypes() <em>Types</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CType> types;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,6 +138,18 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<CType> getTypes() {
+		if (types == null) {
+			types = new EObjectContainmentEList<CType>(CType.class, this, EcorePackage.CTRANSLATION_UNIT__TYPES);
+		}
+		return types;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -135,6 +159,8 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 				return ((InternalEList<?>)getSubPrograms()).basicRemove(otherEnd, msgs);
 			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
 				return ((InternalEList<?>)getHeaderFiles()).basicRemove(otherEnd, msgs);
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
+				return ((InternalEList<?>)getTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -153,6 +179,8 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 				return getSubPrograms();
 			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
 				return getHeaderFiles();
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
+				return getTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -178,6 +206,10 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 				getHeaderFiles().clear();
 				getHeaderFiles().addAll((Collection<? extends CHeaderFile>)newValue);
 				return;
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
+				getTypes().clear();
+				getTypes().addAll((Collection<? extends CType>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -199,6 +231,9 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
 				getHeaderFiles().clear();
 				return;
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
+				getTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -217,6 +252,8 @@ public class CTranslationUnitImpl extends CNamedElementImpl implements CTranslat
 				return subPrograms != null && !subPrograms.isEmpty();
 			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
 				return headerFiles != null && !headerFiles.isEmpty();
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
+				return types != null && !types.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

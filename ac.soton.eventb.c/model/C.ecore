@@ -61,6 +61,8 @@
         eType="#//CSubProgram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="headerFiles" upperBound="-1"
         eType="#//CHeaderFile" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="#//CType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSourceFile" eSuperTypes="#//CFile">
     <eStructuralFeatures xsi:type="ecore:EReference" name="includeDirectives" upperBound="-1"

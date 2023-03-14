@@ -65,6 +65,7 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES);
 			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__SUB_PROGRAMS);
 			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES);
+			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES);
 		}
 		return childrenFeatures;
 	}
@@ -123,6 +124,7 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 			case EcorePackage.CTRANSLATION_UNIT__SOURCE_FILES:
 			case EcorePackage.CTRANSLATION_UNIT__SUB_PROGRAMS:
 			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
+			case EcorePackage.CTRANSLATION_UNIT__TYPES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -164,6 +166,46 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 			(createChildParameter
 				(EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES,
 				 EcoreFactory.eINSTANCE.createCHeaderFile()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCDerivedType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCStruct()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCField()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCDiscreteType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCEnumeration()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCArray()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(EcorePackage.Literals.CTRANSLATION_UNIT__TYPES,
+				 EcoreFactory.eINSTANCE.createCPointer()));
 	}
 
 }

@@ -2,12 +2,12 @@
  */
 package C.ecore.util;
 
-import C.ecore.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
+
+import C.ecore.*;
 
 /**
  * <!-- begin-user-doc -->

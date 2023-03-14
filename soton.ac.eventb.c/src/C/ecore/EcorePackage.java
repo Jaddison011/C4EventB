@@ -1083,13 +1083,22 @@ public interface EcorePackage extends EPackage {
 	int CTRANSLATION_UNIT__HEADER_FILES = CNAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CTRANSLATION_UNIT__TYPES = CNAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>CTranslation Unit</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CTRANSLATION_UNIT_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 3;
+	int CTRANSLATION_UNIT_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>CTranslation Unit</em>' class.
@@ -1780,6 +1789,17 @@ public interface EcorePackage extends EPackage {
 	EReference getCTranslationUnit_HeaderFiles();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link C.ecore.CTranslationUnit#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Types</em>'.
+	 * @see C.ecore.CTranslationUnit#getTypes()
+	 * @see #getCTranslationUnit()
+	 * @generated
+	 */
+	EReference getCTranslationUnit_Types();
+
+	/**
 	 * Returns the meta object for class '{@link C.ecore.CSourceFile <em>CSource File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2241,6 +2261,14 @@ public interface EcorePackage extends EPackage {
 		 * @generated
 		 */
 		EReference CTRANSLATION_UNIT__HEADER_FILES = eINSTANCE.getCTranslationUnit_HeaderFiles();
+
+		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CTRANSLATION_UNIT__TYPES = eINSTANCE.getCTranslationUnit_Types();
 
 		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CSourceFileImpl <em>CSource File</em>}' class.

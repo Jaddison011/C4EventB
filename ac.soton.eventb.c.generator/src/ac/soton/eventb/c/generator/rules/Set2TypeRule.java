@@ -10,16 +10,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eventb.core.IContextRoot;
-import org.eventb.core.IMachineRoot;
-import org.eventb.core.ast.Expression;
-import org.eventb.core.ast.FormulaFactory;
-import org.eventb.core.ast.MultiplePredicate;
-import org.eventb.core.ast.Predicate;
-import org.eventb.core.ast.SetExtension;
-import org.eventb.core.seqprover.eventbExtensions.DLib;
-import org.eventb.emf.core.AbstractExtension;
 import org.eventb.emf.core.context.CarrierSet;
 import org.eventb.emf.core.context.Context;
 import org.eventb.emf.core.machine.Machine;
@@ -29,22 +20,18 @@ import org.eventb.emf.persistence.EventBEMFUtils;
 import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
-import ac.soton.eventb.spark.SparkEnumeration;
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.SparkPackageSpec;
-import ac.soton.eventb.spark.SparkRecord;
-import ac.soton.eventb.spark.SparkType;
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkTranslatorUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
-import ch.ethz.eventb.utils.EventBSCUtils;
-import ac.soton.eventb.emf.record.Field;
-import ac.soton.eventb.emf.record.Record;
+import C.ecore.CEnumeration;
+import C.ecore.CSourceFile;
+import C.ecore.CType;
+import C.ecore.EcorePackage;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CTranslatorUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
 
 public class Set2TypeRule extends AbstractRule implements IRule{
 	
-	protected static final EReference specPackages = SparkPackage.Literals.SPARK_PROJECT__SPEC_PACKAGES;
-	protected static final EReference types = SparkPackage.Literals.SPARK_PACKAGE_SPEC__TYPES;
+	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
+	protected static final EReference types = EcorePackage.Literals.CTRANSLATION_UNIT__TYPES;
 
 	private List<Context> seenCxts;
 	
@@ -65,7 +52,7 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 //		IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //		Map<String, String> scSeenAxioms = EventBSCUtils.getSCSeenAxioms(mchRoot, false);
 		
-		SparkType spark_integer = CUtils.createType("Integer");
+		CType c_integer = CUtils.createType("Integer");
 		for(Context cxt : seenCxts) {
 			String uriString = cxt.eResource().getURI().toString();
 			uriString = uriString.substring(0, uriString.lastIndexOf("buc"));
@@ -79,27 +66,24 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 			Context xcxt = (Context) rodinResource.getContents().get(0);
 			List <String> scSeenAxioms = CTranslatorUtils.getSCAxiomStrings(xcxt);
 			IContextRoot cxtRoot = EventBEMFUtils.getRoot(xcxt);
-            SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
+            CSourceFile cxtPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles, cxt.getName());
             //add integer type
-            ret.add(CUtils.descriptor(cxtPckg, types, spark_integer, 2));
+            ret.add(CUtils.descriptor(cxtPckg, types, c_integer, 2));
             for(CarrierSet set : xcxt.getSets()) {
             	// Still need to do the enumeration check first 
             	String[] elements = CTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
     			if (elements != null) {
-    				SparkEnumeration sparkEnumeration = CUtils.createEnumeration(set.getName(), elements);
-    				ret.add(CUtils.descriptor(cxtPckg, types, sparkEnumeration, 2)); 
+    				CEnumeration cEnumeration = CUtils.createEnumeration(set.getName(), elements);
+    				ret.add(CUtils.descriptor(cxtPckg, types, cEnumeration, 2)); 
     			}
    
             	//integer derived
     			else {
-    				SparkType spark_set = CUtils.createDerivedType(set.getName(), spark_integer);
-                	ret.add(CUtils.descriptor(cxtPckg, types, spark_set, 2)); 
-    			}
-            	
-            }
-			
+//    				SparkType spark_set = CUtils.createDerivedType(set.getName(), spark_integer);
+//                	ret.add(CUtils.descriptor(cxtPckg, types, spark_set, 2)); 
+    			}	
+            }	
 		}
-
 		return ret;	
 	}
 
@@ -114,14 +98,11 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 		for (Context cxt : cxts) 
 			seenCxts.addAll(CTranslatorUtils.getSeenContexts(cxt));
 	    for(Context ext_cxt : seenCxts) {
-	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
+	    	 CSourceFile cxtPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles, ext_cxt.getName());
 	    	 if (cxtPckg == null)
 	    		 return false;
-	    	
 	    }
-		
 		return true;
-					
 	}
 
 	@Override

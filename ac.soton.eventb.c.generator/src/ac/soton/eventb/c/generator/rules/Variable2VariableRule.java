@@ -94,7 +94,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 			// Add elements to the array
 			List<CArrayElement> elems = new ArrayList<CArrayElement>();
 			for (int i = bounds[0]; i <= bounds[1]; i++) {
-				CArrayElement elem = CUtils.createSparkArrayElement(i, initVal);
+				CArrayElement elem = CUtils.createCArrayElement(i, initVal);
 				elems.add(elem);
 			}
 			CVariable svar = CUtils.createVariable(var_name, Stype, "(others => " + initVal + ")");

@@ -11,7 +11,7 @@ import ac.soton.emf.translator.configuration.DefaultAdapter;
 import C.ecore.CSourceFile;
 import C.ecore.EcorePackage;
 import C.ecore.CHeaderFile;
-import C.ecore.CTranslationUnit;
+import C.ecore.CFile;
 public class CTranslateAdapter extends DefaultAdapter {
 	
 	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
@@ -23,17 +23,17 @@ public class CTranslateAdapter extends DefaultAdapter {
 	@Override
 	public boolean isRoot(TranslationDescriptor translationDescriptor) {
 		if ((translationDescriptor.feature == sourceFiles | translationDescriptor.feature == headerFiles)&& 
-				translationDescriptor.value instanceof CTranslationUnit){
+				translationDescriptor.value instanceof CFile){
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
 	/**
 	 * returns a URI for..
-	 *  a Specification Package (.ads) or..
-	 * @ToDo an Implementation Package(.adb)  
+	 *  a source file (.c) or..
+	 * @ToDo a header file (.h)  
 	 *  
 	 */
 	@Override
@@ -42,66 +42,24 @@ public class CTranslateAdapter extends DefaultAdapter {
 		String projectName = EcoreUtil.getURI(rootElement).segment(1);
 		URI projectUri = URI.createPlatformResourceURI(projectName, true);
 		
-		CTranslationUnit translationUnit = null;
-		if (translationDescriptor.value instanceof CTranslationUnit){
-			     translationUnit = (CTranslationUnit) translationDescriptor.value;
+		Cfile file = null;
+		if (translationDescriptor.value instanceof CFile){
+			     cFile = (CFile) translationDescriptor.value;
 			    
 			
 		}
-		if (translationUnit  != null){
+		if (cFile  != null){
 			String [] pckPath = new String[2];
 			pckPath[0]= "C";
-			pckPath[1]=translationUnit.getName();
+			pckPath[1]=cFile.getName();
 			URI projUri = null;
-			if (translationUnit instanceof SparkPackageSpec)
-				projUri = projectUri.appendSegments(pckPath).appendFileExtension("ads"); //spc
-			else if(sparkPackage instanceof SparkPackageImp)
-				projUri = projectUri.appendSegments(pckPath).appendFileExtension("adb"); //imp
-//			URI projUri = projectUri.appendSegment("SPARK");
-//		    projUri = projectUri.appendSegment(specPackage.getName()).appendFileExtension("ads"); //$NON-NLS-1$
+			if (cFile instanceof CSourceFile)
+				projUri = projectUri.appendSegments(pckPath).appendFileExtension("c"); //source files
+			else if(cFile instanceof CHeaderFile)
+				projUri = projectUri.appendSegments(pckPath).appendFileExtension("h"); //header files
 			return projUri;
 		}
 
 		return null;
 	}
-	
-//	/**
-//	 * @see ac.soton.emf.translator.configuration.DefaultAdapter#getAffectedResources(org.eclipse.emf.transaction.TransactionalEditingDomain, org.eclipse.emf.ecore.EObject)
-//	 * 
-//	 * This implementation returns all EMF resources in the same project as the source element that are EventB Machines or Contexts 
-//	 * 
-//	 * @param editingDomain
-//	 * @param sourceElement
-//	 * @return list of affected Resources
-//	 */
-//	@Override
-//	public Collection<Resource> getAffectedResources(TransactionalEditingDomain editingDomain, EObject sourceElement) throws IOException {
-//		List<Resource> affectedResources = new ArrayList<Resource>();
-//		String projectName = EcoreUtil.getURI(sourceElement).segment(1);
-//		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-//		if (project.exists()){
-//			try {
-//				IResource[] members = project.members();
-//				ResourceSet resourceSet = editingDomain.getResourceSet();
-//				for (IResource res : members){
-//					final URI fileURI = URI.createPlatformResourceURI(projectName + "/SPARK/" + res.getName(), true);
-//					if ("eds".equals(fileURI.fileExtension()) || "edb".equals(fileURI.fileExtension())){ 
-//						Resource resource = resourceSet.getResource(fileURI, false);
-//						if (resource != null) {
-//							if (!resource.isLoaded()) {
-//								resource.load(Collections.emptyMap());
-//							}
-//							if (resource.isLoaded()) {
-//								affectedResources.add(resource);
-//							} 
-//						}
-//					}
-//				}
-//			} catch (CoreException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return affectedResources;
-//	}
-
 }

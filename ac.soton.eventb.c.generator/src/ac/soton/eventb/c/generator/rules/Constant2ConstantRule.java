@@ -28,24 +28,25 @@ import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.persistence.EMFRodinDB;
 import org.eventb.emf.persistence.EventBEMFUtils;
 
+import C.ecore.EcorePackage;
 import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
 
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.SparkPackageSpec;
+import C.ecore.EcorePackage;
+import C.ecore.CSourceFile;
 
-import ac.soton.eventb.spark.SparkVariable;
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkTranslatorUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
+import C.ecore.CVariable;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CTranslatorUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
 import ch.ethz.eventb.utils.EventBSCUtils;
 
 
 public class Constant2ConstantRule extends AbstractRule implements IRule{
 	
-	protected static final EReference specPackages = SparkPackage.Literals.SPARK_PROJECT__SPEC_PACKAGES;
-	protected static final EReference constants = SparkPackage.Literals.SPARK_PACKAGE__VARIABLES;
+	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
+	protected static final EReference constants = EcorePackage.Literals.CFILE__GLOBAL_VARIABLES;
 
 	private List<Context> seenCxts;
 	
@@ -80,7 +81,7 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
 			Context xcxt = (Context) rodinResource.getContents().get(0);
 			List <String> scSeenAxioms = CTranslatorUtils.getSCAxiomStrings(xcxt);
 			IContextRoot cxtRoot = EventBEMFUtils.getRoot(xcxt);
-            SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, cxt.getName());
+            CSourceFile cxtPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles, cxt.getName());
             List <String> constLiterals = new ArrayList<String>();
             for(CarrierSet set : xcxt.getSets()) {
             	// Still need to do the enumeration check first 
@@ -94,19 +95,16 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
             	
             	int indexOf = constLiterals.indexOf(BConst.getName());
             	if (constLiterals.isEmpty() || indexOf < 0) {
-            		// generate a spark constant
+            		// generate a c constant
             		
             		Type scType = CTranslatorUtils.getConstantType(cxtRoot, BConst.getName());
-            		String type = CTranslatorUtils.eventBTypeToSparkType(scType);
+            		String type = CTranslatorUtils.eventBTypeToCType(scType);
             		// TODO : get the value of the constant, this could either be done here or as we check the axioms
-            		SparkVariable SConst = CUtils.createConstant(BConst.getName(), type, "0");
+            		CVariable SConst = CUtils.createConstant(BConst.getName(), type, "0");
             		ret.add(CUtils.descriptor(cxtPckg, constants, SConst, 3)); 
-            		
             	}
             }
-			
 		}
-
 		return ret;	
 	}
 
@@ -121,14 +119,11 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
 		for (Context cxt : cxts) 
 			seenCxts.addAll(CTranslatorUtils.getSeenContexts(cxt));
 	    for(Context ext_cxt : seenCxts) {
-	    	 SparkPackageSpec cxtPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages, ext_cxt.getName());
+	    	 CSourceFile cxtPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles, ext_cxt.getName());
 	    	 if (cxtPckg == null)
 	    		 return false;
-	    	
 	    }
-		
-		return true;
-					
+		return true;		
 	}
 
 	@Override
@@ -136,8 +131,4 @@ public class Constant2ConstantRule extends AbstractRule implements IRule{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-
-
 }
-

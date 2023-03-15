@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eventb.emf.core.machine.Action;
@@ -24,11 +22,9 @@ import C.ecore.CArrayElement;
 import C.ecore.CSourceFile;
 import C.ecore.EcorePackage;
 import C.ecore.CVariable;
-import C.ecore.CTranslationUnit;
 import ac.soton.eventb.c.generator.utils.CResourceUtils;
 import ac.soton.eventb.c.generator.utils.CTranslatorUtils;
 import ac.soton.eventb.c.generator.utils.CUtils;
-import ac.soton.eventb.spark.SparkPackage;
 
 import org.eventb.core.IMachineRoot;
 import org.eventb.core.ast.Type;

@@ -43,7 +43,7 @@ import ac.soton.eventb.c.generator.utils.CUtils;
 import ch.ethz.eventb.utils.EventBSCUtils;
 
 
-public class Constant2ConstantRule extends AbstractRule implements IRule{
+public class Constant2ConstantRule extends AbstractRule implements IRule {
 	
 	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
 	protected static final EReference constants = EcorePackage.Literals.CFILE__GLOBAL_VARIABLES;

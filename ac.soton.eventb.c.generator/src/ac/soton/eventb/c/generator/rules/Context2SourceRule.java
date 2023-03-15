@@ -14,17 +14,17 @@ import org.eventb.emf.persistence.EventBEMFUtils;
 import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.SparkPackageSpec;
-import ac.soton.eventb.spark.SparkProject;
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkTranslatorUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
+import C.ecore.EcorePackage;
+import C.ecore.CSourceFile;
+import C.ecore.CTranslationUnit;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CTranslatorUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
 
-public class Context2PackageRule extends AbstractRule implements IRule {
+public class Context2SourceRule extends AbstractRule implements IRule {
 
-	protected static final EReference specPackages = SparkPackage.Literals.SPARK_PROJECT__SPEC_PACKAGES;
-	private SparkPackageSpec MchPckg;
+	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
+	private CSourceFile MchPckg;
 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
@@ -46,21 +46,15 @@ public class Context2PackageRule extends AbstractRule implements IRule {
 			throws Exception {
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
-		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null,
-				"SPARK");
+		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null,
+				"C");
 		Machine mch = (Machine) sourceElement;
 
 		List<String> seenCxts = CTranslatorUtils.getSCSeenContextsStrings(mch);
 		for (String cxt_name : seenCxts) {
-			SparkPackageSpec specPackage = CUtils.createSpecPackage(sparkProj, cxt_name);
-			ret.add(CUtils.descriptor(null, specPackages, specPackage, 1));
-
-			// add with and use packages to machine package
-			MchPckg.getWithPackages().add(cxt_name);
-			MchPckg.getUsePackages().add(cxt_name);
-
+			CSourceFile specPackage = CUtils.createSourceFile(cProj, cxt_name);
+			ret.add(CUtils.descriptor(null, sourceFiles, specPackage, 1));
 		}
-
 		return ret;
 	}
 
@@ -68,13 +62,13 @@ public class Context2PackageRule extends AbstractRule implements IRule {
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
 
-		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null,
-				"SPARK");
+		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null,
+				"C");
 
-		if (sparkProj == null)
+		if (cProj == null)
 			return false;
 		else {
-			MchPckg = (SparkPackageSpec) CResourceUtils.findGeneratedElement(translatedElements, null, specPackages,
+			MchPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles,
 					((Machine) sourceElement).getName());
 			if (MchPckg == null)
 				return false;

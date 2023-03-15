@@ -132,7 +132,7 @@
          </rule>
          <rule
                name="Context2PackageRule"
-               rule_class="ac.soton.eventb.c.generator.rules.Context2PackageRule"
+               rule_class="ac.soton.eventb.c.generator.rules.Context2SourceRule"
                source_class="Machine">
          </rule>
          <rule

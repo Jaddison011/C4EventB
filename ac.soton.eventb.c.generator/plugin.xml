@@ -152,7 +152,7 @@
          </rule>
          <rule
                name="Record2RecordRule"
-               rule_class="ac.soton.eventb.c.generator.rules.Record2RecordRule"
+               rule_class="ac.soton.eventb.c.generator.rules.Record2StructRule"
                source_class="Machine">
          </rule>
          <rule

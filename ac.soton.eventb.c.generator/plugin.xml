@@ -122,7 +122,7 @@
             translator_id="ac.soton.eventb.c.generator.handlers.CTranslateHandler">
          <rule
                name="Machine2PackageRule"
-               rule_class="ac.soton.eventb.c.generator.rules.Machine2PackageRule"
+               rule_class="ac.soton.eventb.c.generator.rules.Machine2SourceRule"
                source_class="Machine">
          </rule>
          <rule

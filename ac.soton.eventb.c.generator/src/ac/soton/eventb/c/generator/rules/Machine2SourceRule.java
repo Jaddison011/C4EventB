@@ -14,18 +14,14 @@ import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
 //import ac.soton.emf.translator.eventb.rules.AbstractEventBGeneratorRule;
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.SparkPackageImp;
-import ac.soton.eventb.spark.SparkPackageSpec;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
+import C.ecore.EcorePackage;
+import C.ecore.CSourceFile;
+import C.ecore.CTranslationUnit;
 
-import ac.soton.eventb.spark.SparkProject;
-
-
-public class Machine2PackageRule extends AbstractRule implements IRule{// AbstractEventBGeneratorRule
-	protected static final EReference specPackages = SparkPackage.Literals.SPARK_PROJECT__SPEC_PACKAGES;
-	protected static final EReference impPackages = SparkPackage.Literals.SPARK_PROJECT__IMP_PACKAGES;
+public class Machine2SourceRule extends AbstractRule implements IRule { // AbstractEventBGeneratorRule
+	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
@@ -44,16 +40,12 @@ public class Machine2PackageRule extends AbstractRule implements IRule{// Abstra
 
 		Machine mch = (Machine) sourceElement;
 	
-		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
+		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null, "C");
 		
-		SparkPackageSpec specPackage =  CUtils.createSpecPackage(sparkProj , mch.getName());
+		//TODO: Investigate this and whether I need all the translations to go into one file, instead of one file per machine
+		CSourceFile sourceFile =  CUtils.createSourceFile(cProj , mch.getName());
 		
-		SparkPackageImp impPackage =  CUtils.createImpPackage(sparkProj , mch.getName());
-
-		ret.add(CUtils.descriptor(null, specPackages,specPackage, 1));
-		ret.add(CUtils.descriptor(null, impPackages,impPackage, 1));
-
-	
+		ret.add(CUtils.descriptor(null, sourceFiles, sourceFile, 1));
 		return ret;	
 	}
 
@@ -61,8 +53,8 @@ public class Machine2PackageRule extends AbstractRule implements IRule{// Abstra
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
 		
-		SparkProject sparkProj = (SparkProject) CResourceUtils.findGeneratedElement(translatedElements, null, null, "SPARK");
-		if (sparkProj == null)
+		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null, "C");
+		if (cProj == null)
 			return false;
 		else
 			return true;

@@ -22,7 +22,7 @@ public class CTranslateAdapter extends DefaultAdapter {
 	 */
 	@Override
 	public boolean isRoot(TranslationDescriptor translationDescriptor) {
-		if ((translationDescriptor.feature == sourceFiles | translationDescriptor.feature == headerFiles)&& 
+		if ((translationDescriptor.feature == sourceFiles | translationDescriptor.feature == headerFiles) && 
 				translationDescriptor.value instanceof CFile){
 			return true;
 		} else {
@@ -42,7 +42,7 @@ public class CTranslateAdapter extends DefaultAdapter {
 		String projectName = EcoreUtil.getURI(rootElement).segment(1);
 		URI projectUri = URI.createPlatformResourceURI(projectName, true);
 		
-		Cfile file = null;
+		CFile cFile = null;
 		if (translationDescriptor.value instanceof CFile){
 			     cFile = (CFile) translationDescriptor.value;
 			    

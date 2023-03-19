@@ -11,11 +11,11 @@ import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
 //import ac.soton.emf.translator.eventb.rules.AbstractEventBGeneratorRule;
-import ac.soton.eventb.spark.SparkProject;
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
+import C.ecore.CTranslationUnit;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
 
-public class SparkProjectRule extends AbstractRule implements IRule{ 
+public class CProjectRule extends AbstractRule implements IRule{ 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
 		if(sourceElement instanceof Machine)
@@ -32,8 +32,8 @@ public class SparkProjectRule extends AbstractRule implements IRule{
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Machine mch = (Machine) sourceElement;
-	    CResourceUtils.getSPARKFolder(mch);
-	    SparkProject proj =  CUtils.createSparkProject("SPARK");
+	    CResourceUtils.getCFolder(mch);
+	    CTranslationUnit proj =  CUtils.createCProject("C");
 		ret.add(CUtils.descriptor(null, null,proj, 1));
 
 		return ret;	

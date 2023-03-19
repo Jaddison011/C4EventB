@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CStruct;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -66,7 +62,7 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CStruct_type_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CStruct_type_feature", "_UI_CStruct_type"),
-				 EcorePackage.Literals.CSTRUCT__TYPE,
+				 C.ecore.EcorePackage.Literals.CSTRUCT__TYPE,
 				 true,
 				 false,
 				 false,
@@ -87,7 +83,7 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CSTRUCT__FIELDS);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSTRUCT__FIELDS);
 		}
 		return childrenFeatures;
 	}
@@ -124,7 +120,7 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CStruct)object).getName();
+		String label = ((C.ecore.CStruct)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CStruct_type") :
 			getString("_UI_CStruct_type") + " " + label;
@@ -142,11 +138,11 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CStruct.class)) {
-			case EcorePackage.CSTRUCT__TYPE:
+		switch (notification.getFeatureID(C.ecore.CStruct.class)) {
+			case C.ecore.EcorePackage.CSTRUCT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case EcorePackage.CSTRUCT__FIELDS:
+			case C.ecore.EcorePackage.CSTRUCT__FIELDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -166,8 +162,8 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSTRUCT__FIELDS,
-				 EcoreFactory.eINSTANCE.createCField()));
+				(C.ecore.EcorePackage.Literals.CSTRUCT__FIELDS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCField()));
 	}
 
 }

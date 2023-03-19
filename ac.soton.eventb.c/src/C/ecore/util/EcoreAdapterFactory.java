@@ -160,6 +160,10 @@ public class EcoreAdapterFactory extends AdapterFactoryImpl {
 				return createCArrayVariableAdapter();
 			}
 			@Override
+			public Adapter caseCPreCondition(CPreCondition object) {
+				return createCPreConditionAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -498,6 +502,20 @@ public class EcoreAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCArrayVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link C.ecore.CPreCondition <em>CPre Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see C.ecore.CPreCondition
+	 * @generated
+	 */
+	public Adapter createCPreConditionAdapter() {
 		return null;
 	}
 

@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CEnumProperties;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -63,7 +60,7 @@ public class CEnumPropertiesItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CEnumProperties_integralConstant_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CEnumProperties_integralConstant_feature", "_UI_CEnumProperties_type"),
-				 EcorePackage.Literals.CENUM_PROPERTIES__INTEGRAL_CONSTANT,
+				 C.ecore.EcorePackage.Literals.CENUM_PROPERTIES__INTEGRAL_CONSTANT,
 				 true,
 				 false,
 				 false,
@@ -91,7 +88,7 @@ public class CEnumPropertiesItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CEnumProperties)object).getName();
+		String label = ((C.ecore.CEnumProperties)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CEnumProperties_type") :
 			getString("_UI_CEnumProperties_type") + " " + label;
@@ -109,8 +106,8 @@ public class CEnumPropertiesItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CEnumProperties.class)) {
-			case EcorePackage.CENUM_PROPERTIES__INTEGRAL_CONSTANT:
+		switch (notification.getFeatureID(C.ecore.CEnumProperties.class)) {
+			case C.ecore.EcorePackage.CENUM_PROPERTIES__INTEGRAL_CONSTANT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -29,7 +29,7 @@ import ac.soton.eventb.emf.record.Record;
 public class Record2StructRule extends AbstractRule implements IRule {
 	
 	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
-	protected static final EReference types = EcorePackage.Literals.CTRANSLATION_UNIT__TYPES;
+	protected static final EReference types = EcorePackage.Literals.CFILE__TYPES;
 	protected static final EReference fields = EcorePackage.Literals.CSTRUCT__FIELDS;
 
 	private List<Context> seenCxts;

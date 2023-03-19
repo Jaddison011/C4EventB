@@ -374,90 +374,90 @@ public class CTranslatorUtils {
 //	}
 //	
 //	// This is just a test
-//	public static String eventBPredToCPred(String BPredicate, Machine mch) throws RodinDBException {
-//		IMachineRoot mchRoot = EventBEMFUtils.getRoot(mch);
-//		FormulaFactory ff = mchRoot.getFormulaFactory();
-////		ISCMachineRoot scMachineRoot = mchRoot.getSCMachineRoot();
-//		Map<String, Boolean> recordFields = getRecordFields(mch);
-//		String SPredicate = "";
-//		Predicate parsePredicate = DLib.parsePredicate(ff, BPredicate);
-//	    
-//		if (parsePredicate.getTag() == Predicate.EXISTS) {
-//			SPredicate += "for some ";
-//
-//			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-//			// TODO: can we translate the predicate if it has more than one bounded identifier?
-//			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-//		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-//			// TODO: else what?
-//		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
-//            String sQuantified = quantifiedPredicate.toString();
-//            String[] split = sQuantified.split("∈");
-//            int index = split[1].indexOf("∧");
-//            String s = split[1].replace("∧", "=> ");         
-//            String s1 = s.substring(0, index);
-//            SPredicate += " in " + s1;
-//            String s2 = s.substring(index);
-////            Map<String, Boolean> recordFields = getRecordFields(mch);
-//
-////            for (FreeIdentifier identifier : freeIdentifiers) {
-////            	String name = identifier.getName();
-////            	if (recordFields.containsKey(name)) {
-////            		String patternString = "(.*)" + name + "(.*)";
-////            		Pattern pattern = Pattern.compile(patternString);
-////                    Matcher matcher = pattern.matcher(s2);
-////                    if(matcher.matches()) {
-////                    	String group = matcher.group(2);
-////                    	String before = name + group;
-////                        String after = group.substring(1, group.length()-2)+(".")+ name;
-////                    	s2 = s2.replace(before, after);
-////                    	
-////                    	System.out.println("*****s22 : " + s2);
-////                    }
-////            	}
-////            }
-//            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
-//            
-//            SPredicate = SPredicate + " " + s2;
-//		}
-//		
-//		else if (parsePredicate.getTag() == Predicate.FORALL) {
-//			SPredicate += "for all ";
-//
-//			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-//			// TODO: can we translate the predicate if it has more than one bounded identifier?
-//			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-//		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-//			// TODO: else what?
-//		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
-//            String sQuantified = quantifiedPredicate.toString();
-//            String[] split = sQuantified.split("∈");
-//          //  String s = split[1];//.replace("∧", "=> "); 
-//            int index = split[1].indexOf("=>");
-//            String s1 = split[1].substring(0, index);
-//            SPredicate += " in " + s1;
-//            String s2 = split[1].substring(index);
-//         //   Map<String, Boolean> recordFields = getRecordFields(mch);
-//            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
-//           
-//            SPredicate = SPredicate + " " + s2;
-//		}
-//		else {
-//			FreeIdentifier[] freeIdentifiers = parsePredicate.getFreeIdentifiers();
-//			String parse = parsePredicate.toString();
-//			parse = " " + parse + " ";
-//			SPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
-//			//SPredicate = BPredicate;
-//		}
-//		//TODO: Check if there is more
-//	    SPredicate = SPredicate.replaceAll("∧", " and ");
-//	    SPredicate = SPredicate.replaceAll("∨", " or ");
-//	    SPredicate = SPredicate.replaceAll("∈", " in ");
-//	    SPredicate = SPredicate.replaceAll("∉" , " not in ");
-//	    SPredicate = SPredicate.replaceAll("≠" , " /= ");
-//	    SPredicate = SPredicate.replaceAll("‥" , " .. ");
-//		return SPredicate;
-//	}
+	public static String eventBPredToCPred(String BPredicate, Machine mch) throws RodinDBException {
+		IMachineRoot mchRoot = EventBEMFUtils.getRoot(mch);
+		FormulaFactory ff = mchRoot.getFormulaFactory();
+//		ISCMachineRoot scMachineRoot = mchRoot.getSCMachineRoot();
+		Map<String, Boolean> recordFields = getRecordFields(mch);
+		String SPredicate = "";
+		Predicate parsePredicate = DLib.parsePredicate(ff, BPredicate);
+	    
+		if (parsePredicate.getTag() == Predicate.EXISTS) {
+			SPredicate += "for some ";
+
+			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
+			// TODO: can we translate the predicate if it has more than one bounded identifier?
+			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
+		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+			// TODO: else what?
+		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
+            String sQuantified = quantifiedPredicate.toString();
+            String[] split = sQuantified.split("∈");
+            int index = split[1].indexOf("∧");
+            String s = split[1].replace("∧", "=> ");         
+            String s1 = s.substring(0, index);
+            SPredicate += " in " + s1;
+            String s2 = s.substring(index);
+//            Map<String, Boolean> recordFields = getRecordFields(mch);
+
+//            for (FreeIdentifier identifier : freeIdentifiers) {
+//            	String name = identifier.getName();
+//            	if (recordFields.containsKey(name)) {
+//            		String patternString = "(.*)" + name + "(.*)";
+//            		Pattern pattern = Pattern.compile(patternString);
+//                    Matcher matcher = pattern.matcher(s2);
+//                    if(matcher.matches()) {
+//                    	String group = matcher.group(2);
+//                    	String before = name + group;
+//                        String after = group.substring(1, group.length()-2)+(".")+ name;
+//                    	s2 = s2.replace(before, after);
+//                    	
+//                    	System.out.println("*****s22 : " + s2);
+//                    }
+//            	}
+//            }
+            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
+            
+            SPredicate = SPredicate + " " + s2;
+		}
+		
+		else if (parsePredicate.getTag() == Predicate.FORALL) {
+			SPredicate += "for all ";
+
+			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
+			// TODO: can we translate the predicate if it has more than one bounded identifier?
+			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
+		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+			// TODO: else what?
+		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
+            String sQuantified = quantifiedPredicate.toString();
+            String[] split = sQuantified.split("∈");
+          //  String s = split[1];//.replace("∧", "=> "); 
+            int index = split[1].indexOf("=>");
+            String s1 = split[1].substring(0, index);
+            SPredicate += " in " + s1;
+            String s2 = split[1].substring(index);
+         //   Map<String, Boolean> recordFields = getRecordFields(mch);
+            s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
+           
+            SPredicate = SPredicate + " " + s2;
+		}
+		else {
+			FreeIdentifier[] freeIdentifiers = parsePredicate.getFreeIdentifiers();
+			String parse = parsePredicate.toString();
+			parse = " " + parse + " ";
+			SPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
+			//SPredicate = BPredicate;
+		}
+		//TODO: Check if there is more
+	    SPredicate = SPredicate.replaceAll("∧", " and ");
+	    SPredicate = SPredicate.replaceAll("∨", " or ");
+	    SPredicate = SPredicate.replaceAll("∈", " in ");
+	    SPredicate = SPredicate.replaceAll("∉" , " not in ");
+	    SPredicate = SPredicate.replaceAll("≠" , " /= ");
+	    SPredicate = SPredicate.replaceAll("‥" , " .. ");
+		return SPredicate;
+	}
 	
 	public static List<String> getSCAxiomStrings(Context context) throws RodinDBException{
 		List <String> axioms = new ArrayList<String>();

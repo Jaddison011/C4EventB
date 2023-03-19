@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import ac.soton.emf.translator.TranslationDescriptor;
+import ac.soton.eventb.spark.SparkPreCondition;
 import C.ecore.CArray;
 import C.ecore.CArrayElement;
 import C.ecore.CDerivedType;
@@ -25,6 +26,7 @@ import C.ecore.CVariable;
 import C.ecore.CArrayVariable;
 import C.ecore.CFunction;
 import C.ecore.CPointer;
+import C.ecore.CPreCondition;
 
 /**
  * <p>
@@ -184,5 +186,12 @@ public class CUtils {
 	public static CPointer createPointer(String type) {
 		CPointer c_pointer = cFactory.createCPointer();
 		return c_pointer;
+	}
+	
+	public static CPreCondition createPrecondition(String predicate) {
+		CPreCondition preCond = cFactory.createCPreCondition();
+		preCond.setPredicate(predicate);
+		return preCond;
+		
 	}
 }

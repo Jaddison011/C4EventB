@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CIncludeDirective;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -63,7 +60,7 @@ public class CIncludeDirectiveItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CIncludeDirective_header_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CIncludeDirective_header_feature", "_UI_CIncludeDirective_type"),
-				 EcorePackage.Literals.CINCLUDE_DIRECTIVE__HEADER,
+				 C.ecore.EcorePackage.Literals.CINCLUDE_DIRECTIVE__HEADER,
 				 true,
 				 false,
 				 false,
@@ -91,7 +88,7 @@ public class CIncludeDirectiveItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CIncludeDirective)object).getName();
+		String label = ((C.ecore.CIncludeDirective)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CIncludeDirective_type") :
 			getString("_UI_CIncludeDirective_type") + " " + label;
@@ -109,8 +106,8 @@ public class CIncludeDirectiveItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CIncludeDirective.class)) {
-			case EcorePackage.CINCLUDE_DIRECTIVE__HEADER:
+		switch (notification.getFeatureID(C.ecore.CIncludeDirective.class)) {
+			case C.ecore.EcorePackage.CINCLUDE_DIRECTIVE__HEADER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CFile;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -62,8 +58,9 @@ public class CFileItemProvider extends CNamedElementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CFILE__SUB_PROGRAMS);
-			childrenFeatures.add(EcorePackage.Literals.CFILE__GLOBAL_VARIABLES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CFILE__SUB_PROGRAMS);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CFILE__GLOBAL_VARIABLES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CFILE__TYPES);
 		}
 		return childrenFeatures;
 	}
@@ -100,7 +97,7 @@ public class CFileItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CFile)object).getName();
+		String label = ((C.ecore.CFile)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CFile_type") :
 			getString("_UI_CFile_type") + " " + label;
@@ -118,9 +115,10 @@ public class CFileItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CFile.class)) {
-			case EcorePackage.CFILE__SUB_PROGRAMS:
-			case EcorePackage.CFILE__GLOBAL_VARIABLES:
+		switch (notification.getFeatureID(C.ecore.CFile.class)) {
+			case C.ecore.EcorePackage.CFILE__SUB_PROGRAMS:
+			case C.ecore.EcorePackage.CFILE__GLOBAL_VARIABLES:
+			case C.ecore.EcorePackage.CFILE__TYPES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -140,23 +138,96 @@ public class CFileItemProvider extends CNamedElementItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CFILE__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCSubProgram()));
+				(C.ecore.EcorePackage.Literals.CFILE__SUB_PROGRAMS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCSubProgram()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CFILE__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCFunction()));
+				(C.ecore.EcorePackage.Literals.CFILE__SUB_PROGRAMS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCFunction()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CFILE__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCProcedure()));
+				(C.ecore.EcorePackage.Literals.CFILE__SUB_PROGRAMS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCProcedure()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CFILE__GLOBAL_VARIABLES,
-				 EcoreFactory.eINSTANCE.createCVariable()));
+				(C.ecore.EcorePackage.Literals.CFILE__GLOBAL_VARIABLES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__GLOBAL_VARIABLES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArrayVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCDerivedType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCStruct()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCField()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCDiscreteType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCEnumeration()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArray()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCPointer()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CFILE__TYPES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArrayVariable()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == C.ecore.EcorePackage.Literals.CFILE__GLOBAL_VARIABLES ||
+			childFeature == C.ecore.EcorePackage.Literals.CFILE__TYPES;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

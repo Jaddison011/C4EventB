@@ -3,8 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CPointer;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class CPointerItemProvider extends CDerivedTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CPointer)object).getName();
+		String label = ((C.ecore.CPointer)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CPointer_type") :
 			getString("_UI_CPointer_type") + " " + label;

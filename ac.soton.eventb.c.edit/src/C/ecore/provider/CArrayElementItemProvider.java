@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CArrayElement;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +61,7 @@ public class CArrayElementItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CArrayElement_index_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CArrayElement_index_feature", "_UI_CArrayElement_type"),
-				 EcorePackage.Literals.CARRAY_ELEMENT__INDEX,
+				 C.ecore.EcorePackage.Literals.CARRAY_ELEMENT__INDEX,
 				 true,
 				 false,
 				 false,
@@ -86,7 +83,7 @@ public class CArrayElementItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CArrayElement_value_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CArrayElement_value_feature", "_UI_CArrayElement_type"),
-				 EcorePackage.Literals.CARRAY_ELEMENT__VALUE,
+				 C.ecore.EcorePackage.Literals.CARRAY_ELEMENT__VALUE,
 				 true,
 				 false,
 				 false,
@@ -114,7 +111,7 @@ public class CArrayElementItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CArrayElement)object).getName();
+		String label = ((C.ecore.CArrayElement)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CArrayElement_type") :
 			getString("_UI_CArrayElement_type") + " " + label;
@@ -132,9 +129,9 @@ public class CArrayElementItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CArrayElement.class)) {
-			case EcorePackage.CARRAY_ELEMENT__INDEX:
-			case EcorePackage.CARRAY_ELEMENT__VALUE:
+		switch (notification.getFeatureID(C.ecore.CArrayElement.class)) {
+			case C.ecore.EcorePackage.CARRAY_ELEMENT__INDEX:
+			case C.ecore.EcorePackage.CARRAY_ELEMENT__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

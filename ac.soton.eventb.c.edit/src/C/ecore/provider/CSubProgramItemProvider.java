@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CSubProgram;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -62,9 +58,10 @@ public class CSubProgramItemProvider extends CNamedElementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CSUB_PROGRAM__PARAMETERS);
-			childrenFeatures.add(EcorePackage.Literals.CSUB_PROGRAM__LOCAL_VARIABLES);
-			childrenFeatures.add(EcorePackage.Literals.CSUB_PROGRAM__BODY);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__PARAMETERS);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__LOCAL_VARIABLES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__BODY);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__PRECONDITIONS);
 		}
 		return childrenFeatures;
 	}
@@ -101,7 +98,7 @@ public class CSubProgramItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CSubProgram)object).getName();
+		String label = ((C.ecore.CSubProgram)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CSubProgram_type") :
 			getString("_UI_CSubProgram_type") + " " + label;
@@ -119,10 +116,11 @@ public class CSubProgramItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CSubProgram.class)) {
-			case EcorePackage.CSUB_PROGRAM__PARAMETERS:
-			case EcorePackage.CSUB_PROGRAM__LOCAL_VARIABLES:
-			case EcorePackage.CSUB_PROGRAM__BODY:
+		switch (notification.getFeatureID(C.ecore.CSubProgram.class)) {
+			case C.ecore.EcorePackage.CSUB_PROGRAM__PARAMETERS:
+			case C.ecore.EcorePackage.CSUB_PROGRAM__LOCAL_VARIABLES:
+			case C.ecore.EcorePackage.CSUB_PROGRAM__BODY:
+			case C.ecore.EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -142,18 +140,56 @@ public class CSubProgramItemProvider extends CNamedElementItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSUB_PROGRAM__PARAMETERS,
-				 EcoreFactory.eINSTANCE.createCParameter()));
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__PARAMETERS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCParameter()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSUB_PROGRAM__LOCAL_VARIABLES,
-				 EcoreFactory.eINSTANCE.createCVariable()));
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__LOCAL_VARIABLES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSUB_PROGRAM__BODY,
-				 EcoreFactory.eINSTANCE.createCExpression()));
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__LOCAL_VARIABLES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArrayVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__BODY,
+				 C.ecore.EcoreFactory.eINSTANCE.createCExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__BODY,
+				 C.ecore.EcoreFactory.eINSTANCE.createCPreCondition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(C.ecore.EcorePackage.Literals.CSUB_PROGRAM__PRECONDITIONS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCPreCondition()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == C.ecore.EcorePackage.Literals.CSUB_PROGRAM__BODY ||
+			childFeature == C.ecore.EcorePackage.Literals.CSUB_PROGRAM__PRECONDITIONS;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

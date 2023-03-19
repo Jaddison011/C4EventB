@@ -34,7 +34,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 
 	protected static final EReference variables = EcorePackage.Literals.CFILE__GLOBAL_VARIABLES;
 	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
-	protected static final EReference types = EcorePackage.Literals.CTRANSLATION_UNIT__TYPES;
+	protected static final EReference types = EcorePackage.Literals.CFILE__TYPES;
 //		protected static final EReference elements = SparkPackage.Literals.SPARK_ARRAY__ELEMENTS;
 	private final String record_field_variable = "record field translation variable";
 

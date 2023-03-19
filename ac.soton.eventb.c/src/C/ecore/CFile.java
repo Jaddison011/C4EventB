@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link C.ecore.CFile#getSubPrograms <em>Sub Programs</em>}</li>
  *   <li>{@link C.ecore.CFile#getGlobalVariables <em>Global Variables</em>}</li>
+ *   <li>{@link C.ecore.CFile#getTypes <em>Types</em>}</li>
  * </ul>
  *
  * @see C.ecore.EcorePackage#getCFile()
@@ -45,5 +46,17 @@ public interface CFile extends CNamedElement {
 	 * @generated
 	 */
 	EList<CVariable> getGlobalVariables();
+
+	/**
+	 * Returns the value of the '<em><b>Types</b></em>' containment reference list.
+	 * The list contents are of type {@link C.ecore.CType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Types</em>' containment reference list.
+	 * @see C.ecore.EcorePackage#getCFile_Types()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<CType> getTypes();
 
 } // CFile

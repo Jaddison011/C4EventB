@@ -3,8 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CType;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class CTypeItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CType)object).getName();
+		String label = ((C.ecore.CType)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CType_type") :
 			getString("_UI_CType_type") + " " + label;

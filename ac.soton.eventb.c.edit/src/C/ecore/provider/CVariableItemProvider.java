@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CVariable;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -65,7 +62,7 @@ public class CVariableItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CVariable_value_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CVariable_value_feature", "_UI_CVariable_type"),
-				 EcorePackage.Literals.CVARIABLE__VALUE,
+				 C.ecore.EcorePackage.Literals.CVARIABLE__VALUE,
 				 true,
 				 false,
 				 false,
@@ -87,7 +84,7 @@ public class CVariableItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CVariable_type_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CVariable_type_feature", "_UI_CVariable_type"),
-				 EcorePackage.Literals.CVARIABLE__TYPE,
+				 C.ecore.EcorePackage.Literals.CVARIABLE__TYPE,
 				 true,
 				 false,
 				 false,
@@ -109,7 +106,7 @@ public class CVariableItemProvider extends CNamedElementItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CVariable_isConstant_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CVariable_isConstant_feature", "_UI_CVariable_type"),
-				 EcorePackage.Literals.CVARIABLE__IS_CONSTANT,
+				 C.ecore.EcorePackage.Literals.CVARIABLE__IS_CONSTANT,
 				 true,
 				 false,
 				 false,
@@ -137,7 +134,7 @@ public class CVariableItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CVariable)object).getName();
+		String label = ((C.ecore.CVariable)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CVariable_type") :
 			getString("_UI_CVariable_type") + " " + label;
@@ -155,10 +152,10 @@ public class CVariableItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CVariable.class)) {
-			case EcorePackage.CVARIABLE__VALUE:
-			case EcorePackage.CVARIABLE__TYPE:
-			case EcorePackage.CVARIABLE__IS_CONSTANT:
+		switch (notification.getFeatureID(C.ecore.CVariable.class)) {
+			case C.ecore.EcorePackage.CVARIABLE__VALUE:
+			case C.ecore.EcorePackage.CVARIABLE__TYPE:
+			case C.ecore.EcorePackage.CVARIABLE__IS_CONSTANT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

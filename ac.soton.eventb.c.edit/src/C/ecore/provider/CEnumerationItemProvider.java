@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CEnumeration;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -62,7 +58,7 @@ public class CEnumerationItemProvider extends CDiscreteTypeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CENUMERATION__ENUM_PROPERTIES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CENUMERATION__ENUM_PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -99,7 +95,7 @@ public class CEnumerationItemProvider extends CDiscreteTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CEnumeration)object).getName();
+		String label = ((C.ecore.CEnumeration)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CEnumeration_type") :
 			getString("_UI_CEnumeration_type") + " " + label;
@@ -117,8 +113,8 @@ public class CEnumerationItemProvider extends CDiscreteTypeItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CEnumeration.class)) {
-			case EcorePackage.CENUMERATION__ENUM_PROPERTIES:
+		switch (notification.getFeatureID(C.ecore.CEnumeration.class)) {
+			case C.ecore.EcorePackage.CENUMERATION__ENUM_PROPERTIES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -138,8 +134,8 @@ public class CEnumerationItemProvider extends CDiscreteTypeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CENUMERATION__ENUM_PROPERTIES,
-				 EcoreFactory.eINSTANCE.createCEnumProperties()));
+				(C.ecore.EcorePackage.Literals.CENUMERATION__ENUM_PROPERTIES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCEnumProperties()));
 	}
 
 }

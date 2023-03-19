@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CSourceFile;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -62,7 +58,7 @@ public class CSourceFileItemProvider extends CFileItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CSOURCE_FILE__INCLUDE_DIRECTIVES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CSOURCE_FILE__INCLUDE_DIRECTIVES);
 		}
 		return childrenFeatures;
 	}
@@ -99,7 +95,7 @@ public class CSourceFileItemProvider extends CFileItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CSourceFile)object).getName();
+		String label = ((C.ecore.CSourceFile)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CSourceFile_type") :
 			getString("_UI_CSourceFile_type") + " " + label;
@@ -117,8 +113,8 @@ public class CSourceFileItemProvider extends CFileItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CSourceFile.class)) {
-			case EcorePackage.CSOURCE_FILE__INCLUDE_DIRECTIVES:
+		switch (notification.getFeatureID(C.ecore.CSourceFile.class)) {
+			case C.ecore.EcorePackage.CSOURCE_FILE__INCLUDE_DIRECTIVES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -138,8 +134,31 @@ public class CSourceFileItemProvider extends CFileItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSOURCE_FILE__INCLUDE_DIRECTIVES,
-				 EcoreFactory.eINSTANCE.createCIncludeDirective()));
+				(C.ecore.EcorePackage.Literals.CSOURCE_FILE__INCLUDE_DIRECTIVES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCIncludeDirective()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == C.ecore.EcorePackage.Literals.CFILE__GLOBAL_VARIABLES ||
+			childFeature == C.ecore.EcorePackage.Literals.CFILE__TYPES;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

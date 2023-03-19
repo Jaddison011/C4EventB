@@ -3,8 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CField;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class CFieldItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CField)object).getName();
+		String label = ((C.ecore.CField)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CField_type") :
 			getString("_UI_CField_type") + " " + label;

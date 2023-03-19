@@ -2,8 +2,6 @@
  */
 package C.ecore.provider;
 
-import C.ecore.util.EcoreAdapterFactory;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -32,7 +30,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EcoreItemProviderAdapterFactory extends EcoreAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+public class EcoreItemProviderAdapterFactory extends C.ecore.util.EcoreAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->
@@ -578,6 +576,52 @@ public class EcoreItemProviderAdapterFactory extends EcoreAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link C.ecore.CArrayVariable} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CArrayVariableItemProvider cArrayVariableItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link C.ecore.CArrayVariable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCArrayVariableAdapter() {
+		if (cArrayVariableItemProvider == null) {
+			cArrayVariableItemProvider = new CArrayVariableItemProvider(this);
+		}
+
+		return cArrayVariableItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link C.ecore.CPreCondition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CPreConditionItemProvider cPreConditionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link C.ecore.CPreCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCPreConditionAdapter() {
+		if (cPreConditionItemProvider == null) {
+			cPreConditionItemProvider = new CPreConditionItemProvider(this);
+		}
+
+		return cPreConditionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -698,6 +742,8 @@ public class EcoreItemProviderAdapterFactory extends EcoreAdapterFactory impleme
 		if (cHeaderFileItemProvider != null) cHeaderFileItemProvider.dispose();
 		if (cIncludeDirectiveItemProvider != null) cIncludeDirectiveItemProvider.dispose();
 		if (cFileItemProvider != null) cFileItemProvider.dispose();
+		if (cArrayVariableItemProvider != null) cArrayVariableItemProvider.dispose();
+		if (cPreConditionItemProvider != null) cPreConditionItemProvider.dispose();
 	}
 
 }

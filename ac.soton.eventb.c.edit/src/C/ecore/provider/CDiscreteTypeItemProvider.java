@@ -3,8 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CDiscreteType;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class CDiscreteTypeItemProvider extends CTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CDiscreteType)object).getName();
+		String label = ((C.ecore.CDiscreteType)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CDiscreteType_type") :
 			getString("_UI_CDiscreteType_type") + " " + label;

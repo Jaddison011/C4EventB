@@ -10,7 +10,7 @@
       <!-- @generated C -->
       <factory
             uri="http://ac/soton/eventb/c"
-            class="ecore.provider.EcoreItemProviderAdapterFactory"
+            class="C.ecore.provider.EcoreItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

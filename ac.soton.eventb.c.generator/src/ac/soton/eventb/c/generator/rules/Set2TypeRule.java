@@ -31,7 +31,7 @@ import ac.soton.eventb.c.generator.utils.CUtils;
 public class Set2TypeRule extends AbstractRule implements IRule{
 	
 	protected static final EReference sourceFiles = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
-	protected static final EReference types = EcorePackage.Literals.CTRANSLATION_UNIT__TYPES;
+	protected static final EReference types = EcorePackage.Literals.CFILE__TYPES;
 
 	private List<Context> seenCxts;
 	

@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CTranslationUnit;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -62,9 +58,8 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES);
-			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__SUB_PROGRAMS);
-			childrenFeatures.add(EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES);
 		}
 		return childrenFeatures;
 	}
@@ -101,7 +96,7 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CTranslationUnit)object).getName();
+		String label = ((C.ecore.CTranslationUnit)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CTranslationUnit_type") :
 			getString("_UI_CTranslationUnit_type") + " " + label;
@@ -119,10 +114,9 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CTranslationUnit.class)) {
-			case EcorePackage.CTRANSLATION_UNIT__SOURCE_FILES:
-			case EcorePackage.CTRANSLATION_UNIT__SUB_PROGRAMS:
-			case EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
+		switch (notification.getFeatureID(C.ecore.CTranslationUnit.class)) {
+			case C.ecore.EcorePackage.CTRANSLATION_UNIT__SOURCE_FILES:
+			case C.ecore.EcorePackage.CTRANSLATION_UNIT__HEADER_FILES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -142,28 +136,13 @@ public class CTranslationUnitItemProvider extends CNamedElementItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES,
-				 EcoreFactory.eINSTANCE.createCSourceFile()));
+				(C.ecore.EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCSourceFile()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CTRANSLATION_UNIT__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCSubProgram()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EcorePackage.Literals.CTRANSLATION_UNIT__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCFunction()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EcorePackage.Literals.CTRANSLATION_UNIT__SUB_PROGRAMS,
-				 EcoreFactory.eINSTANCE.createCProcedure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES,
-				 EcoreFactory.eINSTANCE.createCHeaderFile()));
+				(C.ecore.EcorePackage.Literals.CTRANSLATION_UNIT__HEADER_FILES,
+				 C.ecore.EcoreFactory.eINSTANCE.createCHeaderFile()));
 	}
 
 }

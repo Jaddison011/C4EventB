@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import C.ecore.CFile;
 import C.ecore.CSubProgram;
+import C.ecore.CType;
 import C.ecore.CVariable;
 import C.ecore.EcorePackage;
 
@@ -29,6 +30,7 @@ import C.ecore.EcorePackage;
  * <ul>
  *   <li>{@link C.ecore.impl.CFileImpl#getSubPrograms <em>Sub Programs</em>}</li>
  *   <li>{@link C.ecore.impl.CFileImpl#getGlobalVariables <em>Global Variables</em>}</li>
+ *   <li>{@link C.ecore.impl.CFileImpl#getTypes <em>Types</em>}</li>
  * </ul>
  *
  * @generated
@@ -53,6 +55,16 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 	 * @ordered
 	 */
 	protected EList<CVariable> globalVariables;
+
+	/**
+	 * The cached value of the '{@link #getTypes() <em>Types</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CType> types;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,6 +114,18 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<CType> getTypes() {
+		if (types == null) {
+			types = new EObjectContainmentEList<CType>(CType.class, this, EcorePackage.CFILE__TYPES);
+		}
+		return types;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -109,6 +133,8 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 				return ((InternalEList<?>)getSubPrograms()).basicRemove(otherEnd, msgs);
 			case EcorePackage.CFILE__GLOBAL_VARIABLES:
 				return ((InternalEList<?>)getGlobalVariables()).basicRemove(otherEnd, msgs);
+			case EcorePackage.CFILE__TYPES:
+				return ((InternalEList<?>)getTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -125,6 +151,8 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 				return getSubPrograms();
 			case EcorePackage.CFILE__GLOBAL_VARIABLES:
 				return getGlobalVariables();
+			case EcorePackage.CFILE__TYPES:
+				return getTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -146,6 +174,10 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 				getGlobalVariables().clear();
 				getGlobalVariables().addAll((Collection<? extends CVariable>)newValue);
 				return;
+			case EcorePackage.CFILE__TYPES:
+				getTypes().clear();
+				getTypes().addAll((Collection<? extends CType>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,6 +196,9 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 			case EcorePackage.CFILE__GLOBAL_VARIABLES:
 				getGlobalVariables().clear();
 				return;
+			case EcorePackage.CFILE__TYPES:
+				getTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -180,6 +215,8 @@ public class CFileImpl extends CNamedElementImpl implements CFile {
 				return subPrograms != null && !subPrograms.isEmpty();
 			case EcorePackage.CFILE__GLOBAL_VARIABLES:
 				return globalVariables != null && !globalVariables.isEmpty();
+			case EcorePackage.CFILE__TYPES:
+				return types != null && !types.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

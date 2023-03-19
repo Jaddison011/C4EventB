@@ -3,10 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CArray;
-import C.ecore.EcoreFactory;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -67,7 +63,7 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CArray_elementType_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CArray_elementType_feature", "_UI_CArray_type"),
-				 EcorePackage.Literals.CARRAY__ELEMENT_TYPE,
+				 C.ecore.EcorePackage.Literals.CARRAY__ELEMENT_TYPE,
 				 true,
 				 false,
 				 false,
@@ -89,7 +85,7 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 				 getResourceLocator(),
 				 getString("_UI_CArray_size_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CArray_size_feature", "_UI_CArray_type"),
-				 EcorePackage.Literals.CARRAY__SIZE,
+				 C.ecore.EcorePackage.Literals.CARRAY__SIZE,
 				 true,
 				 false,
 				 false,
@@ -110,7 +106,7 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS);
 		}
 		return childrenFeatures;
 	}
@@ -147,7 +143,7 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CArray)object).getName();
+		String label = ((C.ecore.CArray)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CArray_type") :
 			getString("_UI_CArray_type") + " " + label;
@@ -165,12 +161,12 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CArray.class)) {
-			case EcorePackage.CARRAY__ELEMENT_TYPE:
-			case EcorePackage.CARRAY__SIZE:
+		switch (notification.getFeatureID(C.ecore.CArray.class)) {
+			case C.ecore.EcorePackage.CARRAY__ELEMENT_TYPE:
+			case C.ecore.EcorePackage.CARRAY__SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case EcorePackage.CARRAY__ARRAY_ELEMENTS:
+			case C.ecore.EcorePackage.CARRAY__ARRAY_ELEMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -190,8 +186,8 @@ public class CArrayItemProvider extends CDerivedTypeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS,
-				 EcoreFactory.eINSTANCE.createCArrayElement()));
+				(C.ecore.EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArrayElement()));
 	}
 
 }

@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CNamedElement;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -79,7 +76,7 @@ public class CNamedElementItemProvider
 				 getResourceLocator(),
 				 getString("_UI_CNamedElement_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CNamedElement_name_feature", "_UI_CNamedElement_type"),
-				 EcorePackage.Literals.CNAMED_ELEMENT__NAME,
+				 C.ecore.EcorePackage.Literals.CNAMED_ELEMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -101,7 +98,7 @@ public class CNamedElementItemProvider
 				 getResourceLocator(),
 				 getString("_UI_CNamedElement_endname_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CNamedElement_endname_feature", "_UI_CNamedElement_type"),
-				 EcorePackage.Literals.CNAMED_ELEMENT__ENDNAME,
+				 C.ecore.EcorePackage.Literals.CNAMED_ELEMENT__ENDNAME,
 				 true,
 				 false,
 				 false,
@@ -129,7 +126,7 @@ public class CNamedElementItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CNamedElement)object).getName();
+		String label = ((C.ecore.CNamedElement)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CNamedElement_type") :
 			getString("_UI_CNamedElement_type") + " " + label;
@@ -147,9 +144,9 @@ public class CNamedElementItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CNamedElement.class)) {
-			case EcorePackage.CNAMED_ELEMENT__NAME:
-			case EcorePackage.CNAMED_ELEMENT__ENDNAME:
+		switch (notification.getFeatureID(C.ecore.CNamedElement.class)) {
+			case C.ecore.EcorePackage.CNAMED_ELEMENT__NAME:
+			case C.ecore.EcorePackage.CNAMED_ELEMENT__ENDNAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

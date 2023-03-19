@@ -1,10 +1,7 @@
 /**
  */
-package ecore.provider;
+package C.ecore.provider;
 
-
-import ecore.CFunction;
-import ecore.EcorePackage;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,20 +14,23 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import C.ecore.CPreCondition;
+import C.ecore.EcorePackage;
+
 /**
- * This is the item provider adapter for a {@link ecore.CFunction} object.
+ * This is the item provider adapter for a {@link C.ecore.CPreCondition} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class CFunctionItemProvider extends CSubProgramItemProvider {
+public class CPreConditionItemProvider extends CExpressionItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CFunctionItemProvider(AdapterFactory adapterFactory) {
+	public CPreConditionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -45,25 +45,25 @@ public class CFunctionItemProvider extends CSubProgramItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReturnTypePropertyDescriptor(object);
+			addPredicatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Return Type feature.
+	 * This adds a property descriptor for the Predicate feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReturnTypePropertyDescriptor(Object object) {
+	protected void addPredicatePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CFunction_returnType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CFunction_returnType_feature", "_UI_CFunction_type"),
-				 EcorePackage.Literals.CFUNCTION__RETURN_TYPE,
+				 getString("_UI_CPreCondition_predicate_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CPreCondition_predicate_feature", "_UI_CPreCondition_type"),
+				 EcorePackage.Literals.CPRE_CONDITION__PREDICATE,
 				 true,
 				 false,
 				 false,
@@ -73,14 +73,14 @@ public class CFunctionItemProvider extends CSubProgramItemProvider {
 	}
 
 	/**
-	 * This returns CFunction.gif.
+	 * This returns CPreCondition.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CFunction"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CPreCondition"));
 	}
 
 	/**
@@ -91,10 +91,10 @@ public class CFunctionItemProvider extends CSubProgramItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CFunction)object).getName();
+		String label = ((CPreCondition)object).getExpression();
 		return label == null || label.length() == 0 ?
-			getString("_UI_CFunction_type") :
-			getString("_UI_CFunction_type") + " " + label;
+			getString("_UI_CPreCondition_type") :
+			getString("_UI_CPreCondition_type") + " " + label;
 	}
 
 
@@ -109,8 +109,8 @@ public class CFunctionItemProvider extends CSubProgramItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CFunction.class)) {
-			case EcorePackage.CFUNCTION__RETURN_TYPE:
+		switch (notification.getFeatureID(CPreCondition.class)) {
+			case EcorePackage.CPRE_CONDITION__PREDICATE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

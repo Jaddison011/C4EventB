@@ -845,13 +845,22 @@ public interface EcorePackage extends EPackage {
 	int CSUB_PROGRAM__BODY = CNAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Preconditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSUB_PROGRAM__PRECONDITIONS = CNAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>CSub Program</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CSUB_PROGRAM_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 3;
+	int CSUB_PROGRAM_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>CSub Program</em>' class.
@@ -973,6 +982,15 @@ public interface EcorePackage extends EPackage {
 	int CFUNCTION__BODY = CSUB_PROGRAM__BODY;
 
 	/**
+	 * The feature id for the '<em><b>Preconditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CFUNCTION__PRECONDITIONS = CSUB_PROGRAM__PRECONDITIONS;
+
+	/**
 	 * The feature id for the '<em><b>Return Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1055,6 +1073,15 @@ public interface EcorePackage extends EPackage {
 	int CPROCEDURE__BODY = CSUB_PROGRAM__BODY;
 
 	/**
+	 * The feature id for the '<em><b>Preconditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPROCEDURE__PRECONDITIONS = CSUB_PROGRAM__PRECONDITIONS;
+
+	/**
 	 * The number of structural features of the '<em>CProcedure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1110,31 +1137,13 @@ public interface EcorePackage extends EPackage {
 	int CTRANSLATION_UNIT__SOURCE_FILES = CNAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Sub Programs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CTRANSLATION_UNIT__SUB_PROGRAMS = CNAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Header Files</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CTRANSLATION_UNIT__HEADER_FILES = CNAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CTRANSLATION_UNIT__TYPES = CNAMED_ELEMENT_FEATURE_COUNT + 3;
+	int CTRANSLATION_UNIT__HEADER_FILES = CNAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>CTranslation Unit</em>' class.
@@ -1143,7 +1152,7 @@ public interface EcorePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CTRANSLATION_UNIT_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 4;
+	int CTRANSLATION_UNIT_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>CTranslation Unit</em>' class.
@@ -1201,13 +1210,22 @@ public interface EcorePackage extends EPackage {
 	int CFILE__GLOBAL_VARIABLES = CNAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CFILE__TYPES = CNAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>CFile</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CFILE_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 2;
+	int CFILE_FEATURE_COUNT = CNAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>CFile</em>' class.
@@ -1263,6 +1281,15 @@ public interface EcorePackage extends EPackage {
 	 * @ordered
 	 */
 	int CSOURCE_FILE__GLOBAL_VARIABLES = CFILE__GLOBAL_VARIABLES;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSOURCE_FILE__TYPES = CFILE__TYPES;
 
 	/**
 	 * The feature id for the '<em><b>Include Directives</b></em>' containment reference list.
@@ -1336,6 +1363,15 @@ public interface EcorePackage extends EPackage {
 	 * @ordered
 	 */
 	int CHEADER_FILE__GLOBAL_VARIABLES = CFILE__GLOBAL_VARIABLES;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHEADER_FILE__TYPES = CFILE__TYPES;
 
 	/**
 	 * The number of structural features of the '<em>CHeader File</em>' class.
@@ -1518,6 +1554,52 @@ public interface EcorePackage extends EPackage {
 	 * @ordered
 	 */
 	int CARRAY_VARIABLE_OPERATION_COUNT = CVARIABLE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link C.ecore.impl.CPreConditionImpl <em>CPre Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see C.ecore.impl.CPreConditionImpl
+	 * @see C.ecore.impl.EcorePackageImpl#getCPreCondition()
+	 * @generated
+	 */
+	int CPRE_CONDITION = 23;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPRE_CONDITION__EXPRESSION = CEXPRESSION__EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Predicate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPRE_CONDITION__PREDICATE = CEXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>CPre Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPRE_CONDITION_FEATURE_COUNT = CEXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>CPre Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CPRE_CONDITION_OPERATION_COUNT = CEXPRESSION_OPERATION_COUNT + 0;
 
 
 	/**
@@ -1839,6 +1921,17 @@ public interface EcorePackage extends EPackage {
 	EReference getCSubProgram_Body();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link C.ecore.CSubProgram#getPreconditions <em>Preconditions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Preconditions</em>'.
+	 * @see C.ecore.CSubProgram#getPreconditions()
+	 * @see #getCSubProgram()
+	 * @generated
+	 */
+	EReference getCSubProgram_Preconditions();
+
+	/**
 	 * Returns the meta object for class '{@link C.ecore.CDerivedType <em>CDerived Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1943,17 +2036,6 @@ public interface EcorePackage extends EPackage {
 	EReference getCTranslationUnit_SourceFiles();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link C.ecore.CTranslationUnit#getSubPrograms <em>Sub Programs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Sub Programs</em>'.
-	 * @see C.ecore.CTranslationUnit#getSubPrograms()
-	 * @see #getCTranslationUnit()
-	 * @generated
-	 */
-	EReference getCTranslationUnit_SubPrograms();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link C.ecore.CTranslationUnit#getHeaderFiles <em>Header Files</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1963,17 +2045,6 @@ public interface EcorePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCTranslationUnit_HeaderFiles();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link C.ecore.CTranslationUnit#getTypes <em>Types</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Types</em>'.
-	 * @see C.ecore.CTranslationUnit#getTypes()
-	 * @see #getCTranslationUnit()
-	 * @generated
-	 */
-	EReference getCTranslationUnit_Types();
 
 	/**
 	 * Returns the meta object for class '{@link C.ecore.CSourceFile <em>CSource File</em>}'.
@@ -2060,6 +2131,17 @@ public interface EcorePackage extends EPackage {
 	EReference getCFile_GlobalVariables();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link C.ecore.CFile#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Types</em>'.
+	 * @see C.ecore.CFile#getTypes()
+	 * @see #getCFile()
+	 * @generated
+	 */
+	EReference getCFile_Types();
+
+	/**
 	 * Returns the meta object for class '{@link C.ecore.CArrayVariable <em>CArray Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2068,6 +2150,27 @@ public interface EcorePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getCArrayVariable();
+
+	/**
+	 * Returns the meta object for class '{@link C.ecore.CPreCondition <em>CPre Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>CPre Condition</em>'.
+	 * @see C.ecore.CPreCondition
+	 * @generated
+	 */
+	EClass getCPreCondition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link C.ecore.CPreCondition#getPredicate <em>Predicate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Predicate</em>'.
+	 * @see C.ecore.CPreCondition#getPredicate()
+	 * @see #getCPreCondition()
+	 * @generated
+	 */
+	EAttribute getCPreCondition_Predicate();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2357,6 +2460,14 @@ public interface EcorePackage extends EPackage {
 		EReference CSUB_PROGRAM__BODY = eINSTANCE.getCSubProgram_Body();
 
 		/**
+		 * The meta object literal for the '<em><b>Preconditions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CSUB_PROGRAM__PRECONDITIONS = eINSTANCE.getCSubProgram_Preconditions();
+
+		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CDerivedTypeImpl <em>CDerived Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2449,28 +2560,12 @@ public interface EcorePackage extends EPackage {
 		EReference CTRANSLATION_UNIT__SOURCE_FILES = eINSTANCE.getCTranslationUnit_SourceFiles();
 
 		/**
-		 * The meta object literal for the '<em><b>Sub Programs</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CTRANSLATION_UNIT__SUB_PROGRAMS = eINSTANCE.getCTranslationUnit_SubPrograms();
-
-		/**
 		 * The meta object literal for the '<em><b>Header Files</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CTRANSLATION_UNIT__HEADER_FILES = eINSTANCE.getCTranslationUnit_HeaderFiles();
-
-		/**
-		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CTRANSLATION_UNIT__TYPES = eINSTANCE.getCTranslationUnit_Types();
 
 		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CSourceFileImpl <em>CSource File</em>}' class.
@@ -2545,6 +2640,14 @@ public interface EcorePackage extends EPackage {
 		EReference CFILE__GLOBAL_VARIABLES = eINSTANCE.getCFile_GlobalVariables();
 
 		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CFILE__TYPES = eINSTANCE.getCFile_Types();
+
+		/**
 		 * The meta object literal for the '{@link C.ecore.impl.CArrayVariableImpl <em>CArray Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2553,6 +2656,24 @@ public interface EcorePackage extends EPackage {
 		 * @generated
 		 */
 		EClass CARRAY_VARIABLE = eINSTANCE.getCArrayVariable();
+
+		/**
+		 * The meta object literal for the '{@link C.ecore.impl.CPreConditionImpl <em>CPre Condition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see C.ecore.impl.CPreConditionImpl
+		 * @see C.ecore.impl.EcorePackageImpl#getCPreCondition()
+		 * @generated
+		 */
+		EClass CPRE_CONDITION = eINSTANCE.getCPreCondition();
+
+		/**
+		 * The meta object literal for the '<em><b>Predicate</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CPRE_CONDITION__PREDICATE = eINSTANCE.getCPreCondition_Predicate();
 
 	}
 

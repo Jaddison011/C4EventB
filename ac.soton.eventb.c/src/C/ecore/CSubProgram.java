@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link C.ecore.CSubProgram#getParameters <em>Parameters</em>}</li>
  *   <li>{@link C.ecore.CSubProgram#getLocalVariables <em>Local Variables</em>}</li>
  *   <li>{@link C.ecore.CSubProgram#getBody <em>Body</em>}</li>
+ *   <li>{@link C.ecore.CSubProgram#getPreconditions <em>Preconditions</em>}</li>
  * </ul>
  *
  * @see C.ecore.EcorePackage#getCSubProgram()
@@ -58,5 +59,17 @@ public interface CSubProgram extends CNamedElement {
 	 * @generated
 	 */
 	EList<CExpression> getBody();
+
+	/**
+	 * Returns the value of the '<em><b>Preconditions</b></em>' containment reference list.
+	 * The list contents are of type {@link C.ecore.CPreCondition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preconditions</em>' containment reference list.
+	 * @see C.ecore.EcorePackage#getCSubProgram_Preconditions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<CPreCondition> getPreconditions();
 
 } // CSubProgram

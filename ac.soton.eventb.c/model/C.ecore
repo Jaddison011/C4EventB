@@ -46,6 +46,8 @@
         eType="#//CVariable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" upperBound="-1" eType="#//CExpression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preconditions" upperBound="-1"
+        eType="#//CPreCondition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CDerivedType" eSuperTypes="#//CType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//CType"/>
@@ -81,4 +83,7 @@
         eType="#//CType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CArrayVariable" eSuperTypes="#//CVariable #//CArray"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CPreCondition" eSuperTypes="#//CExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="predicate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

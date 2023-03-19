@@ -3,9 +3,6 @@
 package C.ecore.provider;
 
 
-import C.ecore.CExpression;
-import C.ecore.EcorePackage;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -78,7 +75,7 @@ public class CExpressionItemProvider
 				 getResourceLocator(),
 				 getString("_UI_CExpression_expression_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CExpression_expression_feature", "_UI_CExpression_type"),
-				 EcorePackage.Literals.CEXPRESSION__EXPRESSION,
+				 C.ecore.EcorePackage.Literals.CEXPRESSION__EXPRESSION,
 				 true,
 				 false,
 				 false,
@@ -106,7 +103,7 @@ public class CExpressionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CExpression)object).getExpression();
+		String label = ((C.ecore.CExpression)object).getExpression();
 		return label == null || label.length() == 0 ?
 			getString("_UI_CExpression_type") :
 			getString("_UI_CExpression_type") + " " + label;
@@ -124,8 +121,8 @@ public class CExpressionItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CExpression.class)) {
-			case EcorePackage.CEXPRESSION__EXPRESSION:
+		switch (notification.getFeatureID(C.ecore.CExpression.class)) {
+			case C.ecore.EcorePackage.CEXPRESSION__EXPRESSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

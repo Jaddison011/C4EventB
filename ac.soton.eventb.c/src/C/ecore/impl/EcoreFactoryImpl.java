@@ -79,6 +79,7 @@ public class EcoreFactoryImpl extends EFactoryImpl implements EcoreFactory {
 			case EcorePackage.CINCLUDE_DIRECTIVE: return createCIncludeDirective();
 			case EcorePackage.CFILE: return createCFile();
 			case EcorePackage.CARRAY_VARIABLE: return createCArrayVariable();
+			case EcorePackage.CPRE_CONDITION: return createCPreCondition();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -312,6 +313,16 @@ public class EcoreFactoryImpl extends EFactoryImpl implements EcoreFactory {
 	public CArrayVariable createCArrayVariable() {
 		CArrayVariableImpl cArrayVariable = new CArrayVariableImpl();
 		return cArrayVariable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CPreCondition createCPreCondition() {
+		CPreConditionImpl cPreCondition = new CPreConditionImpl();
+		return cPreCondition;
 	}
 
 	/**

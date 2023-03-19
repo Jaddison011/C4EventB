@@ -14,9 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link C.ecore.CTranslationUnit#getSourceFiles <em>Source Files</em>}</li>
- *   <li>{@link C.ecore.CTranslationUnit#getSubPrograms <em>Sub Programs</em>}</li>
  *   <li>{@link C.ecore.CTranslationUnit#getHeaderFiles <em>Header Files</em>}</li>
- *   <li>{@link C.ecore.CTranslationUnit#getTypes <em>Types</em>}</li>
  * </ul>
  *
  * @see C.ecore.EcorePackage#getCTranslationUnit()
@@ -37,18 +35,6 @@ public interface CTranslationUnit extends CNamedElement {
 	EList<CSourceFile> getSourceFiles();
 
 	/**
-	 * Returns the value of the '<em><b>Sub Programs</b></em>' containment reference list.
-	 * The list contents are of type {@link C.ecore.CSubProgram}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Sub Programs</em>' containment reference list.
-	 * @see C.ecore.EcorePackage#getCTranslationUnit_SubPrograms()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<CSubProgram> getSubPrograms();
-
-	/**
 	 * Returns the value of the '<em><b>Header Files</b></em>' containment reference list.
 	 * The list contents are of type {@link C.ecore.CHeaderFile}.
 	 * <!-- begin-user-doc -->
@@ -59,17 +45,5 @@ public interface CTranslationUnit extends CNamedElement {
 	 * @generated
 	 */
 	EList<CHeaderFile> getHeaderFiles();
-
-	/**
-	 * Returns the value of the '<em><b>Types</b></em>' containment reference list.
-	 * The list contents are of type {@link C.ecore.CType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Types</em>' containment reference list.
-	 * @see C.ecore.EcorePackage#getCTranslationUnit_Types()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<CType> getTypes();
 
 } // CTranslationUnit

@@ -229,6 +229,15 @@ public interface EcoreFactory extends EFactory {
 	CArrayVariable createCArrayVariable();
 
 	/**
+	 * Returns a new object of class '<em>CPre Condition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>CPre Condition</em>'.
+	 * @generated
+	 */
+	CPreCondition createCPreCondition();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

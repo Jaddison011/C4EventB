@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import C.ecore.CExpression;
 import C.ecore.CParameter;
+import C.ecore.CPreCondition;
 import C.ecore.CSubProgram;
 import C.ecore.CVariable;
 import C.ecore.EcorePackage;
@@ -31,6 +32,7 @@ import C.ecore.EcorePackage;
  *   <li>{@link C.ecore.impl.CSubProgramImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link C.ecore.impl.CSubProgramImpl#getLocalVariables <em>Local Variables</em>}</li>
  *   <li>{@link C.ecore.impl.CSubProgramImpl#getBody <em>Body</em>}</li>
+ *   <li>{@link C.ecore.impl.CSubProgramImpl#getPreconditions <em>Preconditions</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +67,16 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 	 * @ordered
 	 */
 	protected EList<CExpression> body;
+
+	/**
+	 * The cached value of the '{@link #getPreconditions() <em>Preconditions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPreconditions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CPreCondition> preconditions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,6 +138,18 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<CPreCondition> getPreconditions() {
+		if (preconditions == null) {
+			preconditions = new EObjectContainmentEList<CPreCondition>(CPreCondition.class, this, EcorePackage.CSUB_PROGRAM__PRECONDITIONS);
+		}
+		return preconditions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -135,6 +159,8 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 				return ((InternalEList<?>)getLocalVariables()).basicRemove(otherEnd, msgs);
 			case EcorePackage.CSUB_PROGRAM__BODY:
 				return ((InternalEList<?>)getBody()).basicRemove(otherEnd, msgs);
+			case EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
+				return ((InternalEList<?>)getPreconditions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -153,6 +179,8 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 				return getLocalVariables();
 			case EcorePackage.CSUB_PROGRAM__BODY:
 				return getBody();
+			case EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
+				return getPreconditions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -178,6 +206,10 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 				getBody().clear();
 				getBody().addAll((Collection<? extends CExpression>)newValue);
 				return;
+			case EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
+				getPreconditions().clear();
+				getPreconditions().addAll((Collection<? extends CPreCondition>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -199,6 +231,9 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 			case EcorePackage.CSUB_PROGRAM__BODY:
 				getBody().clear();
 				return;
+			case EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
+				getPreconditions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -217,6 +252,8 @@ public class CSubProgramImpl extends CNamedElementImpl implements CSubProgram {
 				return localVariables != null && !localVariables.isEmpty();
 			case EcorePackage.CSUB_PROGRAM__BODY:
 				return body != null && !body.isEmpty();
+			case EcorePackage.CSUB_PROGRAM__PRECONDITIONS:
+				return preconditions != null && !preconditions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

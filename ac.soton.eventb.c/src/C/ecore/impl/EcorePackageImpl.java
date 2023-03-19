@@ -25,6 +25,7 @@ import C.ecore.CIncludeDirective;
 import C.ecore.CNamedElement;
 import C.ecore.CParameter;
 import C.ecore.CPointer;
+import C.ecore.CPreCondition;
 import C.ecore.CProcedure;
 import C.ecore.CSourceFile;
 import C.ecore.CStruct;
@@ -202,6 +203,13 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * @generated
 	 */
 	private EClass cArrayVariableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass cPreConditionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -539,6 +547,15 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCSubProgram_Preconditions() {
+		return (EReference)cSubProgramEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCDerivedType() {
 		return cDerivedTypeEClass;
 	}
@@ -629,26 +646,8 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCTranslationUnit_SubPrograms() {
-		return (EReference)cTranslationUnitEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getCTranslationUnit_HeaderFiles() {
-		return (EReference)cTranslationUnitEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCTranslationUnit_Types() {
-		return (EReference)cTranslationUnitEClass.getEStructuralFeatures().get(3);
+		return (EReference)cTranslationUnitEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -728,8 +727,35 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCFile_Types() {
+		return (EReference)cFileEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCArrayVariable() {
 		return cArrayVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCPreCondition() {
+		return cPreConditionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCPreCondition_Predicate() {
+		return (EAttribute)cPreConditionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -801,6 +827,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		createEReference(cSubProgramEClass, CSUB_PROGRAM__PARAMETERS);
 		createEReference(cSubProgramEClass, CSUB_PROGRAM__LOCAL_VARIABLES);
 		createEReference(cSubProgramEClass, CSUB_PROGRAM__BODY);
+		createEReference(cSubProgramEClass, CSUB_PROGRAM__PRECONDITIONS);
 
 		cDerivedTypeEClass = createEClass(CDERIVED_TYPE);
 		createEReference(cDerivedTypeEClass, CDERIVED_TYPE__SUPER_TYPE);
@@ -817,9 +844,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 
 		cTranslationUnitEClass = createEClass(CTRANSLATION_UNIT);
 		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__SOURCE_FILES);
-		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__SUB_PROGRAMS);
 		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__HEADER_FILES);
-		createEReference(cTranslationUnitEClass, CTRANSLATION_UNIT__TYPES);
 
 		cSourceFileEClass = createEClass(CSOURCE_FILE);
 		createEReference(cSourceFileEClass, CSOURCE_FILE__INCLUDE_DIRECTIVES);
@@ -832,8 +857,12 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		cFileEClass = createEClass(CFILE);
 		createEReference(cFileEClass, CFILE__SUB_PROGRAMS);
 		createEReference(cFileEClass, CFILE__GLOBAL_VARIABLES);
+		createEReference(cFileEClass, CFILE__TYPES);
 
 		cArrayVariableEClass = createEClass(CARRAY_VARIABLE);
+
+		cPreConditionEClass = createEClass(CPRE_CONDITION);
+		createEAttribute(cPreConditionEClass, CPRE_CONDITION__PREDICATE);
 	}
 
 	/**
@@ -887,6 +916,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		cFileEClass.getESuperTypes().add(this.getCNamedElement());
 		cArrayVariableEClass.getESuperTypes().add(this.getCVariable());
 		cArrayVariableEClass.getESuperTypes().add(this.getCArray());
+		cPreConditionEClass.getESuperTypes().add(this.getCExpression());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(cNamedElementEClass, CNamedElement.class, "CNamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -930,6 +960,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		initEReference(getCSubProgram_Parameters(), this.getCParameter(), null, "parameters", null, 0, -1, CSubProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCSubProgram_LocalVariables(), this.getCVariable(), null, "localVariables", null, 0, -1, CSubProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCSubProgram_Body(), this.getCExpression(), null, "body", null, 0, -1, CSubProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCSubProgram_Preconditions(), this.getCPreCondition(), null, "preconditions", null, 0, -1, CSubProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cDerivedTypeEClass, CDerivedType.class, "CDerivedType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCDerivedType_SuperType(), this.getCType(), null, "superType", null, 0, 1, CDerivedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -946,9 +977,7 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 
 		initEClass(cTranslationUnitEClass, CTranslationUnit.class, "CTranslationUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCTranslationUnit_SourceFiles(), this.getCSourceFile(), null, "sourceFiles", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCTranslationUnit_SubPrograms(), this.getCSubProgram(), null, "subPrograms", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCTranslationUnit_HeaderFiles(), this.getCHeaderFile(), null, "headerFiles", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCTranslationUnit_Types(), this.getCType(), null, "types", null, 0, -1, CTranslationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cSourceFileEClass, CSourceFile.class, "CSourceFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCSourceFile_IncludeDirectives(), this.getCIncludeDirective(), null, "includeDirectives", null, 0, -1, CSourceFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -961,8 +990,12 @@ public class EcorePackageImpl extends EPackageImpl implements EcorePackage {
 		initEClass(cFileEClass, CFile.class, "CFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCFile_SubPrograms(), this.getCSubProgram(), null, "subPrograms", null, 0, -1, CFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCFile_GlobalVariables(), this.getCVariable(), null, "globalVariables", null, 0, -1, CFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCFile_Types(), this.getCType(), null, "types", null, 0, -1, CFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cArrayVariableEClass, CArrayVariable.class, "CArrayVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cPreConditionEClass, CPreCondition.class, "CPreCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCPreCondition_Predicate(), ecorePackage.getEString(), "predicate", null, 0, 1, CPreCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -1,11 +1,7 @@
 /**
  */
-package ecore.provider;
+package C.ecore.provider;
 
-
-import ecore.CStruct;
-import ecore.EcoreFactory;
-import ecore.EcorePackage;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,19 +17,19 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link ecore.CStruct} object.
+ * This is the item provider adapter for a {@link C.ecore.CArrayVariable} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class CStructItemProvider extends CDerivedTypeItemProvider {
+public class CArrayVariableItemProvider extends CVariableItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CStructItemProvider(AdapterFactory adapterFactory) {
+	public CArrayVariableItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -48,29 +44,75 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTypePropertyDescriptor(object);
+			addSuperTypePropertyDescriptor(object);
+			addElementTypePropertyDescriptor(object);
+			addSizePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Type feature.
+	 * This adds a property descriptor for the Super Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTypePropertyDescriptor(Object object) {
+	protected void addSuperTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CStruct_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CStruct_type_feature", "_UI_CStruct_type"),
-				 EcorePackage.Literals.CSTRUCT__TYPE,
+				 getString("_UI_CDerivedType_superType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CDerivedType_superType_feature", "_UI_CDerivedType_type"),
+				 C.ecore.EcorePackage.Literals.CDERIVED_TYPE__SUPER_TYPE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Element Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addElementTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CArray_elementType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CArray_elementType_feature", "_UI_CArray_type"),
+				 C.ecore.EcorePackage.Literals.CARRAY__ELEMENT_TYPE,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Size feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSizePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CArray_size_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CArray_size_feature", "_UI_CArray_type"),
+				 C.ecore.EcorePackage.Literals.CARRAY__SIZE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -87,7 +129,7 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(EcorePackage.Literals.CSTRUCT__FIELDS);
+			childrenFeatures.add(C.ecore.EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS);
 		}
 		return childrenFeatures;
 	}
@@ -106,14 +148,14 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	}
 
 	/**
-	 * This returns CStruct.gif.
+	 * This returns CArrayVariable.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CStruct"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CArrayVariable"));
 	}
 
 	/**
@@ -124,10 +166,10 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CStruct)object).getName();
+		String label = ((C.ecore.CArrayVariable)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_CStruct_type") :
-			getString("_UI_CStruct_type") + " " + label;
+			getString("_UI_CArrayVariable_type") :
+			getString("_UI_CArrayVariable_type") + " " + label;
 	}
 
 
@@ -142,11 +184,12 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CStruct.class)) {
-			case EcorePackage.CSTRUCT__TYPE:
+		switch (notification.getFeatureID(C.ecore.CArrayVariable.class)) {
+			case C.ecore.EcorePackage.CARRAY_VARIABLE__ELEMENT_TYPE:
+			case C.ecore.EcorePackage.CARRAY_VARIABLE__SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case EcorePackage.CSTRUCT__FIELDS:
+			case C.ecore.EcorePackage.CARRAY_VARIABLE__ARRAY_ELEMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -166,8 +209,8 @@ public class CStructItemProvider extends CDerivedTypeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(EcorePackage.Literals.CSTRUCT__FIELDS,
-				 EcoreFactory.eINSTANCE.createCField()));
+				(C.ecore.EcorePackage.Literals.CARRAY__ARRAY_ELEMENTS,
+				 C.ecore.EcoreFactory.eINSTANCE.createCArrayElement()));
 	}
 
 }

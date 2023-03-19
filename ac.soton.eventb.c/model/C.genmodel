@@ -44,6 +44,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/localVariables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSubProgram/preconditions"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CDerivedType">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference C.ecore#//CDerivedType/superType"/>
@@ -73,5 +74,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/types"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CArrayVariable"/>
+    <genClasses ecoreClass="C.ecore#//CPreCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CPreCondition/predicate"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

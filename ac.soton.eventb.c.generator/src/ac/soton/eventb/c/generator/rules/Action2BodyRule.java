@@ -12,25 +12,24 @@ import org.eventb.emf.core.machine.Machine;
 import ac.soton.emf.translator.TranslationDescriptor;
 import ac.soton.emf.translator.configuration.AbstractRule;
 import ac.soton.emf.translator.configuration.IRule;
-import ac.soton.eventb.spark.SparkExpression;
-import ac.soton.eventb.spark.SparkPackage;
-import ac.soton.eventb.spark.SparkPackageImp;
-import ac.soton.eventb.spark.SparkProcedure;
-import ac.soton.eventb.spark.SparkProcedureImp;
+import C.ecore.CExpression;
+import C.ecore.CFile;
+import C.ecore.CSourceFile;
+import C.ecore.EcorePackage;
+import C.ecore.CProcedure;
 
-
-import ac.soton.eventb.spark.generator.utils.SparkResourceUtils;
-import ac.soton.eventb.spark.generator.utils.SparkUtils;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
+import ac.soton.eventb.c.generator.utils.CUtils;
 
 
 public class Action2BodyRule extends AbstractRule implements IRule {
 
-	protected static final EReference proc_body = SparkPackage.Literals.SPARK_SUB_PROGRAM_IMP__BODY;
-	protected static final EReference procedures = SparkPackage.Literals.SPARK_PACKAGE_IMP__PROCEDURES;
-	protected static final EReference packages = SparkPackage.Literals.SPARK_PROJECT__IMP_PACKAGES;
+	protected static final EReference proc_body = EcorePackage.Literals.CSUB_PROGRAM__BODY;
+	protected static final EReference procedures = EcorePackage.Literals.CFILE__SUB_PROGRAMS;
+	protected static final EReference packages = EcorePackage.Literals.CTRANSLATION_UNIT__SOURCE_FILES;
 
 	private String evt_name;
-	private SparkProcedureImp proc;
+	private CProcedure proc;
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
@@ -51,7 +50,7 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 
 		Action act = (Action) sourceElement;
 	//	TODO : check if we need to check the actions, if they need additional translation.
-	    SparkExpression body = CUtils.createExpression(act.getAction());   
+	    CExpression body = CUtils.createExpression(act.getAction());   
 		ret.add(CUtils.descriptor(proc, proc_body , body, 3));
 
 		return ret;	
@@ -64,9 +63,9 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	
 			Machine mch = (Machine) sourceElement.eContainer().eContainer();
 	
-			SparkPackageImp impPackage = (SparkPackageImp) CResourceUtils.findGeneratedElement(translatedElements, null, packages, mch.getName());
-		    proc = (SparkProcedureImp) CResourceUtils.findGeneratedElement(translatedElements, impPackage, procedures, evt_name);
-			if (impPackage != null && proc != null)
+			CSourceFile sourceFile = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, packages, mch.getName());
+		    proc = (CProcedure) CResourceUtils.findGeneratedElement(translatedElements, sourceFile, procedures, evt_name);
+			if (sourceFile != null && proc != null)
 				return true;
 			else
 				return false;

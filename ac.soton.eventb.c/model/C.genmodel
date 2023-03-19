@@ -58,9 +58,7 @@
     <genClasses ecoreClass="C.ecore#//CProcedure"/>
     <genClasses ecoreClass="C.ecore#//CTranslationUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CTranslationUnit/sourceFiles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CTranslationUnit/subPrograms"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CTranslationUnit/headerFiles"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CTranslationUnit/types"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CSourceFile">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CSourceFile/includeDirectives"/>
@@ -72,6 +70,7 @@
     <genClasses ecoreClass="C.ecore#//CFile">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/subPrograms"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/globalVariables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFile/types"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CArrayVariable"/>
   </genPackages>

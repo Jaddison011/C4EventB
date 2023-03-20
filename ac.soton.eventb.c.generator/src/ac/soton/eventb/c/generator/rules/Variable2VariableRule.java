@@ -64,8 +64,8 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 
 		// TODO define event to translate event-b types to spark types
 		// array is done, still need to check other types
-		String Stype = CTranslatorUtils.eventBTypeToCType(Btype);
-		if (Stype == "Array") {
+		String ctype = CTranslatorUtils.eventBTypeToCType(Btype);
+		if (ctype == "Array") {
 			// create array
 			String array_name = var_name + "_array";
 			// Btype.getSource();
@@ -78,7 +78,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 			int arraySize = bounds[1] - bounds[0] + 1;
 			CArray arrayType = CUtils.createArray(array_name, array_type, arraySize);
 			ret.add(CUtils.descriptor(sourceFile, types, arrayType, 2));
-			Stype = array_name;
+			ctype = array_name;
 
 			// Get the initial value
 			String initVal = getInitialValue(var);
@@ -93,7 +93,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 				CArrayElement elem = CUtils.createCArrayElement(i, initVal);
 				elems.add(elem);
 			}
-			CVariable svar = CUtils.createVariable(var_name, Stype, "(others => " + initVal + ")");
+			CVariable svar = CUtils.createVariable(var_name, ctype, "(others => " + initVal + ")");
 			ret.add(CUtils.descriptor(sourceFile, variables, svar, 2));
 
 		}
@@ -102,7 +102,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 		else {
 			String initVal = getInitialValue(var);
 
-			CVariable svar = CUtils.createVariable(var_name, Stype, initVal);
+			CVariable svar = CUtils.createVariable(var_name, ctype, initVal);
 
 			ret.add(CUtils.descriptor(sourceFile, variables, svar, 2));
 		}

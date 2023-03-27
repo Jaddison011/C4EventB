@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: ac.soton.xtext.c
+Bundle-ManifestVersion: 2
+Bundle-Name: ac.soton.xtext.c
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: ac.soton.xtext.c; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: ac.soton.eventb.c,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11

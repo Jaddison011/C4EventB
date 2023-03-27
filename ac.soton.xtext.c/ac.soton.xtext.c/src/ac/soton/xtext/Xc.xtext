@@ -6,15 +6,48 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 CSourceFile returns CSourceFile:
 	{CSourceFile}
-	(includeDirectives += CIncludeDirective)*
-	(types += CType)*
-	(globalVariables += CVariable)*
-	(subPrograms += CSubProgram)*
-	name=EString
-;
+	(includeDirectives += CIncludeDirective |
+	types += CType |
+	globalVariables += CVariable |
+	subPrograms += CSubProgram)*
+	name=EString;
 
 CSubProgram returns CSubProgram:
-	CSubProgram_Impl | CFunction | CProcedure;
+	CFunction | CProcedure;
+
+CFunction returns CFunction:
+	{CFunction}
+	returnType=EString
+	name=EString
+	(
+		'('
+		parameters += CParameter ( "," parameters += CParameter)*
+		')'
+	)?
+	'{'
+		preconditions += CPreCondition
+		(
+			localVariables += CVariable |
+			body += CExpression 
+		)*
+		'return' returnStatement=CExpression
+	'}' endname=EString;
+
+CProcedure returns CProcedure:
+	{CProcedure}
+	name=EString
+	(
+		'('
+		parameters += CParameter ( "," parameters += CParameter)*
+		')'
+	)?
+	'{'
+		preconditions += CPreCondition
+		(
+			localVariables += CVariable |
+			body += CExpression 
+		)*
+	'}' endname=EString;
 
 CVariable returns CVariable:
 	CVariable_Impl | CArrayVariable;
@@ -22,7 +55,7 @@ CVariable returns CVariable:
 CType returns CType:
 	CType_Impl | CStruct | CField | CEnumeration | CArray_Impl | CPointer | CDerivedType_Impl | CDiscreteType_Impl | CArrayVariable;
 
-
+	
 
 CExpression returns CExpression:
 	CExpression_Impl | CPreCondition;
@@ -34,17 +67,7 @@ CExpression returns CExpression:
 EString returns ecore::EString:
 	STRING | ID;
 
-CSubProgram_Impl returns CSubProgram:
-	{CSubProgram}
-	'CSubProgram'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('parameters' '{' parameters+=CParameter ( "," parameters+=CParameter)* '}' )?
-		('localVariables' '{' localVariables+=CVariable ( "," localVariables+=CVariable)* '}' )?
-		('body' '{' body+=CExpression ( "," body+=CExpression)* '}' )?
-		('preconditions' '{' preconditions+=CPreCondition ( "," preconditions+=CPreCondition)* '}' )?
-	'}';
+
 
 CVariable_Impl returns CVariable:
 	{CVariable}
@@ -92,31 +115,6 @@ CPreCondition returns CPreCondition:
 	'{'
 		('expression' expression=EString)?
 		('predicate' predicate=EString)?
-	'}';
-
-CFunction returns CFunction:
-	{CFunction}
-	'CFunction'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('returnType' returnType=EString)?
-		('parameters' '{' parameters+=CParameter ( "," parameters+=CParameter)* '}' )?
-		('localVariables' '{' localVariables+=CVariable ( "," localVariables+=CVariable)* '}' )?
-		('body' '{' body+=CExpression ( "," body+=CExpression)* '}' )?
-		('preconditions' '{' preconditions+=CPreCondition ( "," preconditions+=CPreCondition)* '}' )?
-	'}';
-
-CProcedure returns CProcedure:
-	{CProcedure}
-	'CProcedure'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('parameters' '{' parameters+=CParameter ( "," parameters+=CParameter)* '}' )?
-		('localVariables' '{' localVariables+=CVariable ( "," localVariables+=CVariable)* '}' )?
-		('body' '{' body+=CExpression ( "," body+=CExpression)* '}' )?
-		('preconditions' '{' preconditions+=CPreCondition ( "," preconditions+=CPreCondition)* '}' )?
 	'}';
 
 EBoolean returns ecore::EBoolean:

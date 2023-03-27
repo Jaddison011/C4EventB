@@ -39,7 +39,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CSubProgram" eSuperTypes="#//CNamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="CSubProgram" abstract="true" eSuperTypes="#//CNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//CParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="localVariables" upperBound="-1"
@@ -58,6 +58,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CFunction" eSuperTypes="#//CSubProgram">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="returnType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnStatement" eType="#//CExpression"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CProcedure" eSuperTypes="#//CSubProgram"/>
   <eClassifiers xsi:type="ecore:EClass" name="CTranslationUnit" eSuperTypes="#//CNamedElement">
@@ -74,7 +76,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CIncludeDirective" eSuperTypes="#//CNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="header" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CFile" eSuperTypes="#//CNamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="CFile" abstract="true" eSuperTypes="#//CNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subPrograms" upperBound="-1"
         eType="#//CSubProgram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="globalVariables" upperBound="-1"

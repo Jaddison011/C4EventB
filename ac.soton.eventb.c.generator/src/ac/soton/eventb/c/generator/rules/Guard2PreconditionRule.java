@@ -56,7 +56,8 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 		
 		Machine mch = (Machine) grd.eContainer().eContainer();
 		String BPred = grd.getPredicate();
-		String CPred = CTranslatorUtils.eventBPredToCPred(BPred, mch);
+		String CPred = BPred; // TODO: Investigate this
+//		String CPred = CTranslatorUtils.eventBPredToCPred(BPred, mch);
 		CPreCondition precond = CUtils.createPrecondition(CPred);   
 		ret.add(CUtils.descriptor(proc, preconditions , precond, 3));
 

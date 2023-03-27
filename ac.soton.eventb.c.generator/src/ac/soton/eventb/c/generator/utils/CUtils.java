@@ -5,7 +5,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import ac.soton.emf.translator.TranslationDescriptor;
-import ac.soton.eventb.spark.SparkPreCondition;
 import C.ecore.CArray;
 import C.ecore.CArrayElement;
 import C.ecore.CDerivedType;
@@ -42,11 +41,11 @@ public class CUtils {
 	private static EcoreFactory cFactory = EcoreFactory.eINSTANCE;
 	
 	public static TranslationDescriptor descriptor(EObject parent, EStructuralFeature feature, Object value, int priority){
-		return new TranslationDescriptor(parent,feature,value,Integer.valueOf(priority));
+		return new TranslationDescriptor(parent,feature,value,null,Integer.valueOf(priority), false, null);
 	}
 	
 	public static TranslationDescriptor descriptor(EObject parent, EStructuralFeature feature, Object value , int priority, Boolean remove) {
-		return new TranslationDescriptor(parent, feature,value,Integer.valueOf(priority), remove);
+		return new TranslationDescriptor(parent, feature,value,null,Integer.valueOf(priority), remove, null);
 	}
 	
 //	// Added to test //TODO: 

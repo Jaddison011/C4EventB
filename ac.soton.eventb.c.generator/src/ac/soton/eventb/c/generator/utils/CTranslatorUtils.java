@@ -379,16 +379,16 @@ public class CTranslatorUtils {
 		FormulaFactory ff = mchRoot.getFormulaFactory();
 //		ISCMachineRoot scMachineRoot = mchRoot.getSCMachineRoot();
 		Map<String, Boolean> recordFields = getRecordFields(mch);
-		String SPredicate = "";
+		String cPredicate = "";
 		Predicate parsePredicate = DLib.parsePredicate(ff, BPredicate);
 	    
 		if (parsePredicate.getTag() == Predicate.EXISTS) {
-			SPredicate += "for some ";
+			cPredicate += "for some ";
 
 			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
 			// TODO: can we translate the predicate if it has more than one bounded identifier?
 			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+		      cPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
 			// TODO: else what?
 		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
             String sQuantified = quantifiedPredicate.toString();
@@ -396,7 +396,7 @@ public class CTranslatorUtils {
             int index = split[1].indexOf("∧");
             String s = split[1].replace("∧", "=> ");         
             String s1 = s.substring(0, index);
-            SPredicate += " in " + s1;
+            cPredicate += " in " + s1;
             String s2 = s.substring(index);
 //            Map<String, Boolean> recordFields = getRecordFields(mch);
 
@@ -418,16 +418,16 @@ public class CTranslatorUtils {
 //            }
             s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
             
-            SPredicate = SPredicate + " " + s2;
+            cPredicate = cPredicate + " " + s2;
 		}
 		
 		else if (parsePredicate.getTag() == Predicate.FORALL) {
-			SPredicate += "for all ";
+			cPredicate += "for all ";
 
 			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
 			// TODO: can we translate the predicate if it has more than one bounded identifier?
 			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
-		      SPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
+		      cPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
 			// TODO: else what?
 		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
             String sQuantified = quantifiedPredicate.toString();
@@ -435,28 +435,28 @@ public class CTranslatorUtils {
           //  String s = split[1];//.replace("∧", "=> "); 
             int index = split[1].indexOf("=>");
             String s1 = split[1].substring(0, index);
-            SPredicate += " in " + s1;
+            cPredicate += " in " + s1;
             String s2 = split[1].substring(index);
          //   Map<String, Boolean> recordFields = getRecordFields(mch);
             s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
            
-            SPredicate = SPredicate + " " + s2;
+            cPredicate = cPredicate + " " + s2;
 		}
 		else {
 			FreeIdentifier[] freeIdentifiers = parsePredicate.getFreeIdentifiers();
 			String parse = parsePredicate.toString();
 			parse = " " + parse + " ";
-			SPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
+			cPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
 			//SPredicate = BPredicate;
 		}
 		//TODO: Check if there is more
-	    SPredicate = SPredicate.replaceAll("∧", " and ");
-	    SPredicate = SPredicate.replaceAll("∨", " or ");
-	    SPredicate = SPredicate.replaceAll("∈", " in ");
-	    SPredicate = SPredicate.replaceAll("∉" , " not in ");
-	    SPredicate = SPredicate.replaceAll("≠" , " /= ");
-	    SPredicate = SPredicate.replaceAll("‥" , " .. ");
-		return SPredicate;
+	    cPredicate = cPredicate.replaceAll("∧", " and ");
+	    cPredicate = cPredicate.replaceAll("∨", " or ");
+	    cPredicate = cPredicate.replaceAll("∈", " in ");
+	    cPredicate = cPredicate.replaceAll("∉" , " not in ");
+	    cPredicate = cPredicate.replaceAll("≠" , " /= ");
+	    cPredicate = cPredicate.replaceAll("‥" , " .. ");
+		return cPredicate;
 	}
 	
 	public static List<String> getSCAxiomStrings(Context context) throws RodinDBException{

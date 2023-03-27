@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: ac.soton.xtext.c
+Bundle-ManifestVersion: 2
+Bundle-Name: ac.soton.xtext.c
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: ac.soton.xtext.c; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: ac.soton.eventb.c,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ ac.soton.xeventb.xmachine;bundle-version="2.1.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: ac.soton.xtext.c.serializer,
+ ac.soton.xtext.c.parser.antlr,
+ ac.soton.xtext.c.services,
+ ac.soton.xtext.c.validation,
+ ac.soton.xtext.c.parser.antlr.internal,
+ ac.soton.xtext.c.formatting2,
+ ac.soton.xtext.c.generator,
+ ac.soton.xtext.c,
+ ac.soton.xtext.c.scoping
+Import-Package: org.apache.log4j

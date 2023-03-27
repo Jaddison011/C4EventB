@@ -112,7 +112,7 @@
             command_id="ac.soton.eventb.c.generator.CConvert"
             name="C Convert"
             root_source_class="Machine"
-            source_package="http://emf.eventb.org/models/core/machine/2014"
+            source_package="http://emf.eventb.org/models/core/machine"
             translator_id="ac.soton.eventb.C.generator.handlers.CTranslateHandler">
       </translator>
    </extension>
@@ -121,7 +121,7 @@
       <ruleset
             translator_id="ac.soton.eventb.c.generator.handlers.CTranslateHandler">
          <rule
-               name="Machine2PackageRule"
+               name="Machine2SourceRule"
                rule_class="ac.soton.eventb.c.generator.rules.Machine2SourceRule"
                source_class="Machine">
          </rule>
@@ -131,7 +131,7 @@
                source_class="Machine">
          </rule>
          <rule
-               name="Context2PackageRule"
+               name="Context2SourceRule"
                rule_class="ac.soton.eventb.c.generator.rules.Context2SourceRule"
                source_class="Machine">
          </rule>
@@ -151,13 +151,23 @@
                source_class="Machine">
          </rule>
          <rule
-               name="Record2RecordRule"
+               name="Record2StructRule"
                rule_class="ac.soton.eventb.c.generator.rules.Record2StructRule"
                source_class="Machine">
          </rule>
          <rule
                name="Constant2ConstantRule"
                rule_class="ac.soton.eventb.c.generator.rules.Constant2ConstantRule"
+               source_class="Machine">
+         </rule>
+         <rule
+               name="Guard2PreconditionRule"
+               rule_class="ac.soton.eventb.c.generator.rules.Guard2PreconditionRule"
+               source_class="Machine">
+         </rule>
+         <rule
+               name="Event2ProcedureRule"
+               rule_class="ac.soton.eventb.c.generator.rules.Event2ProcedureRule"
                source_class="Machine">
          </rule>
       </ruleset>

@@ -4,12 +4,19 @@ grammar ac.soton.xtext.Xc with org.eclipse.xtext.common.Terminals
 import "http://ac/soton/eventb/c" 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
+// TODO: Figure out how to declare arrays / separate the declaration and initialisation of arrayvariables and types
+// TODO: Figure out how to declare and create calls of helper functions for predicates
+// TODO: Expressions/main code body
+
 CSourceFile returns CSourceFile:
 	{CSourceFile}
 	(includeDirectives += CIncludeDirective |
 	types += CType |
 	globalVariables += CVariable |
 	subPrograms += CSubProgram)*
+	subPrograms += Context
+	subPrograms += Initialisation
+	SubPrograms += Main
 //	name=EString
 ;
 
@@ -65,13 +72,41 @@ CVariable returns CVariable:
 CVariable_Impl returns CVariable:
 	{CVariable}
 	(isConstant?='const')?
+	type=CType // Not sure, since you cant make like struct types but only ints, arrays etc
+	name=EString
+	('=' EString)? // Instantiation, set the variable to some value
+	';'
+;
+
+CArrayVariable returns CArrayVariable:
+	{CArrayVariable}
+	type=EString '*'
+	name=EString
+;
+//	'{'
+//		('endname' endname=EString)?
+//		('value' value=EString)?
+//		('type' type=EString)?
+//		('elementType' elementType=EString)?
+//		('size' size=EInt)?
+//		('superType' superType=[CType|EString])?
+//		('arrayElements' '{' arrayElements+=CArrayElement ( "," arrayElements+=CArrayElement)* '}' )?
+//	'}';
+
+CArrayElement returns CArrayElement:
+	{CArrayElement}
 	type=EString
 	name=EString
-	'{'
-		('endname' endname=EString)?
-		('value' value=EString)?
-		('type' type=EString)?
-	'}';
+	index=EInt
+	value=EString
+;
+
+// Creates a new pointer type e.g. int*, pointer variables are dealt with separately -> see CVariable
+CPointer returns CPointer:
+	{CPointer}
+	type=EString 
+	'*'
+;
 
 CType returns CType:
 	CType_Impl | CStruct | CField | CEnumeration | CArray_Impl | CPointer | CDerivedType_Impl | CDiscreteType_Impl | CArrayVariable;
@@ -107,6 +142,10 @@ Predicate returns ecore::EString:
 	(predicate_helper_function_call() '==' INT) (LogicalOperators Predicate)* // Predicate using set theory constructs
 ;
 
+predicate_helper_function_call:
+	(parameters += CParameter)+
+;
+
 Formula returns ecore::EString:
 	(
 	INT |
@@ -135,66 +174,41 @@ LogicalOperators returns ecore::EString:
 EString returns ecore::EString:
 	STRING | ID;
 
-
-
 EBoolean returns ecore::EBoolean:
-	'true' | 'false';
-
-CArrayVariable returns CArrayVariable:
-	{CArrayVariable}
-	(isConstant?='isConstant')?
-	'CArrayVariable'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('value' value=EString)?
-		('type' type=EString)?
-		('elementType' elementType=EString)?
-		('size' size=EInt)?
-		('superType' superType=[CType|EString])?
-		('arrayElements' '{' arrayElements+=CArrayElement ( "," arrayElements+=CArrayElement)* '}' )?
-	'}';
+	'1' | '0';
 
 EInt returns ecore::EInt:
 	'-'? INT;
 
-CArrayElement returns CArrayElement:
-	{CArrayElement}
-	'CArrayElement'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('index' index=EInt)?
-		('value' value=EString)?
-	'}';
+
 
 CStruct returns CStruct:
 	{CStruct}
-	'CStruct'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('type' type=EString)?
-		('superType' superType=[CType|EString])?
-		('fields' '{' fields+=CField ( "," fields+=CField)* '}' )?
-	'}';
+	'typedef' 'struct' name=EString '{'
+		(fields+=CField ';')*
+	'}' type=EString;
 
 CField returns CField:
 	{CField}
-	'CField'
+	type=EString
 	name=EString
-	'{'
-		('endname' endname=EString)?
-	'}';
+	;
 
 CEnumeration returns CEnumeration:
 	{CEnumeration}
-	'CEnumeration'
-	name=EString
+	'typedef' 'enum' name=EString '{' 
+		(enumProperties += CEnumProperties ( "," enumProperties+=CEnumProperties)*)?
+	'}' type=EString
 	'{'
 		('endname' endname=EString)?
 		('enumProperties' '{' enumProperties+=CEnumProperties ( "," enumProperties+=CEnumProperties)* '}' )?
 	'}';
+	
+CEnumProperties returns CEnumProperties:
+	{CEnumProperties}
+	name=EString
+//	integralConstant=EInt
+	;
 
 CArray_Impl returns CArray:
 	{CArray}
@@ -206,15 +220,6 @@ CArray_Impl returns CArray:
 		('size' size=EInt)?
 		('superType' superType=[CType|EString])?
 		('arrayElements' '{' arrayElements+=CArrayElement ( "," arrayElements+=CArrayElement)* '}' )?
-	'}';
-
-CPointer returns CPointer:
-	{CPointer}
-	'CPointer'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('superType' superType=[CType|EString])?
 	'}';
 
 CDerivedType_Impl returns CDerivedType:
@@ -234,11 +239,4 @@ CDiscreteType_Impl returns CDiscreteType:
 		('endname' endname=EString)?
 	'}';
 
-CEnumProperties returns CEnumProperties:
-	{CEnumProperties}
-	'CEnumProperties'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('integralConstant' integralConstant=EInt)?
-	'}';
+

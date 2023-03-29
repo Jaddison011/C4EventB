@@ -10,7 +10,12 @@ CSourceFile returns CSourceFile:
 	types += CType |
 	globalVariables += CVariable |
 	subPrograms += CSubProgram)*
-	name=EString;
+//	name=EString
+;
+
+CIncludeDirective returns CIncludeDirective:
+	{CIncludeDirective}
+	'#include' '<' name=EString '>';
 
 CSubProgram returns CSubProgram:
 	CFunction | CProcedure;
@@ -49,30 +54,18 @@ CProcedure returns CProcedure:
 		)*
 	'}' endname=EString;
 
+CParameter returns CParameter:
+	{CParameter}
+	type=EString
+	name=EString;
+
 CVariable returns CVariable:
 	CVariable_Impl | CArrayVariable;
 
-CType returns CType:
-	CType_Impl | CStruct | CField | CEnumeration | CArray_Impl | CPointer | CDerivedType_Impl | CDiscreteType_Impl | CArrayVariable;
-
-	
-
-CExpression returns CExpression:
-	CExpression_Impl | CPreCondition;
-
-
-
-
-
-EString returns ecore::EString:
-	STRING | ID;
-
-
-
 CVariable_Impl returns CVariable:
 	{CVariable}
-	(isConstant?='isConstant')?
-	'CVariable'
+	(isConstant?='const')?
+	type=EString
 	name=EString
 	'{'
 		('endname' endname=EString)?
@@ -80,27 +73,19 @@ CVariable_Impl returns CVariable:
 		('type' type=EString)?
 	'}';
 
+CType returns CType:
+	CType_Impl | CStruct | CField | CEnumeration | CArray_Impl | CPointer | CDerivedType_Impl | CDiscreteType_Impl | CArrayVariable;
+
 CType_Impl returns CType:
 	{CType}
 	'CType'
 	name=EString
 	'{'
 		('endname' endname=EString)?
-	'}';
+	'}';	
 
-CIncludeDirective returns CIncludeDirective:
-	{CIncludeDirective}
-	'#include' '<' '>' name=EString
-;
-
-CParameter returns CParameter:
-	{CParameter}
-	'CParameter'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-		('type' type=EString)?
-	'}';
+CExpression returns CExpression:
+	CExpression_Impl | CPreCondition;
 
 CExpression_Impl returns CExpression:
 	{CExpression}
@@ -111,11 +96,46 @@ CExpression_Impl returns CExpression:
 
 CPreCondition returns CPreCondition:
 	{CPreCondition}
-	'CPreCondition'
-	'{'
-		('expression' expression=EString)?
-		('predicate' predicate=EString)?
-	'}';
+	// Used to declare a guard containing basic mathematical comparisons
+	'if' '(' predicate=Predicate ')' '{'
+		(expression+=CExpression)*
+	'}' 
+	;
+
+Predicate returns ecore::EString:
+	Formula (LogicalOperators Predicate)* | // Predicate using basic mathematical operations
+	(predicate_helper_function_call() '==' INT) (LogicalOperators Predicate)* // Predicate using set theory constructs
+;
+
+Formula returns ecore::EString:
+	(
+	INT |
+	ID |
+	'==' |
+	'<' |
+	'>' |
+	'>=' |
+	'<=' |
+	'!=' |
+	('(' Formula ')')
+	)+;
+
+IntegerFormula returns ecore::EString:
+	(
+	INT |
+	ID |
+	('(' IntegerFormula ')')
+	)+;
+
+LogicalOperators returns ecore::EString:
+	'&&' |
+	'||'
+;
+
+EString returns ecore::EString:
+	STRING | ID;
+
+
 
 EBoolean returns ecore::EBoolean:
 	'true' | 'false';

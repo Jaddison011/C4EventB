@@ -4,9 +4,10 @@ grammar ac.soton.xtext.Xc with org.eclipse.xtext.common.Terminals
 import "http://ac/soton/eventb/c" 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-// TODO: Figure out how to declare arrays / separate the declaration and initialisation of arrayvariables and types
+// TODO: Figure out how to declare arrays / separate the declaration and initialisation of arrayVariables and types
 // TODO: Figure out how to declare and create calls of helper functions for predicates
 // TODO: Expressions/main code body
+// TODO: Figure out grammar for typing
 
 CSourceFile returns CSourceFile:
 	{CSourceFile}
@@ -72,15 +73,21 @@ CVariable returns CVariable:
 CVariable_Impl returns CVariable:
 	{CVariable}
 	(isConstant?='const')?
-	type=CType // Not sure, since you cant make like struct types but only ints, arrays etc
+	type=CType // This includes some types e.g. structs and enums which cannot be used  
 	name=EString
-	('=' EString)? // Instantiation, set the variable to some value
-	';'
+;
+
+VariableInstantiation returns CVariable:
+	CStruct | CEnumeration |
+	type=CInt name=EString '=' value=CExpression | // set to some value
+	type=CPointer name=EString '=' value=CVariable | // set a pointer to some variable
+	type=CPointer name=EString '=' 'malloc' '(' size=CExpression ')'|  // initialise pointer memory using malloc
+	type=CPointer name=EString '=' 'calloc' '(' size=CExpression ',' size=CExpression ')' // initialise pointer memory using calloc (used for boolean arrays)
 ;
 
 CArrayVariable returns CArrayVariable:
 	{CArrayVariable}
-	type=EString '*'
+	type=CType '*'
 	name=EString
 ;
 //	'{'
@@ -93,31 +100,17 @@ CArrayVariable returns CArrayVariable:
 //		('arrayElements' '{' arrayElements+=CArrayElement ( "," arrayElements+=CArrayElement)* '}' )?
 //	'}';
 
-CArrayElement returns CArrayElement:
-	{CArrayElement}
-	type=EString
-	name=EString
-	index=EInt
-	value=EString
+//CArrayElement returns CArrayElement:
+//	{CArrayElement}
+//	type=EString
+//	name=EString
+//	index=EInt
+//	value=EString
+//;
+
+ArrayElementDeclaration returns CArrayElement:
+	CArrayVariable '[' index=EInt ']' '=' value=EString
 ;
-
-// Creates a new pointer type e.g. int*, pointer variables are dealt with separately -> see CVariable
-CPointer returns CPointer:
-	{CPointer}
-	type=EString 
-	'*'
-;
-
-CType returns CType:
-	CType_Impl | CStruct | CField | CEnumeration | CArray_Impl | CPointer | CDerivedType_Impl | CDiscreteType_Impl | CArrayVariable;
-
-CType_Impl returns CType:
-	{CType}
-	'CType'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-	'}';	
 
 CExpression returns CExpression:
 	CExpression_Impl | CPreCondition;
@@ -139,7 +132,7 @@ CPreCondition returns CPreCondition:
 
 Predicate returns ecore::EString:
 	Formula (LogicalOperators Predicate)* | // Predicate using basic mathematical operations
-	(predicate_helper_function_call() '==' INT) (LogicalOperators Predicate)* // Predicate using set theory constructs
+	(predicate_helper_function_call() '==' EBoolean) (LogicalOperators Predicate)* // Predicate using set theory constructs
 ;
 
 predicate_helper_function_call:
@@ -171,6 +164,18 @@ LogicalOperators returns ecore::EString:
 	'||'
 ;
 
+// Used for type references
+CType returns CType:
+	CInt | CBoolean | CStruct_type | CEnum_type | CArray_type | CPointer_type;
+
+//CType_Impl returns CType:
+//	{CType}
+//	'CType'
+//	name=EString
+//	'{'
+//		('endname' endname=EString)?
+//	'}';	
+
 EString returns ecore::EString:
 	STRING | ID;
 
@@ -179,8 +184,14 @@ EBoolean returns ecore::EBoolean:
 
 EInt returns ecore::EInt:
 	'-'? INT;
+	
+CInt returns CType:
+	{CType} '-'? INT
+;
 
-
+CBoolean returns CType:
+	{CType} '1' | {CType} '0'
+;
 
 CStruct returns CStruct:
 	{CStruct}
@@ -192,51 +203,57 @@ CField returns CField:
 	{CField}
 	type=EString
 	name=EString
-	;
+;
 
 CEnumeration returns CEnumeration:
 	{CEnumeration}
 	'typedef' 'enum' name=EString '{' 
 		(enumProperties += CEnumProperties ( "," enumProperties+=CEnumProperties)*)?
 	'}' type=EString
-	'{'
-		('endname' endname=EString)?
-		('enumProperties' '{' enumProperties+=CEnumProperties ( "," enumProperties+=CEnumProperties)* '}' )?
-	'}';
-	
+;
+
 CEnumProperties returns CEnumProperties:
 	{CEnumProperties}
 	name=EString
 //	integralConstant=EInt
 	;
 
-CArray_Impl returns CArray:
-	{CArray}
-	'CArray'
+CArray_type returns CType:
+	type=EString '*'
 	name=EString
-	'{'
-		('endname' endname=EString)?
-		('elementType' elementType=EString)?
-		('size' size=EInt)?
-		('superType' superType=[CType|EString])?
-		('arrayElements' '{' arrayElements+=CArrayElement ( "," arrayElements+=CArrayElement)* '}' )?
-	'}';
+;
 
-CDerivedType_Impl returns CDerivedType:
-	{CDerivedType}
-	'CDerivedType'
+CStruct_type returns CType:
 	name=EString
-	'{'
-		('endname' endname=EString)?
-		('superType' superType=[CType|EString])?
-	'}';
+;
 
-CDiscreteType_Impl returns CDiscreteType:
-	{CDiscreteType}
-	'CDiscreteType'
-	name=EString
-	'{'
-		('endname' endname=EString)?
-	'}';
+CEnum_type returns CType:
+	'enum' name=EString
+;
 
+CPointer_type returns CType:
+	name=CInt '*' | name=CBoolean '*' | name=CStruct_type '*' | name=CEnum_type '*'
+;
 
+//CDerivedType_Impl returns CDerivedType:
+//	{CDerivedType}
+//	'CDerivedType'
+//	name=EString
+//	'{'
+//		('endname' endname=EString)?
+//		('superType' superType=[CType|EString])?
+//	'}';
+
+//CDiscreteType_Impl returns CDiscreteType:
+//	{CDiscreteType}
+//	'CDiscreteType'
+//	name=EString
+//	'{'
+//		('endname' endname=EString)?
+//	'}';
+
+// Creates a new pointer type e.g. int*, pointer variables are dealt with separately -> see CVariable
+CPointer returns CPointer:
+	{CPointer}
+	type=EString '*'
+;

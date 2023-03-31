@@ -83,8 +83,8 @@ CArrayVariable returns CArrayVariable:
 	type=CType '*'
 	name=EString | 
 	(type=CType)? name=EString '[' index=EInt ']' '=' value=EString |
-	type=CPointer name=EString '=' 'malloc' '(' size=Formula ')'|
-	type=CPointer name=EString '=' 'calloc' '(' Formula ',' Formula ')'
+	type=CPointer name=EString '=' 'malloc' '(' size=MathematicalFormula ')'|
+	type=CPointer name=EString '=' 'calloc' '(' MathematicalFormula ',' MathematicalFormula ')'
 ;
 //	'{'
 //		('endname' endname=EString)?
@@ -105,7 +105,7 @@ CArrayVariable returns CArrayVariable:
 //;
 
 CExpression returns CExpression:
-	CExpression_Impl | CPreCondition | ArrayLen | ForLoop;
+	CExpression_Impl | CPreCondition | {CExpression} MathematicalFormula | ArrayLen | ForLoop;
 
 CExpression_Impl returns CExpression:
 	{CExpression}
@@ -125,7 +125,7 @@ CPreCondition returns CPreCondition:
 
 ForLoop returns CExpression:
 	{CExpression}
-	'for' '(' EString ';' Formula ';' Formula ')' '{'
+	'for' '(' EString ';' Formula ';' MathematicalFormula ')' '{'
 		expression+=CExpression
 	'}'
 ;
@@ -156,6 +156,20 @@ Formula returns ecore::EString:
 	'!=' |
 	('(' Formula ')')
 	)+;
+
+MathematicalFormula returns ecore::EString:
+	(
+	INT |
+	ID |
+	'+' |
+	'-' |
+	'*' |
+	'/' |
+	('(' IntegerFormula ')')
+	)+ |
+	'++'
+	'--'
+;
 
 IntegerFormula returns ecore::EString:
 	(

@@ -25,6 +25,45 @@ CIncludeDirective returns CIncludeDirective:
 	{CIncludeDirective}
 	'#include' '<' name=EString '>';
 
+Context returns CProcedure:
+	name="context"
+	(
+		'(' ')'
+	)?
+	'{'
+		(
+			localVariables += CVariable |
+			body += CExpression 
+		)*
+	'}'
+;
+
+Initialisation returns CProcedure:
+	name="initialisation"
+	(
+		'(' ')'
+	)?
+	'{'
+		(
+			localVariables += CVariable |
+			body += CExpression 
+		)*
+	'}'
+;
+
+Main returns CProcedure:
+	name="main"
+	(
+		'(' ')'
+	)?
+	'{'
+		(
+			localVariables += CVariable |
+			body += CExpression 
+		)*
+	'}'
+;
+
 CSubProgram returns CSubProgram:
 	CFunction | CProcedure;
 
@@ -60,7 +99,8 @@ CProcedure returns CProcedure:
 			localVariables += CVariable |
 			body += CExpression 
 		)*
-	'}' endname=EString;
+	'}'
+;
 
 CParameter returns CParameter:
 	{CParameter}
@@ -137,12 +177,12 @@ ArrayLen returns CExpression:
 
 Predicate returns ecore::EString:
 	Formula (LogicalOperators Predicate)* | // Predicate using basic mathematical operations
-	(predicate_helper_function_call() '==' EBoolean) (LogicalOperators Predicate)* // Predicate using set theory constructs
+	(CFunction '==' EBoolean) (LogicalOperators Predicate)* // Predicate using set theory constructs
 ;
 
-predicate_helper_function_call:
-	(parameters += CParameter)+
-;
+//predicate_helper_function_call:
+//	(parameters += CParameter)+
+//;
 
 Formula returns ecore::EString:
 	(

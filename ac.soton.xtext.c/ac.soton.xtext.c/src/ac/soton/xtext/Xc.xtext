@@ -4,10 +4,10 @@ grammar ac.soton.xtext.Xc with org.eclipse.xtext.common.Terminals
 import "http://ac/soton/eventb/c" 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-// TODO: Figure out how to declare arrays / separate the declaration and initialisation of arrayVariables and types
-// TODO: Figure out how to declare and create calls of helper functions for predicates
-// TODO: Expressions/main code body
-// TODO: Figure out grammar for typing
+// TODO: Figure out how to declare arrays / separate the declaration and initialisation of arrayVariables and types (i think this is done)
+// TODO: Figure out how to declare and create calls of helper functions for predicates (i still have no idea how to do this)
+// TODO: Expressions/main code body (next to do) Malloc and calloc expressions should be part of expressions (some attempt)
+// TODO: Figure out grammar for typing (I think this is done)
 
 CSourceFile returns CSourceFile:
 	{CSourceFile}
@@ -68,27 +68,23 @@ CParameter returns CParameter:
 	name=EString;
 
 CVariable returns CVariable:
-	CVariable_Impl | CArrayVariable;
+	CVariable_Impl | CArrayVariable | CStruct | CEnumeration;
 
 CVariable_Impl returns CVariable:
 	{CVariable}
 	(isConstant?='const')?
-	type=CType // This includes some types e.g. structs and enums which cannot be used  
+	type=CType // This includes some types e.g. structs and enums which cannot be used but correctly covers pointers 
 	name=EString
-;
-
-VariableInstantiation returns CVariable:
-	CStruct | CEnumeration |
-	type=CInt name=EString '=' value=CExpression | // set to some value
-	type=CPointer name=EString '=' value=CVariable | // set a pointer to some variable
-	type=CPointer name=EString '=' 'malloc' '(' size=CExpression ')'|  // initialise pointer memory using malloc
-	type=CPointer name=EString '=' 'calloc' '(' size=CExpression ',' size=CExpression ')' // initialise pointer memory using calloc (used for boolean arrays)
+	('=' value=CExpression)? // set to some value or variable
 ;
 
 CArrayVariable returns CArrayVariable:
 	{CArrayVariable}
 	type=CType '*'
-	name=EString
+	name=EString | 
+	(type=CType)? name=EString '[' index=EInt ']' '=' value=EString |
+	type=CPointer name=EString '=' 'malloc' '(' size=Formula ')'|
+	type=CPointer name=EString '=' 'calloc' '(' Formula ',' Formula ')'
 ;
 //	'{'
 //		('endname' endname=EString)?
@@ -108,12 +104,8 @@ CArrayVariable returns CArrayVariable:
 //	value=EString
 //;
 
-ArrayElementDeclaration returns CArrayElement:
-	CArrayVariable '[' index=EInt ']' '=' value=EString
-;
-
 CExpression returns CExpression:
-	CExpression_Impl | CPreCondition;
+	CExpression_Impl | CPreCondition | ArrayLen | ForLoop;
 
 CExpression_Impl returns CExpression:
 	{CExpression}
@@ -122,13 +114,26 @@ CExpression_Impl returns CExpression:
 		('expression' expression=EString)?
 	'}';
 
+// Essentially the grammar for an if statement
 CPreCondition returns CPreCondition:
 	{CPreCondition}
 	// Used to declare a guard containing basic mathematical comparisons
 	'if' '(' predicate=Predicate ')' '{'
 		(expression+=CExpression)*
 	'}' 
-	;
+;
+
+ForLoop returns CExpression:
+	{CExpression}
+	'for' '(' EString ';' Formula ';' Formula ')' '{'
+		expression+=CExpression
+	'}'
+;
+
+ArrayLen returns CExpression:
+	{CExpression} 
+	'sizeof' '*' EString '/' 'sizeof' EString '[' '0' ']'
+;
 
 Predicate returns ecore::EString:
 	Formula (LogicalOperators Predicate)* | // Predicate using basic mathematical operations
@@ -216,7 +221,7 @@ CEnumProperties returns CEnumProperties:
 	{CEnumProperties}
 	name=EString
 //	integralConstant=EInt
-	;
+;
 
 CArray_type returns CType:
 	type=EString '*'

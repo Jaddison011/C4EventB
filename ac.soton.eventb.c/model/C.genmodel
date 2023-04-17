@@ -55,6 +55,7 @@
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CFunction">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CFunction/returnType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CFunction/returnStatement"/>
     </genClasses>
     <genClasses ecoreClass="C.ecore#//CProcedure"/>
     <genClasses ecoreClass="C.ecore#//CTranslationUnit">

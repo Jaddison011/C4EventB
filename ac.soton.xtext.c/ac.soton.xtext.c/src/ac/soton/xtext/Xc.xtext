@@ -17,7 +17,7 @@ CSourceFile returns CSourceFile:
 	subPrograms += CSubProgram)*
 	subPrograms += Context
 	subPrograms += Initialisation
-	SubPrograms += Main
+	subPrograms += Main
 //	name=EString
 ;
 
@@ -102,29 +102,36 @@ CProcedure returns CProcedure:
 	'}'
 ;
 
+CPreCondition returns CPreCondition:
+	// Used to declare a guard containing basic mathematical comparisons
+	'if' '(' Predicate ')' '{'
+		expression=CExpressionHelper
+	'}' 
+;
+
 CParameter returns CParameter:
 	{CParameter}
 	type=EString
 	name=EString;
 
 CVariable returns CVariable:
-	CVariable_Impl | CArrayVariable | CStruct | CEnumeration;
+	CVariable_Impl | CArrayVariable;
 
 CVariable_Impl returns CVariable:
 	{CVariable}
 	(isConstant?='const')?
-	type=CType // This includes some types e.g. structs and enums which cannot be used but correctly covers pointers 
+	type=EString // This includes some types e.g. structs and enums which cannot be used but correctly covers pointers 
 	name=EString
-	('=' value=CExpression)? // set to some value or variable
+	('=' value=EString)? // set to some value or variable
 ;
 
 CArrayVariable returns CArrayVariable:
 	{CArrayVariable}
-	type=CType '*'
+	type=EString'*'
 	name=EString | 
-	(type=CType)? name=EString '[' index=EInt ']' '=' value=EString |
-	type=CPointer name=EString '=' 'malloc' '(' size=MathematicalFormula ')'|
-	type=CPointer name=EString '=' 'calloc' '(' MathematicalFormula ',' MathematicalFormula ')'
+	(type=EString)? name=EString '[' EInt ']' '=' value=EString |
+	type=EString '*' name=EString '=' 'malloc' '(' size=EInt ')'|
+	type=EString '*' name=EString '=' 'calloc' '(' MathematicalFormula ',' MathematicalFormula ')'
 ;
 //	'{'
 //		('endname' endname=EString)?
@@ -145,39 +152,36 @@ CArrayVariable returns CArrayVariable:
 //;
 
 CExpression returns CExpression:
-	CExpression_Impl | CPreCondition | {CExpression} MathematicalFormula | ArrayLen | ForLoop;
+	expression=(CExpressionHelper) | expression=(ForLoop);
 
-CExpression_Impl returns CExpression:
-	{CExpression}
-	'CExpression'
-	'{'
-		('expression' expression=EString)?
-	'}';
+
+CExpressionHelper returns ecore::EString:
+	PreCondition | MathematicalFormula | ArrayLen
+;
 
 // Essentially the grammar for an if statement
-CPreCondition returns CPreCondition:
-	{CPreCondition}
+PreCondition returns ecore::EString:
 	// Used to declare a guard containing basic mathematical comparisons
-	'if' '(' predicate=Predicate ')' '{'
-		(expression+=CExpression)*
+	'if' '(' Predicate ')' '{'
+		CExpressionHelper
 	'}' 
 ;
 
-ForLoop returns CExpression:
-	{CExpression}
+ForLoop returns ecore::EString:
 	'for' '(' EString ';' Formula ';' MathematicalFormula ')' '{'
-		expression+=CExpression
+		CExpressionHelper
 	'}'
 ;
 
-ArrayLen returns CExpression:
-	{CExpression} 
+ArrayLen returns ecore::EString:
 	'sizeof' '*' EString '/' 'sizeof' EString '[' '0' ']'
 ;
 
+
+
 Predicate returns ecore::EString:
 	Formula (LogicalOperators Predicate)* | // Predicate using basic mathematical operations
-	(CFunction '==' EBoolean) (LogicalOperators Predicate)* // Predicate using set theory constructs
+	(EString '==' EBoolean) (LogicalOperators Predicate)* // Predicate using set theory constructs
 ;
 
 //predicate_helper_function_call:
@@ -224,8 +228,12 @@ LogicalOperators returns ecore::EString:
 ;
 
 // Used for type references
+//CType returns CType:
+//	CInt | CBoolean | CStruct_type | CEnum_type | CArray_type | CPointer_type | CStruct | CEnumeration;
+	
 CType returns CType:
-	CInt | CBoolean | CStruct_type | CEnum_type | CArray_type | CPointer_type;
+	{CType} CInt | {CType} CBoolean | CStruct | CEnumeration;
+	
 
 //CType_Impl returns CType:
 //	{CType}
@@ -244,12 +252,12 @@ EBoolean returns ecore::EBoolean:
 EInt returns ecore::EInt:
 	'-'? INT;
 	
-CInt returns CType:
-	{CType} '-'? INT
+CInt returns ecore::EString:
+	'-'? INT
 ;
 
-CBoolean returns CType:
-	{CType} '1' | {CType} '0'
+CBoolean returns ecore::EString:
+	'1' | '0'
 ;
 
 CStruct returns CStruct:
@@ -260,7 +268,7 @@ CStruct returns CStruct:
 
 CField returns CField:
 	{CField}
-	type=EString
+	EString
 	name=EString
 ;
 
@@ -268,7 +276,7 @@ CEnumeration returns CEnumeration:
 	{CEnumeration}
 	'typedef' 'enum' name=EString '{' 
 		(enumProperties += CEnumProperties ( "," enumProperties+=CEnumProperties)*)?
-	'}' type=EString
+	'}' EString
 ;
 
 CEnumProperties returns CEnumProperties:
@@ -277,22 +285,22 @@ CEnumProperties returns CEnumProperties:
 //	integralConstant=EInt
 ;
 
-CArray_type returns CType:
-	type=EString '*'
-	name=EString
-;
-
-CStruct_type returns CType:
-	name=EString
-;
-
-CEnum_type returns CType:
-	'enum' name=EString
-;
-
-CPointer_type returns CType:
-	name=CInt '*' | name=CBoolean '*' | name=CStruct_type '*' | name=CEnum_type '*'
-;
+//CArray_type returns ecore::EString:
+//	type=EString '*'
+//	name=EString
+//;
+//
+//CStruct_type returns ecore::EString:
+//	name=EString
+//;
+//
+//CEnum_type returns ecore::EString:
+//	'enum' name=EString
+//;
+//
+//CPointer_type returns ecore::EString:
+//	name=CInt '*' | name=CBoolean '*' | name=CStruct_type '*' | name=CEnum_type '*'
+//;
 
 //CDerivedType_Impl returns CDerivedType:
 //	{CDerivedType}
@@ -314,5 +322,5 @@ CPointer_type returns CType:
 // Creates a new pointer type e.g. int*, pointer variables are dealt with separately -> see CVariable
 CPointer returns CPointer:
 	{CPointer}
-	type=EString '*'
+	name=EString '*'
 ;

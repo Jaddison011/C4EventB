@@ -93,7 +93,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 				CArrayElement elem = CUtils.createCArrayElement(i, initVal);
 				elems.add(elem);
 			}
-			CVariable svar = CUtils.createVariable(var_name, ctype, "(others => " + initVal + ")");
+			CVariable svar = CUtils.createVariable(var_name, ctype, initVal);
 			ret.add(CUtils.descriptor(sourceFile, variables, svar, 2));
 
 		}

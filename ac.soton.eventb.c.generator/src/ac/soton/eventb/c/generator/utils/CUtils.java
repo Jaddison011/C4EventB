@@ -55,12 +55,15 @@ public class CUtils {
 	
 	
 	public static CTranslationUnit createCProject(String name) {
+		System.out.println("dfehfdevfhevfhj");
 		CTranslationUnit cProj = cFactory.createCTranslationUnit();
 		cProj.setName(name);
 		return cProj;
 	}
 
 	public static CSourceFile createSourceFile(CTranslationUnit proj, String name) {
+		System.out.println("dfehfdevfhevfhj");
+
 		CSourceFile sourceFile = cFactory.createCSourceFile();
 		sourceFile.setName(name);
 		sourceFile.setEndname(name);

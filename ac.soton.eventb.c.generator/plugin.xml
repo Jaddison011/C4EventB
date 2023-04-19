@@ -112,7 +112,7 @@
             command_id="ac.soton.eventb.c.generator.CConvert"
             name="C Convert"
             root_source_class="Machine"
-            source_package="http://emf.eventb.org/models/core/machine"
+            source_package="http://emf.eventb.org/models/core/machine/2022"
             translator_id="ac.soton.eventb.C.generator.handlers.CTranslateHandler">
       </translator>
    </extension>

@@ -5,6 +5,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -33,6 +34,7 @@ import org.rodinp.core.RodinCore;
 import org.rodinp.core.RodinDBException;
 import ch.ethz.eventb.utils.EventBUtils;
 import ac.soton.emf.translator.TranslatorFactory;
+import ac.soton.eventb.c.generator.utils.CResourceUtils;
 
 public class CTranslateHandler extends AbstractHandler implements IHandler {
 
@@ -98,18 +100,19 @@ public class CTranslateHandler extends AbstractHandler implements IHandler {
 	   *          the input machine root.
 	   */
 	  private void convert(final IMachineRoot root) {
+		System.out.println("Starting conversion");
 	    EMFRodinDB emfRodinDB = new EMFRodinDB();
 	    EventBElement mch = emfRodinDB.loadEventBComponent(root);
 	    // create the c folder
-	 //   String file_name = root.getElementName();
-//	    try {
-//			IFolder sparkFolder = CResourceUtils.getCFolder(mch);
-////			CResourceUtils.getPackageFile(file_name, cFolder, false);
-////			CResourceUtils.getPackageFile(file_name, cFolder, true);
-//		} catch (CoreException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	    String file_name = root.getElementName();
+	    try {
+			IFolder sparkFolder = CResourceUtils.getCFolder(mch);
+//			CResourceUtils.getPackageFile(file_name, cFolder, false);
+//			CResourceUtils.getPackageFile(file_name, cFolder, true);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    //----------------
 	    TransactionalEditingDomain editingDomain = emfRodinDB.getEditingDomain();
 		try {

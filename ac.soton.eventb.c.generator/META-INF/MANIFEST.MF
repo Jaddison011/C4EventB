@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ac.soton.eventb.c.generator
+Bundle-Name: Generator
 Bundle-SymbolicName: ac.soton.eventb.c.generator;singleton:=true
 Bundle-Version: 0.1.0.qualifiers
 Require-Bundle: org.eclipse.emf.ecore,
@@ -23,3 +23,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.transaction,
  org.eclipse.emf.workspace,
  org.eclipse.jface
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-11

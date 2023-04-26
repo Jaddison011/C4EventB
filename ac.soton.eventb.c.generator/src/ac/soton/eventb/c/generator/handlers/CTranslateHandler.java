@@ -103,10 +103,12 @@ public class CTranslateHandler extends AbstractHandler implements IHandler {
 		System.out.println("Starting conversion");
 	    EMFRodinDB emfRodinDB = new EMFRodinDB();
 	    EventBElement mch = emfRodinDB.loadEventBComponent(root);
+	    System.out.println("Identified machine: " + mch);
 	    // create the c folder
 	    String file_name = root.getElementName();
 	    try {
-			IFolder sparkFolder = CResourceUtils.getCFolder(mch);
+			IFolder cFolder = CResourceUtils.getCFolder(mch);
+			System.out.println("Created new Output folder at: " + cFolder);
 //			CResourceUtils.getPackageFile(file_name, cFolder, false);
 //			CResourceUtils.getPackageFile(file_name, cFolder, true);
 		} catch (CoreException e) {
@@ -136,6 +138,12 @@ public class CTranslateHandler extends AbstractHandler implements IHandler {
 		}
 	    
 		//save
+		System.out.println("EditingDomain: " + editingDomain);
+		var arr = editingDomain.getResourceSet().getResources().toArray();
+		for (var a : arr) {
+			System.out.println("EditingDomainArrayElement: " + a);
+		}
+
 	      SaveResourcesCommand saveCommand = new SaveResourcesCommand(editingDomain);
 	      IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
 	        @Override

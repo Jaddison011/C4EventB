@@ -57,6 +57,7 @@ public class CTranslateAdapter extends DefaultAdapter {
 				projUri = projectUri.appendSegments(pckPath).appendFileExtension("c"); //source files
 			else if(cFile instanceof CHeaderFile)
 				projUri = projectUri.appendSegments(pckPath).appendFileExtension("h"); //header files
+			System.out.println("Output file" + projUri);
 			return projUri;
 		}
 

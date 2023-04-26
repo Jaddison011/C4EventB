@@ -62,7 +62,7 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 
 		Type Btype = EventBSCUtils.getVariableType(mchRoot, var_name);
 
-		// TODO define event to translate event-b types to spark types
+		// TODO define event to translate event-b types to c types
 		// array is done, still need to check other types
 		String ctype = CTranslatorUtils.eventBTypeToCType(Btype);
 		if (ctype == "Array") {
@@ -102,6 +102,11 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 		else {
 			String initVal = getInitialValue(var);
 
+			System.out.println(initVal);
+			if (initVal.equals("&#x2205")) {
+				initVal = "0";
+			}
+			
 			CVariable svar = CUtils.createVariable(var_name, ctype, initVal);
 
 			ret.add(CUtils.descriptor(sourceFile, variables, svar, 2));

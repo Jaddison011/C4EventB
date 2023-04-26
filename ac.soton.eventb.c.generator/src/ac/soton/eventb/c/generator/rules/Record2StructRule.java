@@ -36,6 +36,8 @@ public class Record2StructRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Record2Struct Enabled Method");
+
 //		if(sourceElement instanceof Machine) {
 //			IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //			if(!EventBSCUtils.getSCSeenCarrierSetIdentifierStrings(mchRoot).isEmpty())
@@ -47,6 +49,8 @@ public class Record2StructRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Record2StructRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 		List <Record> parentRec = new ArrayList<Record>();
 		for(Context cxt : seenCxts) {
@@ -128,6 +132,8 @@ public class Record2StructRule extends AbstractRule implements IRule {
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Record2Struct dependenciesOK Method");
+
 		Machine mch = (Machine) sourceElement;
 		EList<Context> cxts = mch.getSees();
 
@@ -147,6 +153,8 @@ public class Record2StructRule extends AbstractRule implements IRule {
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("Record2Struct fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

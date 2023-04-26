@@ -37,6 +37,8 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Set2Type Enabled Method");
+
 //		if(sourceElement instanceof Machine) {
 //			IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //			if(!EventBSCUtils.getSCSeenCarrierSetIdentifierStrings(mchRoot).isEmpty())
@@ -48,6 +50,7 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Set2TypeRule");
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 //		IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //		Map<String, String> scSeenAxioms = EventBSCUtils.getSCSeenAxioms(mchRoot, false);
@@ -90,6 +93,8 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Set2Type dependenciesOK Method");
+
 		// TODO: change it to use the SC contexts
 		Machine mch = (Machine) sourceElement;
 		EList<Context> cxts = mch.getSees();
@@ -107,6 +112,8 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("Set2Type fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -33,6 +33,8 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Action2BodyRule Enabled Method");
+
 //		if(sourceElement instanceof Action) {
 //			 evt_name = ((Event) sourceElement.eContainer()).getName();
 //			if(evt_name.equals("INITIALISATION"))
@@ -46,6 +48,8 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Action2BodyRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Action act = (Action) sourceElement;
@@ -59,6 +63,7 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Action2BodyRule dependenciesOK Method");
 		
 	
 			Machine mch = (Machine) sourceElement.eContainer().eContainer();
@@ -73,6 +78,8 @@ public class Action2BodyRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean fireLate() {
+		System.out.println("Action2BodyRule fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

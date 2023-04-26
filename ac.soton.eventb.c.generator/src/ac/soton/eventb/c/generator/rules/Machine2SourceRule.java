@@ -25,6 +25,7 @@ public class Machine2SourceRule extends AbstractRule implements IRule { // Abstr
 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Machine2Source Enabled Method");
 		if(sourceElement instanceof Machine)
 			return true;
 				
@@ -36,6 +37,8 @@ public class Machine2SourceRule extends AbstractRule implements IRule { // Abstr
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Machine2SourceRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Machine mch = (Machine) sourceElement;
@@ -52,7 +55,8 @@ public class Machine2SourceRule extends AbstractRule implements IRule { // Abstr
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
-		
+		System.out.println("Machne2SourceRule DependenciesOK Method");
+
 		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null, "C");
 		if (cProj == null)
 			return false;
@@ -62,6 +66,8 @@ public class Machine2SourceRule extends AbstractRule implements IRule { // Abstr
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("Machine2SourceRule fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

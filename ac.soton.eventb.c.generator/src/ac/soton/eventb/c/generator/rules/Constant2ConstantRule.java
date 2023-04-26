@@ -52,6 +52,8 @@ public class Constant2ConstantRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Constant2Constant Enabled Method");
+
 		if(sourceElement instanceof Machine) {
 			IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 			if(!EventBSCUtils.getSCSeenConstantIdentifierStrings(mchRoot).isEmpty())
@@ -63,6 +65,8 @@ public class Constant2ConstantRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Constant2ConstantRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 //		IMachineRoot mchRoot = EventBEMFUtils.getRoot((Machine)sourceElement);
 //		Map<String, String> scSeenAxioms = EventBSCUtils.getSCSeenAxioms(mchRoot, false);
@@ -111,6 +115,8 @@ public class Constant2ConstantRule extends AbstractRule implements IRule {
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Constant2Constant dependenciesOK Method");
+
 		// TODO: change it to use the SC contexts
 		Machine mch = (Machine) sourceElement;
 		EList<Context> cxts = mch.getSees();
@@ -128,6 +134,8 @@ public class Constant2ConstantRule extends AbstractRule implements IRule {
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("Constant2Constant fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

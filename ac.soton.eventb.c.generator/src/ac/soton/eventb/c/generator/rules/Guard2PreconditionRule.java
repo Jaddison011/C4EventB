@@ -37,6 +37,8 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Guard2Precondition Enabled Method");
+
 		if(sourceElement instanceof Guard) {
 			Guard grd = (Guard) sourceElement;
 			// Do not translate if the guard is defining the parameter type or is theorem
@@ -50,6 +52,8 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Guard2PreconditionRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
      
 		Guard grd = (Guard) sourceElement;
@@ -80,6 +84,8 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 	
 	@Override
 	public boolean fireLate() {
+		System.out.println("Guard2Precondition fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

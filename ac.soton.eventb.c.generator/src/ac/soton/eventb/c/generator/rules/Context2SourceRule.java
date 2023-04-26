@@ -28,6 +28,8 @@ public class Context2SourceRule extends AbstractRule implements IRule {
 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Context2SourceRule Enabled Method");
+
 		if (sourceElement instanceof Machine) {
 			Machine mch = (Machine) sourceElement;
 			if (mch.getSees().isEmpty())
@@ -44,6 +46,8 @@ public class Context2SourceRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Context2SourceRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null,
@@ -61,6 +65,7 @@ public class Context2SourceRule extends AbstractRule implements IRule {
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Context2Source dependenciesOK Method");
 
 		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null,
 				"C");
@@ -80,6 +85,8 @@ public class Context2SourceRule extends AbstractRule implements IRule {
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("Context2Source fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

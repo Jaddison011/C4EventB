@@ -42,6 +42,8 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("Variable2Variable Enabled Method");
+
 		if (sourceElement instanceof Variable) {
 			return true;
 		} else
@@ -52,6 +54,8 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating Variable2VariableRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Variable var = (Variable) sourceElement;
@@ -102,8 +106,8 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 		else {
 			String initVal = getInitialValue(var);
 
-			System.out.println(initVal);
-			if (initVal.equals("&#x2205")) {
+//			System.out.println(initVal);
+			if (initVal.equals("∅")) {
 				initVal = "0";
 			}
 			
@@ -118,6 +122,8 @@ public class Variable2VariableRule extends AbstractRule implements IRule {
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+
+		System.out.println("Variable2Variable dependenciesOK Method");
 
 		Variable var = (Variable) sourceElement;
 		if (var.eContainer() instanceof Machine) {

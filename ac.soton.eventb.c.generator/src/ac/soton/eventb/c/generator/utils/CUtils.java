@@ -32,7 +32,7 @@ import C.ecore.CPreCondition;
  *
  * </p>
  *
- * @author dd4g12
+ * @author 
  * @version
  * @see
  * @since
@@ -53,17 +53,14 @@ public class CUtils {
 //		return new TranslationDescriptor(parent, feature,value,before,Integer.valueOf(priority),remove,source);
 //	}
 	
-	
+
 	public static CTranslationUnit createCProject(String name) {
-		System.out.println("dfehfdevfhevfhj");
 		CTranslationUnit cProj = cFactory.createCTranslationUnit();
 		cProj.setName(name);
 		return cProj;
 	}
 
 	public static CSourceFile createSourceFile(CTranslationUnit proj, String name) {
-		System.out.println("dfehfdevfhevfhj");
-
 		CSourceFile sourceFile = cFactory.createCSourceFile();
 		sourceFile.setName(name);
 		sourceFile.setEndname(name);
@@ -135,6 +132,7 @@ public class CUtils {
 	}
 	
 	public static CExpression createExpression(String value) {
+		 System.out.println("Creating a new expression with value: " + value);
 		 CExpression exp = cFactory.createCExpression();
 		 exp.setExpression(value);
 		 return exp;		

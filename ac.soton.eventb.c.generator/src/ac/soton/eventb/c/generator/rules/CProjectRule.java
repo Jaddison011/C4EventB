@@ -18,6 +18,8 @@ import ac.soton.eventb.c.generator.utils.CUtils;
 public class CProjectRule extends AbstractRule implements IRule{ 
 	@Override
 	public boolean enabled(EObject sourceElement) throws Exception {
+		System.out.println("CProjectRule Enabled Method");
+
 		if(sourceElement instanceof Machine)
 			return true;
 				
@@ -29,6 +31,8 @@ public class CProjectRule extends AbstractRule implements IRule{
 	@Override
 	public List<TranslationDescriptor> fire(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
+		System.out.println("Activating CProjectRule");
+
 		List<TranslationDescriptor> ret = new ArrayList<TranslationDescriptor>();
 
 		Machine mch = (Machine) sourceElement;
@@ -42,12 +46,15 @@ public class CProjectRule extends AbstractRule implements IRule{
 	@Override
 	public boolean dependenciesOK(EObject sourceElement, List<TranslationDescriptor> translatedElements)
 			throws Exception {
-		
+		System.out.println("CProject dependenciesOK Method");
+
 		return true;
 	}
 
 	@Override
 	public boolean fireLate() {
+		System.out.println("CProjectRule fireLate Method");
+
 		// TODO Auto-generated method stub
 		return false;
 	}

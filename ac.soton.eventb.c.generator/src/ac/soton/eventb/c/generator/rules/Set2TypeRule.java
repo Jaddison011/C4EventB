@@ -73,14 +73,13 @@ public class Set2TypeRule extends AbstractRule implements IRule{
             //add integer type
             ret.add(CUtils.descriptor(cxtPckg, types, c_integer, 2));
             for(CarrierSet set : xcxt.getSets()) {
-            	// Still need to do the enumeration check first 
             	String[] elements = CTranslatorUtils.extractEnumeratedSet(set.getName(), scSeenAxioms, cxtRoot.getFormulaFactory());
     			if (elements != null) {
+    				System.out.println("Enumeration");
     				CEnumeration cEnumeration = CUtils.createEnumeration(set.getName(), elements);
     				ret.add(CUtils.descriptor(cxtPckg, types, cEnumeration, 2)); 
     			}
    
-            	//integer derived
     			else {
 //    				SparkType spark_set = CUtils.createDerivedType(set.getName(), spark_integer);
 //                	ret.add(CUtils.descriptor(cxtPckg, types, spark_set, 2)); 
@@ -95,7 +94,6 @@ public class Set2TypeRule extends AbstractRule implements IRule{
 			throws Exception {
 		System.out.println("Set2Type dependenciesOK Method");
 
-		// TODO: change it to use the SC contexts
 		Machine mch = (Machine) sourceElement;
 		EList<Context> cxts = mch.getSees();
 

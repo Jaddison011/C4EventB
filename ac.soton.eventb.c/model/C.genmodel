@@ -20,7 +20,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CStruct/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CStruct/fields"/>
     </genClasses>
-    <genClasses ecoreClass="C.ecore#//CField"/>
+    <genClasses ecoreClass="C.ecore#//CField">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute C.ecore#//CField/type"/>
+    </genClasses>
     <genClasses ecoreClass="C.ecore#//CEnumeration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference C.ecore#//CEnumeration/enumProperties"/>
     </genClasses>

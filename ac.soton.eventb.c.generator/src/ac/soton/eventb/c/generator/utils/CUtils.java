@@ -27,16 +27,6 @@ import C.ecore.CFunction;
 import C.ecore.CPointer;
 import C.ecore.CPreCondition;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author 
- * @version
- * @see
- * @since
- */
 public class CUtils {
 	private static EcoreFactory cFactory = EcoreFactory.eINSTANCE;
 	
@@ -48,10 +38,6 @@ public class CUtils {
 		return new TranslationDescriptor(parent, feature,value,null,Integer.valueOf(priority), remove, null);
 	}
 	
-//	// Added to test //TODO: 
-//	public static TranslationDescriptor descriptor(EObject parent, EStructuralFeature feature, Object value ,Object before, int priority, Boolean remove, EObject source) {
-//		return new TranslationDescriptor(parent, feature,value,before,Integer.valueOf(priority),remove,source);
-//	}
 	
 
 	public static CTranslationUnit createCProject(String name) {

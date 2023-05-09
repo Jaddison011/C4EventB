@@ -4,8 +4,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ac.soton.xtext.c.ui
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: ac.soton.xtext.c.ui; singleton:=true
-Bundle-ActivationPolicy: lazy
+Bundle-SymbolicName: ac.soton.xtext.c.ui;singleton:=true
 Require-Bundle: ac.soton.xtext.c,
  ac.soton.xtext.c.ide,
  ac.soton.eventb.c,
@@ -13,6 +12,17 @@ Require-Bundle: ac.soton.xtext.c,
  org.eclipse.xtext.ui.shared,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.ui.editors;bundle-version="3.5.0",
- org.eclipse.ui.ide;bundle-version="3.5.0"
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-Activator: ac.soton.xtext.c.ui.internal.CActivator
+Export-Package: ac.soton.xtext.ui.quickfix,
+ ac.soton.xtext.c.ui.internal,
+ ac.soton.xtext.ui.contentassist,
+ ac.soton.xtext.ui.quickfix,
+ ac.soton.xtext.ui.contentassist,
+ ac.soton.xtext.c.ui.internal
+Bundle-ActivationPolicy: lazy

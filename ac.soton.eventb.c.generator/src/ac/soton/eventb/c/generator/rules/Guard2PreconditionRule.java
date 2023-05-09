@@ -41,7 +41,6 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 
 		if(sourceElement instanceof Guard) {
 			Guard grd = (Guard) sourceElement;
-			// Do not translate if the guard is defining the parameter type or is theorem
 			if (isTypePredicate(grd.getPredicate(), (Event) grd.eContainer()) || grd.isTheorem())
 				return false;
 			return true;
@@ -60,7 +59,7 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 		
 		Machine mch = (Machine) grd.eContainer().eContainer();
 		String BPred = grd.getPredicate();
-		String CPred = BPred; // TODO: Investigate this
+		String CPred = BPred;
 //		String CPred = CTranslatorUtils.eventBPredToCPred(BPred, mch);
 		CPreCondition precond = CUtils.createPrecondition(CPred);   
 		ret.add(CUtils.descriptor(proc, preconditions , precond, 3));
@@ -92,7 +91,6 @@ public class Guard2PreconditionRule extends AbstractRule implements IRule {
 	
 	private boolean isTypePredicate(String predicate, Event evt) {
 		for(Parameter par : evt.getParameters()) {
-			// TODO: might need to add other patterns e.g., subsets
 			String patternString = par.getName() + "\\s*∈\\s*(.*)";
 			Pattern pattern = Pattern.compile(patternString);
 			 Matcher matcher = pattern.matcher(predicate);

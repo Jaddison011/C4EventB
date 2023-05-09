@@ -64,10 +64,6 @@ import ch.ethz.eventb.utils.EventBSCUtils;
 
 public class CTranslatorUtils {
 	
-	/**
-	 * @param type
-	 * @return
-	 */
 	public static String eventBTypeToCType(Type type) {
 		if (type instanceof BooleanType) {
 			return "Boolean";
@@ -80,19 +76,13 @@ public class CTranslatorUtils {
 		if(type instanceof PowerSetType) {
 			PowerSetType p = (PowerSetType) type;
 			if(type.getSource() instanceof IntegerType)
-				return "Array"; //might be powerset but not function need to check that, what about range is this supposed to be check0ed??
+				return "Array";
 		}
 			
 			
 		return null;
 	}
 	
-	/**
-	 * @param identifier
-	 * @param mchRoot
-	 * @return
-	 * @throws RodinDBException
-	 */
 	public static String getTypeFromInv(String identifier, IMachineRoot mchRoot)
 			throws RodinDBException {
 
@@ -112,10 +102,6 @@ public class CTranslatorUtils {
 		return null;
 	}
 	
-	/**
-	 * @param predicate
-	 * @return
-	 */
 	public static String getRangeFromInv(String predicate) {
 
 		String patternString = "(.*)\\s*→\\s*(.*)";
@@ -128,10 +114,7 @@ public class CTranslatorUtils {
 		
 		return null;
 	}
-	/**
-	 * @param range
-	 * @return bounds: an int array of the lower and upper bounds
-	 */
+	
 	public static int[] getBoundsFromRange(String range){
         int[] bounds = new int[2];
 		String patternString = "(.*)\\s*‥\\s*(.*)";
@@ -141,7 +124,7 @@ public class CTranslatorUtils {
 			String str1 = matcher.group(1).trim();
 			String str2 = matcher.group(2).trim();
 			bounds[0]= Integer.parseInt(str1);
-			bounds[1]= Integer.parseInt(str2);
+//			bounds[1]= Integer.parseInt(str2);
 			return bounds;
 		}	
 		return null;
@@ -161,17 +144,9 @@ public class CTranslatorUtils {
 		return ret;
 	}
 	
-	/**
-	 * A utility method to find the type of the event parameter
-	 * @param evt
-	 * @param par_name
-	 * @return type
-	 * @author dd4g12
-	 */
+	// A utility method to find the type of the event parameter
 	public static String getParameterType(Event evt, String par_name) {
 		String type = "";
-		// TODO: what about subsets?? also sometimes types are inferred??? how 
-		// to do it similar to the invariant??
 		
 		String patternString = par_name + "\\s*∈\\s*(.*)";
 		Pattern pattern = Pattern.compile(patternString);
@@ -186,14 +161,8 @@ public class CTranslatorUtils {
 		return type;
 	}
 	
-	/**
-	 * A utility method to find the EventB type of the event parameter from SCParameter
-	 * @param evt
-	 * @param par_name
-	 * @return BType
-	 * @author dd4g12
-	 * @throws CoreException 
-	 */
+	
+	// A utility method to find the EventB type of the event parameter from SCParameter
 	public static Type getSCParameterType(Event evt, String par_name) throws CoreException {
 		Type Btype = null;
 		Machine mch = (Machine) evt.eContainer();
@@ -241,7 +210,6 @@ public class CTranslatorUtils {
 	public  static List <String> getSCSeenContextsStrings(Machine mch) throws RodinDBException {
 		List <String> scContextStrings = new ArrayList <String>();	
 		for (ISCInternalContext scContext : getSCSeenContexts(mch)) {
-			// TODO : check may be need to get component name instead of element name
 //			scContextStrings.add(scContext.getElementName());
 			scContextStrings.add(scContext.getComponentName());
 			
@@ -262,13 +230,7 @@ public class CTranslatorUtils {
 //		}
 //		return scContextStrings;
 //	}
-	/**
-	 * @param cxtRoot
-	 * @param identifier
-	 * @return 
-	 * @throws CoreException 
-	 * @see EventBCUtils getVariableType
-	 */
+
 	public static Type getConstantType(IContextRoot cxtRoot, String identifier)
 			throws CoreException {
 		// Assert preconditions.
@@ -291,47 +253,7 @@ public class CTranslatorUtils {
 
 		return null;
 	}
-//	
-//	/**
-//	 * @param setName
-//	 * @param scSeenAxioms
-//	 * @return
-//	 * @see ac.soton.coda.vhdl.vxmiTranslator.Component_TypeDeclarationRule
-//	 */
-//	public static String[] extractEnumeratedSet(String setName,
-//			Map<String, String> scSeenAxioms, FormulaFactory ff) {
-//
-//		Set<String> keySet = scSeenAxioms.keySet();
-//		for (String key : keySet) {
-//			String predicate = scSeenAxioms.get(key);
-//			Predicate parsePredicate = DLib.parsePredicate(ff, predicate);
-//			if (parsePredicate.getTag() == Predicate.FIRST_MULTIPLE_PREDICATE) {
-//				MultiplePredicate multiplePredicate = (MultiplePredicate) parsePredicate;
-//				Expression[] children = multiplePredicate.getChildren();
-//				if (setName.equals(children[0].toString())) {
-//					List<String> result = new ArrayList<String>(
-//							children.length - 1);
-//					for (int i = 1; i < children.length; i++) {
-//						Expression expression = children[i];
-//						if (expression.getTag() == Expression.SETEXT) {
-//							SetExtension setExtension = (SetExtension) expression;
-//							Expression[] members = setExtension.getMembers();
-//							result.add(members[0].toString());
-//						}
-//					}
-//					return result.toArray(new String[result.size()]);
-//				}
-//			}
-//
-//		}
-//		return null;
-//	}
-	/**
-	 * @param setName
-	 * @param scSeenAxioms
-	 * @return
-	 * @see ac.soton.coda.vhdl.vxmiTranslator.Component_TypeDeclarationRule
-	 */
+
 	public static String[] extractEnumeratedSet(String setName,
 		List <String> scSeenAxioms, FormulaFactory ff) {
 		for (String predicate : scSeenAxioms) {
@@ -373,7 +295,6 @@ public class CTranslatorUtils {
 //		return SPredicate;
 //	}
 //	
-//	// This is just a test
 	public static String eventBPredToCPred(String BPredicate, Machine mch) throws RodinDBException {
 		IMachineRoot mchRoot = EventBEMFUtils.getRoot(mch);
 		FormulaFactory ff = mchRoot.getFormulaFactory();
@@ -386,10 +307,8 @@ public class CTranslatorUtils {
 			cPredicate += "for some ";
 
 			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-			// TODO: can we translate the predicate if it has more than one bounded identifier?
 			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
 		      cPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-			// TODO: else what?
 		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
             String sQuantified = quantifiedPredicate.toString();
             String[] split = sQuantified.split("∈");
@@ -425,19 +344,15 @@ public class CTranslatorUtils {
 			cPredicate += "for all ";
 
 			QuantifiedPredicate quantifiedPredicate = (QuantifiedPredicate) parsePredicate;
-			// TODO: can we translate the predicate if it has more than one bounded identifier?
 			if (quantifiedPredicate.getBoundIdentDecls().length == 1)
 		      cPredicate += quantifiedPredicate.getBoundIdentDecls()[0];
-			// TODO: else what?
 		    FreeIdentifier[] freeIdentifiers = quantifiedPredicate.getFreeIdentifiers();
             String sQuantified = quantifiedPredicate.toString();
             String[] split = sQuantified.split("∈");
-          //  String s = split[1];//.replace("∧", "=> "); 
             int index = split[1].indexOf("=>");
             String s1 = split[1].substring(0, index);
             cPredicate += " in " + s1;
             String s2 = split[1].substring(index);
-         //   Map<String, Boolean> recordFields = getRecordFields(mch);
             s2 = swapRecordFields(s2, freeIdentifiers, recordFields);
            
             cPredicate = cPredicate + " " + s2;
@@ -447,9 +362,7 @@ public class CTranslatorUtils {
 			String parse = parsePredicate.toString();
 			parse = " " + parse + " ";
 			cPredicate = swapRecordFields(BPredicate, freeIdentifiers, recordFields);//BPredicate
-			//SPredicate = BPredicate;
 		}
-		//TODO: Check if there is more
 	    cPredicate = cPredicate.replaceAll("∧", " and ");
 	    cPredicate = cPredicate.replaceAll("∨", " or ");
 	    cPredicate = cPredicate.replaceAll("∈", " in ");
@@ -469,16 +382,7 @@ public class CTranslatorUtils {
 		}
 		return axioms;
 	}
-	/**
-	 * Returns a hash map with the key the name of
-	 *  all variables and constants seen by a machine 
-	 *  and value is boolean, true if it is a record field
-	 *  and false otherwise
-	 * @param mch
-	 * @return result
-	 * @throws RodinDBException 
-	 * TODO: No need for boolean, may save record name or rodin file name
-	 */
+	
 	public static Map <String, Boolean> getRecordFields(Machine mch) throws RodinDBException {
 		Map<String, Boolean> result = new HashMap<String, Boolean>();
 		
@@ -496,17 +400,12 @@ public class CTranslatorUtils {
 			
             for(AbstractExtension ext : xmch.getExtensions()) {
             	if(ext instanceof Record) {
-//					result.put(((Record) ext).getName(), true);
             		Record rec = (Record) ext;
             		for (Field field : rec.getFields())
             			result.put(field.getName(), true);
             	}
             }
             
-//            for (Variable var : xmch.getVariables()) 
-//            	result.put(var.getName(), false);	
-         
-            // Find constant records
           URI uriProj = mch.eResource().getURI().trimSegments(1);
           ISCInternalContext[] scSeenContexts = getSCSeenContexts(mch);
           for (ISCInternalContext scSeenContext : scSeenContexts) {
@@ -515,15 +414,12 @@ public class CTranslatorUtils {
     			Context xcxt = (Context) cxtResource.getContents().get(0);
     	        for(AbstractExtension ext : xcxt.getExtensions()) {
     	            	if(ext instanceof Record) {
-//    						result.put(((Record) ext).getName(), true);
     	            		Record rec = (Record) ext;
     	            		for ( Field field : rec.getFields())
     	            			result.put(field.getName(), true);
     	            	}
     	            }
     	            
-//    	       for (Constant constant : xcxt.getConstants()) 
-//    	    	   result.put(constant.getName(), false);	
           	}
 		return result;
 	}
@@ -532,21 +428,14 @@ public class CTranslatorUtils {
 		 for (FreeIdentifier identifier : freeIdentifiers) {
          	String name = identifier.getName();
          	if (recordFields.containsKey(name)) {
-//         		String patternString = "(.*)" + name + "(\\(.*)";//\\(
          		String patternString = "(.*)" + name + "(\\(.*\\))" + "(.*)";//\\(
          		Pattern pattern = Pattern.compile(patternString);
                  Matcher matcher = pattern.matcher(str);
                  if(matcher.matches()) {
                  	String group = matcher.group(2);
-//                 	String s0 = matcher.group(0);
-//                 	String s1 = matcher.group(1);
-//                 	String s2 = matcher.group(2);
-//                 	String s3 = matcher.group(3);
-//                 	String s = s0 + s1+s2;
                  	int count = matcher.groupCount();
                  	if (count > 2)
                  		count = count;
-                 	//TODO: This ad hoc might need more testing
                  	String before = name + group;
                      String after = group.substring(1, group.length()-1)+(".")+ name;
                  	str = str.replace(before, after);
@@ -580,7 +469,6 @@ public class CTranslatorUtils {
         }
         preCondStr = split[0] + " = " + split[1];
 		return preCondStr;
-//		return BAction;
 	}
 
 }

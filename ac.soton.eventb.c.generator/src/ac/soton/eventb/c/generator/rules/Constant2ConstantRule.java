@@ -103,7 +103,6 @@ public class Constant2ConstantRule extends AbstractRule implements IRule {
             		
             		Type scType = CTranslatorUtils.getConstantType(cxtRoot, BConst.getName());
             		String type = CTranslatorUtils.eventBTypeToCType(scType);
-            		// TODO : get the value of the constant, this could either be done here or as we check the axioms
             		CVariable SConst = CUtils.createConstant(BConst.getName(), type, "0");
             		ret.add(CUtils.descriptor(cxtPckg, constants, SConst, 3)); 
             	}

@@ -99,7 +99,6 @@ public class Record2StructRule extends AbstractRule implements IRule {
 					for (String parent_rec_name : rec.getInheritsNames()) {
 						CStruct SRec = (CStruct) CResourceUtils.findGeneratedElement(translatedElements, cxtPckg, types, parent_rec_name);
 						for(Field BField : rec.getFields()) {
-							//TODO: check the event-b field type, might probably need conversions
 							CField cfield = CUtils.createField(BField.getName(), BField.getType());
 							ret.add(CUtils.descriptor(SRec, fields, cfield, 3)); 
 						}	
@@ -114,7 +113,6 @@ public class Record2StructRule extends AbstractRule implements IRule {
 						ret.add(CUtils.descriptor(cRec, fields, cfield, 3)); 
 					}		
 				}
-				//TODO: the replaced fields should be removed?
 				else if (rec.isRefined()) {
 					Context cont_cxt = (Context) rec.eContainer();
 					CSourceFile cxtPckg = (CSourceFile) CResourceUtils.findGeneratedElement(translatedElements, null, sourceFiles, cont_cxt.getName());
@@ -158,27 +156,4 @@ public class Record2StructRule extends AbstractRule implements IRule {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-//	private Record getBRecord(Context cxt, String name) {
-//		if(!cxt.getExtensions().isEmpty()) {
-//			for(AbstractExtension ext : cxt.getExtensions()) {
-//				if(ext instanceof Record) {
-//					Record rec = (Record) ext;
-//					if(rec.getName().equals(name)) 
-//						return rec;
-//				}
-//			}
-//		}
-//		return null;
-//	}
-	
-//	private Record findParentRecord(Record rec) {
-//		Record parent = null;
-//		if (rec.getSubsets() == null)
-//			parent = rec;
-//		else
-//			parent = findParentRecord(rec.getSubsets());
-//			
-//		return parent;
-//	}
 }

@@ -183,58 +183,58 @@ public class CTranslateHandler extends AbstractHandler implements IHandler {
 	   *          the input context root.
 	   */
 	  private void convert(final IContextRoot root) {
-//		  EMFRodinDB emfRodinDB = new EMFRodinDB();
-//		    EventBElement mch = emfRodinDB.loadEventBComponent(root);
-//		  TransactionalEditingDomain editingDomain = emfRodinDB.getEditingDomain();
-//			try {
-//				
-//			       TranslatorFactory factory = (TranslatorFactory) TranslatorFactory.getFactory();
-//			        String commandId = "ac.soton.eventb.c.generator.CConvert";
-//			       
-//			        if (factory.canTranslate(commandId, mch.eClass())) {
-//			          NullProgressMonitor monitor = new NullProgressMonitor();
-//			          try {
-//						factory.translate(editingDomain, mch, commandId, monitor);
-//					} catch (ExecutionException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//			        }
-//			} catch (CoreException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		    
-//			//save
-//		      SaveResourcesCommand saveCommand = new SaveResourcesCommand(editingDomain);
-//		      IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
-//		        @Override
-//		        public void run(IProgressMonitor monitor) throws CoreException {
-//		          try {
-//				  saveCommand.execute(monitor, null);
-//				} catch (ExecutionException e) {
-//				  
-//				    Status status = new Status(IStatus.ERROR, "C handler save command error", "Nothing", e);
-//				    throw new CoreException(status);
-//				  
-//				}
-//		        }
-//		      };
-//		      NullProgressMonitor monitor = new NullProgressMonitor();
-//		     
-//		      if (saveCommand.canExecute()) {
-//		        Resource[] emptyResource = {};
-//		       
-//					try {
-//						RodinCore.run(wsRunnable, 
-//						  getSchedulingRule(editingDomain.getResourceSet().getResources().<Resource>toArray(emptyResource)), monitor);
-//					} catch (RodinDBException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//			
-//		      }
-//		      monitor.done();
+		  EMFRodinDB emfRodinDB = new EMFRodinDB();
+		    EventBElement mch = emfRodinDB.loadEventBComponent(root);
+		  TransactionalEditingDomain editingDomain = emfRodinDB.getEditingDomain();
+			try {
+				
+			       TranslatorFactory factory = (TranslatorFactory) TranslatorFactory.getFactory();
+			        String commandId = "ac.soton.eventb.c.generator.CConvert";
+			       
+			        if (factory.canTranslate(commandId, mch.eClass())) {
+			          NullProgressMonitor monitor = new NullProgressMonitor();
+			          try {
+						factory.translate(editingDomain, mch, commandId, monitor);
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+			//save
+		      SaveResourcesCommand saveCommand = new SaveResourcesCommand(editingDomain);
+		      IWorkspaceRunnable wsRunnable = new IWorkspaceRunnable() {
+		        @Override
+		        public void run(IProgressMonitor monitor) throws CoreException {
+		          try {
+				  saveCommand.execute(monitor, null);
+				} catch (ExecutionException e) {
+				  
+				    Status status = new Status(IStatus.ERROR, "C handler save command error", "Nothing", e);
+				    throw new CoreException(status);
+				  
+				}
+		        }
+		      };
+		      NullProgressMonitor monitor = new NullProgressMonitor();
+		     
+		      if (saveCommand.canExecute()) {
+		        Resource[] emptyResource = {};
+		       
+					try {
+						RodinCore.run(wsRunnable, 
+						  getSchedulingRule(editingDomain.getResourceSet().getResources().<Resource>toArray(emptyResource)), monitor);
+					} catch (RodinDBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+		      }
+		      monitor.done();
 
 	  }
 	  

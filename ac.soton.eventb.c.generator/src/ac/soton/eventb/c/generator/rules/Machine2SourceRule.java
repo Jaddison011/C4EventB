@@ -45,7 +45,6 @@ public class Machine2SourceRule extends AbstractRule implements IRule { // Abstr
 	
 		CTranslationUnit cProj = (CTranslationUnit) CResourceUtils.findGeneratedElement(translatedElements, null, null, "C");
 		
-		//TODO: Investigate this and whether I need all the translations to go into one file, instead of one file per machine
 		CSourceFile sourceFile =  CUtils.createSourceFile(cProj , mch.getName());
 		
 		ret.add(CUtils.descriptor(null, sourceFiles, sourceFile, 1));
